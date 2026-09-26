@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reading Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Reading Log</h1>
+    <p class="tagline">Track the books you're reading, one session at a time.</p>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="add-heading">
+      <h2 id="add-heading">Add a book</h2>
+      <form id="book-form">
+        <div class="field">
+          <label for="title-input">Title</label>
+          <input id="title-input" type="text" maxlength="120" autocomplete="off" required>
+        </div>
+        <div class="field field-small">
+          <label for="pages-input">Total pages</label>
+          <input id="pages-input" type="number" min="1" max="5000" step="1" required>
+        </div>
+        <button type="submit">Add book</button>
+      </form>
+      <p id="form-message" class="message" role="status"></p>
+    </section>
+
+    <section class="card" aria-labelledby="list-heading">
+      <h2 id="list-heading">My books</h2>
+      <p id="stats" class="stats">…</p>
+
+      <div class="filters" role="group" aria-label="Show">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="reading" aria-pressed="false">Reading</button>
+        <button type="button" data-filter="finished" aria-pressed="false">Finished</button>
+      </div>
+
+      <ul id="book-list" class="book-list">
+        <li class="empty">Loading your books…</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Your books are saved in this browser only. Nothing is sent anywhere.</p>
+    <button type="button" id="sample-button" class="link-button">Add 3 sample books (handy for testing)</button>
+  </footer>
+
+  <!-- The script is loaded last, so every element above exists before it runs. -->
+  <script src="app.js"></script>
+</body>
+</html>

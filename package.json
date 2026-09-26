@@ -1,0 +1,20 @@
+{
+  "name": "vibe-coding-101",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Teaching materials for Vibe Coding 101: an 8-week, hands-on course on building real software with AI using free tools.",
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "npm run check:links && npm run test:starters && npm run slides",
+    "check:links": "node scripts/check-links.mjs",
+    "test:starters": "node scripts/test-starters.mjs",
+    "slides": "node scripts/build-slides.mjs"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.5.1"
+  }
+}

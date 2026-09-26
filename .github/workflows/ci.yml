@@ -1,0 +1,30 @@
+name: Check course materials
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check internal links
+        run: npm run check:links
+      - name: Test starter kits
+        run: npm run test:starters
+      - name: Build slides
+        run: npm run slides
+      - uses: actions/upload-artifact@v7
+        with:
+          name: slides
+          path: dist/

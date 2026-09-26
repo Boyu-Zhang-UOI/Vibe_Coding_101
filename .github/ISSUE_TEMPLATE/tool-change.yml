@@ -1,0 +1,52 @@
+name: Tool change
+description: A free tier, limit, price, menu or product changed and the course needs updating.
+title: "[Tool change] "
+labels: ["tool-change"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Tool changes are the main way this course goes out of date. Most fixes belong in TOOLS.md.
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      placeholder: e.g. GitHub Copilot Free, Google AI Studio, Supabase
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What changed?
+      description: What does the course say, and what is true now?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: A link to the official pricing page, docs or announcement.
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Date you checked
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected weeks or files
+      placeholder: e.g. TOOLS.md, weeks/05-apis-secrets-servers/lab.md
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How bad is it?
+      options:
+        - Blocks a lab (students cannot complete it)
+        - A fallback works, but the instructions are wrong
+        - Cosmetic (a menu name, a number)
+    validations:
+      required: true

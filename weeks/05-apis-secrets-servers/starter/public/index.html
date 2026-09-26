@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plain English: ask anything</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Plain English</h1>
+      <p class="intro">Ask about anything you've heard of but never quite understood. You'll get a short, plain-English answer.</p>
+
+      <form id="ask-form">
+        <label for="question">Your question</label>
+        <textarea id="question" name="question" rows="4" placeholder="e.g. What is an API, really?"></textarea>
+        <div class="row">
+          <span id="counter" class="counter" aria-live="polite">0 / 1000</span>
+          <button id="ask-button" type="submit">Ask</button>
+        </div>
+      </form>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <section id="answer-section" hidden>
+        <h2>Answer</h2>
+        <p id="answer" class="answer"></p>
+      </section>
+
+      <p class="privacy">Your question is sent to an AI provider. Please don't type personal information.</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "ai-micro-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small web app that asks an LLM a question through a server route, so the API key stays secret. Vibe Coding 101, week 5.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "test": "node --test",
+    "models": "node scripts/list-models.mjs",
+    "check:secrets": "npx --yes @secretlint/quick-start \"**/*\""
+  },
+  "license": "MIT"
+}

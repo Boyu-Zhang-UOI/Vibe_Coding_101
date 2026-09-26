@@ -1,0 +1,31 @@
+name: Erratum or confusing step
+description: Something in the materials is wrong, broken or hard to follow.
+title: "[Erratum] "
+labels: ["erratum"]
+body:
+  - type: input
+    id: file
+    attributes:
+      label: File and section
+      placeholder: e.g. weeks/04-read-debug-own-it/lab.md, Part 2
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong or confusing?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested fix (optional)
+  - type: dropdown
+    id: role
+    attributes:
+      label: You are a…
+      options:
+        - Student
+        - Instructor or TA
+        - Self-paced learner
+        - Other

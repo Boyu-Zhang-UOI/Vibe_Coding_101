@@ -1,0 +1,8 @@
+{
+  // Debug Clinic: AI help is switched OFF in this workspace on purpose.
+  // The clinic is an AI-off activity. Leave these settings alone until it's over.
+  "editor.inlineSuggest.enabled": false,
+  "github.copilot.enable": { "*": false },
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "chat.disableAIFeatures": true
+}

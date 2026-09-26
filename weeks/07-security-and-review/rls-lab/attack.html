@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RLS Lab Tester</title>
+  <meta name="description" content="Vibe Coding 101 week 7 kit: test what the publishable key can reach on your OWN Supabase practice table, before and after row-level security.">
+  <style>
+    :root {
+      --bg: #f6f6f3; --panel: #fff; --text: #1b1b1b; --muted: #565656;
+      --border: #ccccc6; --accent: #1f5fbf; --accent-text: #fff;
+      --note-bg: #fff4d6; --note-border: #a97a00;
+      --bad-bg: #fde7e7; --bad-text: #8a1111; --good-bg: #e3f4e6; --good-text: #185c26;
+      --code-bg: #eeeeea;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #161616; --panel: #212121; --text: #ededed; --muted: #b3b3b3;
+        --border: #454545; --accent: #7fb0ff; --accent-text: #10203a;
+        --note-bg: #3a2e0c; --note-border: #d9a400;
+        --bad-bg: #4a1717; --bad-text: #ffc9c9; --good-bg: #163a1f; --good-text: #b9f0c5;
+        --code-bg: #2b2b2b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    main { max-width: 940px; margin: 0 auto; padding: 16px; }
+    h1 { font-size: 1.7rem; margin: .4rem 0; }
+    h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+    p { margin: .4rem 0; }
+    a { color: var(--accent); }
+    .banner { border: 3px solid var(--note-border); background: var(--note-bg);
+      border-radius: 8px; padding: 12px 16px; margin: 12px 0 20px; }
+    .card { background: var(--panel); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin: 10px 0 4px; }
+    .hint { color: var(--muted); font-size: .9rem; margin: 2px 0 0; }
+    input[type=text], input[type=number], textarea { width: 100%; padding: 8px;
+      font: inherit; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      background: var(--bg); color: var(--text); border: 1px solid var(--border);
+      border-radius: 6px; }
+    textarea { min-height: 60px; resize: vertical; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
+    .row > div { flex: 1 1 160px; }
+    button { font: inherit; font-weight: 600; cursor: pointer; padding: 9px 14px;
+      border-radius: 6px; border: 1px solid var(--accent); background: var(--accent);
+      color: var(--accent-text); }
+    button.secondary { background: transparent; color: var(--accent); }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .status { margin: 8px 0; font-weight: 600; }
+    .out { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace,
+      "SF Mono", Menlo, Consolas, monospace; font-size: .86rem; background: var(--code-bg);
+      border: 1px solid var(--border); border-radius: 6px; padding: 10px; margin-top: 6px;
+      max-height: 320px; overflow: auto; }
+    .tag { display: inline-block; padding: 1px 8px; border-radius: 999px;
+      font-size: .82rem; font-weight: 700; }
+    .tag.ok { background: var(--good-bg); color: var(--good-text); }
+    .tag.blocked { background: var(--bad-bg); color: var(--bad-text); }
+    code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px;
+      font-family: ui-monospace, Menlo, Consolas, monospace; }
+    footer { color: var(--muted); font-size: .85rem; margin: 24px 0; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>RLS Lab Tester</h1>
+
+  <div class="banner" role="note">
+    <strong>Only test a practice project you own.</strong>
+    <p style="margin:.4rem 0 0">This page connects to a Supabase project using its
+      <strong>publishable key</strong> and tries ordinary read and write operations, so you can
+      see what a stranger with that key could do. Use it <strong>only</strong> on a project
+      <strong>you created</strong> and filled with the fake data in <code>setup.sql</code>.
+      Pointing tools like this at a database you do not own is not part of this course and may be illegal.</p>
+    <p style="margin:.4rem 0 0">Your URL and key stay <strong>in this browser tab's memory only</strong>.
+      Nothing is saved to disk or sent anywhere except your own Supabase project. Close the tab and they are gone.</p>
+  </div>
+
+  <section class="card">
+    <h2>1. Connect to your practice project</h2>
+    <p class="hint">Find both values in the Supabase dashboard: click <strong>Connect</strong> at the
+      top, or go to <strong>Settings &rarr; API Keys</strong>. Copy the <strong>Project URL</strong>
+      and the <strong>publishable</strong> key (it starts with <code>sb_publishable_</code>; on older
+      projects it is the <code>anon</code> key, a long JWT). Never paste a <em>secret</em> key here.</p>
+    <label for="url">Project URL</label>
+    <input id="url" type="text" autocomplete="off" spellcheck="false"
+      placeholder="https://YOUR-PROJECT.supabase.co">
+    <label for="key">Publishable key (public)</label>
+    <input id="key" type="text" autocomplete="off" spellcheck="false"
+      placeholder="sb_publishable_... (or the legacy anon key)">
+    <label for="table">Table name</label>
+    <input id="table" type="text" autocomplete="off" spellcheck="false" value="guestbook">
+    <div class="btns">
+      <button id="connect" type="button">Connect</button>
+      <button id="forget" type="button" class="secondary">Forget key</button>
+    </div>
+    <p id="connStatus" class="status" aria-live="polite">Not connected.</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Run the attacks</h2>
+    <p class="hint">Each button runs one operation with the publishable key and shows the raw
+      result or error. Before <code>fix.sql</code>, all of them succeed. After it, read is limited
+      and writes are blocked.</p>
+    <div class="btns">
+      <button class="op" data-op="read" type="button" disabled>Read all rows</button>
+      <button class="op" data-op="insert" type="button" disabled>Insert a row</button>
+      <button class="op" data-op="update" type="button" disabled>Update row #1</button>
+      <button class="op" data-op="delete" type="button" disabled>Delete newest row</button>
+    </div>
+
+    <label for="iname">Insert &mdash; name</label>
+    <input id="iname" type="text" value="Mallory">
+    <label for="imsg">Insert &mdash; message</label>
+    <textarea id="imsg">I reached your database with only the public key.</textarea>
+    <div class="row">
+      <div>
+        <label for="ipublic">Insert &mdash; is_public</label>
+        <input id="ipublic" type="text" value="true">
+        <p class="hint">Try <code>false</code> to attempt a hidden row.</p>
+      </div>
+      <div>
+        <label for="unew">Update / row id target</label>
+        <input id="unew" type="text" value="Changed by the tester">
+        <p class="hint">Text written into row #1's message.</p>
+      </div>
+    </div>
+
+    <p id="opStatus" class="status" aria-live="polite"></p>
+    <div id="out" class="out" role="log" aria-live="polite">Results appear here.</div>
+    <div class="btns"><button id="clear" type="button" class="secondary">Clear results</button></div>
+  </section>
+
+  <footer>
+    <p>Vibe Coding 101 &middot; week 7 RLS Attack Lab. Library:
+      <code>@supabase/supabase-js</code> loaded from the jsDelivr CDN. Full instructions:
+      <a href="../lab.md">lab.md</a>. CC BY 4.0.</p>
+  </footer>
+</main>
+
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  // State lives only in memory for the life of this tab. Nothing is persisted.
+  let client = null;
+  let table = "guestbook";
+
+  const $ = (id) => document.getElementById(id);
+  const opButtons = () => document.querySelectorAll(".op");
+
+  function setConnected(on, message) {
+    $("connStatus").textContent = message;
+    $("connStatus").style.color = on ? "var(--good-text)" : "var(--muted)";
+    opButtons().forEach((b) => { b.disabled = !on; });
+  }
+
+  function stamp(label, tag, payload) {
+    const out = $("out");
+    const time = new Date().toLocaleTimeString();
+    const line = document.createElement("div");
+    line.style.marginBottom = "12px";
+    const head = document.createElement("div");
+    const badge = document.createElement("span");
+    badge.className = "tag " + (tag === "ok" ? "ok" : "blocked");
+    badge.textContent = tag === "ok" ? "SUCCEEDED" : "BLOCKED";
+    head.append(`[${time}] ${label}  `, badge);
+    const body = document.createElement("div");
+    body.textContent = payload;
+    line.append(head, body);
+    if (out.firstChild && out.textContent.startsWith("Results appear")) out.textContent = "";
+    out.prepend(line);
+  }
+
+  function summarize(label, { data, error, count }) {
+    if (error) {
+      stamp(label, "blocked", "error: " + JSON.stringify(error, null, 2));
+      $("opStatus").textContent = label + ": blocked (see result).";
+      return;
+    }
+    const rows = Array.isArray(data) ? data.length : (data ? 1 : 0);
+    const note = (rows === 0)
+      ? "No error, but 0 rows were affected. With RLS on, blocked rows are simply invisible."
+      : rows + " row(s).";
+    stamp(label, "ok", note + "\n" + JSON.stringify(data, null, 2));
+    $("opStatus").textContent = label + ": " + note;
+  }
+
+  function parseBool(v) {
+    return String(v).trim().toLowerCase() === "true";
+  }
+
+  $("connect").addEventListener("click", () => {
+    const url = $("url").value.trim();
+    const key = $("key").value.trim();
+    table = ($("table").value.trim() || "guestbook");
+    if (!url || !key) { setConnected(false, "Enter both the URL and the publishable key."); return; }
+    if (key.startsWith("sb_secret_") || key.startsWith("eyJ") && key.includes("service_role")) {
+      setConnected(false, "That looks like a SECRET key. Do not use it here. Use the publishable / anon key.");
+      return;
+    }
+    try {
+      client = createClient(url, key, { auth: { persistSession: false } });
+      setConnected(true, "Connected to " + url + " (table: " + table + "). Run the attacks below.");
+    } catch (e) {
+      setConnected(false, "Could not connect: " + e.message);
+    }
+  });
+
+  $("forget").addEventListener("click", () => {
+    client = null;
+    $("key").value = "";
+    setConnected(false, "Key cleared from this tab.");
+  });
+
+  $("clear").addEventListener("click", () => {
+    $("out").textContent = "Results appear here.";
+    $("opStatus").textContent = "";
+  });
+
+  async function run(op) {
+    if (!client) return;
+    $("opStatus").textContent = "Working...";
+    try {
+      if (op === "read") {
+        summarize("READ all rows", await client.from(table).select("*"));
+      } else if (op === "insert") {
+        const row = { name: $("iname").value, message: $("imsg").value, is_public: parseBool($("ipublic").value) };
+        summarize("INSERT a row", await client.from(table).insert(row).select());
+      } else if (op === "update") {
+        summarize("UPDATE row #1", await client.from(table).update({ message: $("unew").value }).eq("id", 1).select());
+      } else if (op === "delete") {
+        // Find the newest row, then try to delete it.
+        const newest = await client.from(table).select("id").order("id", { ascending: false }).limit(1);
+        if (newest.error) { summarize("DELETE newest row", newest); return; }
+        const id = newest.data && newest.data[0] && newest.data[0].id;
+        if (id == null) { stamp("DELETE newest row", "blocked", "Could not read any id to delete (read may be blocked)."); return; }
+        summarize("DELETE row #" + id, await client.from(table).delete().eq("id", id).select());
+      }
+    } catch (e) {
+      stamp("Unexpected error", "blocked", e.message);
+    }
+  }
+
+  opButtons().forEach((b) => b.addEventListener("click", () => run(b.dataset.op)));
+</script>
+</body>
+</html>
