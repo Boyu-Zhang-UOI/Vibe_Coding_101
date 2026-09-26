@@ -268,7 +268,7 @@ From week 4, several activities begin from a **starter kit**: a small ready-made
 
 ### Way 1 (preferred): use your instructor's template repository
 
-Your instructor publishes each starter as a **template repository**, a GitHub repository that others can copy with one click. The links are on your course page.
+Your instructor publishes each starter as a **template repository**, a GitHub repository that others can copy with one click. The course's own templates are linked in [the starters table](#the-starters) below. If your instructor published their own copies, use the links on your course page instead.
 
 1. Open the template link and click **Use this template** → **Create a new repository**. (Don't choose **Open in a codespace** from that menu: it creates a codespace without a repository of your own.)
 2. **Owner:** choose **your personal account**, not an organization, even if you're a member of one for this class. Vercel's free Hobby plan can't deploy repositories owned by an organization, and you'll deploy from week 5.
@@ -306,14 +306,14 @@ This works whenever the course repository is public, even if no template has bee
 
 ### The starters
 
-| Week | Starter | Path in the course repository | Template name, if your instructor used the default |
+| Week | Starter | Path in the course repository | Template (click, then **Use this template**) |
 |---|---|---|---|
-| 4 | Debug Clinic (contains bugs on purpose) | `weeks/04-read-debug-own-it/debug-clinic` | `vc101-debug-clinic` |
-| 5 | AI micro-app starter | `weeks/05-apis-secrets-servers/starter` | `vc101-micro-app-starter` |
-| 6 | Be the Agent kit (contains a bug on purpose) | `weeks/06-agents/be-the-agent` | `vc101-be-the-agent` |
-| 6–8 | Capstone starter | `projects/capstone-starter` | `vc101-capstone-starter` |
-| 7 | RLS Attack Lab | `weeks/07-security-and-review/rls-lab` | `vc101-rls-lab` |
-| 7 | Prompt-injection demo | `weeks/07-security-and-review/injection-demo` | `vc101-injection-demo` |
+| 4 | Debug Clinic (contains bugs on purpose) | `weeks/04-read-debug-own-it/debug-clinic` | [vc101-debug-clinic](https://github.com/Boyu-Zhang-UOI/vc101-debug-clinic) |
+| 5 | AI micro-app starter | `weeks/05-apis-secrets-servers/starter` | [vc101-micro-app-starter](https://github.com/Boyu-Zhang-UOI/vc101-micro-app-starter) |
+| 6 | Be the Agent kit (contains a bug on purpose) | `weeks/06-agents/be-the-agent` | [vc101-be-the-agent](https://github.com/Boyu-Zhang-UOI/vc101-be-the-agent) |
+| 6–8 | Capstone starter | `projects/capstone-starter` | [vc101-capstone-starter](https://github.com/Boyu-Zhang-UOI/vc101-capstone-starter) |
+| 7 | RLS Attack Lab | `weeks/07-security-and-review/rls-lab` | [vc101-rls-lab](https://github.com/Boyu-Zhang-UOI/vc101-rls-lab) |
+| 7 | Prompt-injection demo | `weeks/07-security-and-review/injection-demo` | [vc101-injection-demo](https://github.com/Boyu-Zhang-UOI/vc101-injection-demo) |
 
 The degit command for each (copy one line):
 
