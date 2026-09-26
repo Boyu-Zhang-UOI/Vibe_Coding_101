@@ -1,7 +1,21 @@
-# Vibe Coding 101 — Syllabus
+# Directed Study: Vibe Coding 101 — Syllabus
 
 **Build real software with AI, on a $0 budget.**
 Eight weeks · one 3-hour studio per week · about 3 hours of homework per week · no programming experience required.
+
+## Course information
+
+| | |
+|---|---|
+| **Course title** | Directed Study: Vibe Coding 101 |
+| **Institution** | University of Idaho |
+| **Course number** | None assigned. If one is needed, the university's standard Directed Study numbers are 2990, 4990, 5020 and 6020 ([catalog](https://catalog.uidaho.edu/course-information/)). |
+| **Credits** | To be arranged |
+| **Instructor** | Boyu Zhang |
+| **Contact** | *to be added* |
+| **Meeting time and place** | *to be added* |
+| **Office hours** | *to be added* |
+| **Course site** | *to be added* |
 
 > Tool names, limits and prices live in [TOOLS.md](TOOLS.md), which carries a date and is re-checked before every cohort. This syllabus deliberately avoids model versions and credit numbers, because they change monthly.
 

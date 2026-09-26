@@ -1,4 +1,4 @@
-# Vibe Coding 101
+# Directed Study: Vibe Coding 101
 
 **Build real software with AI, on a $0 budget.**
 An eight-week, hands-on course that takes people who have never coded to shipping a deployed full-stack web app, by directing AI tools, and teaches the habits that make that software trustworthy.
