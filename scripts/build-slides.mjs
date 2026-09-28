@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-// Builds every weeks/*/slides.md deck into dist/ as a standalone HTML presentation,
+// Builds every weeks/*/slides.md deck into dist/slides/ as a standalone HTML presentation,
 // plus a small index page. Press "p" in a deck for presenter view with speaker notes.
+// Run it after the website build (npm run site:build does this), because the website
+// build clears dist/ first.
 import { readdirSync, existsSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 
 const root = resolve(dirname(new URL(import.meta.url).pathname), "..");
 const weeksDir = join(root, "weeks");
-const out = join(root, "dist");
+const out = join(root, "dist", "slides");
 mkdirSync(out, { recursive: true });
 
 const marp = join(root, "node_modules", ".bin", process.platform === "win32" ? "marp.cmd" : "marp");
@@ -44,7 +46,7 @@ writeFileSync(
   <body>
     <h1>Vibe Coding 101 — Slides</h1>
     <p>Concept talks for each week. Press <kbd>p</kbd> inside a deck for presenter view with speaker notes.
-    Full course materials: <a href="https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101">GitHub repository</a>.</p>
+    Course website: <a href="../">Directed Study: Vibe Coding 101</a>.</p>
     <ul>
 ${items}
     </ul>
@@ -53,4 +55,4 @@ ${items}
 </html>
 `
 );
-console.log(`Built ${decks.length} decks and dist/index.html`);
+console.log(`Built ${decks.length} decks and dist/slides/index.html`);

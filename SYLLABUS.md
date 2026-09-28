@@ -15,7 +15,8 @@ Eight weeks · one 3-hour studio per week · about 3 hours of homework per week 
 | **Contact** | *to be added* |
 | **Meeting time and place** | *to be added* |
 | **Office hours** | *to be added* |
-| **Course site** | *to be added* |
+| **Course website** | [boyu-zhang-uoi.github.io/Vibe_Coding_101](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/) |
+| **Course site (LMS)** | *to be added* |
 
 > Tool names, limits and prices live in [TOOLS.md](TOOLS.md), which carries a date and is re-checked before every cohort. This syllabus deliberately avoids model versions and credit numbers, because they change monthly.
 

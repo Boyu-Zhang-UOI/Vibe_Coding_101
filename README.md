@@ -7,7 +7,7 @@ An eight-week, hands-on course that takes people who have never coded to shippin
 [![License: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE-CODE)
 
-> **Tools last verified: 25 September 2026.** See [TOOLS.md](TOOLS.md).
+> **Course website: [boyu-zhang-uoi.github.io/Vibe_Coding_101](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/)** · Tools last verified: 25 September 2026 ([TOOLS.md](TOOLS.md))
 
 ---
 
@@ -67,7 +67,7 @@ Everything works without an instructor. Follow the weeks in order, skip the pair
 4. Publish the starter kits as template repositories: `scripts/publish-starters.sh <your-github-user-or-org>`.
 5. Each week's `instructor-notes.md` has a run sheet, a live-demo script, common pitfalls and fallback plans. Answer keys are in [instructor/answer-keys/](instructor/answer-keys/).
 
-Slides are plain Markdown ([Marp](https://marp.app/)). Build them all with `npm install && npm run slides`, or preview one in VS Code with the Marp extension.
+The [course website](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/) is built from this repository and republished on every push to `main`. It leaves out instructor material (instructor notes, answer keys, exit tickets and the instructor guide), which stays here on GitHub. Slides are plain Markdown ([Marp](https://marp.app/)) and are published on the website under [/slides/](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/slides/). To preview locally: `npm install`, then `npm run site:dev` for the website or `npm run slides` for the decks.
 
 ## Repository map
 
@@ -82,7 +82,8 @@ Slides are plain Markdown ([Marp](https://marp.app/)). Build them all with `npm 
 ├── resources/           Safe Loop, prompt patterns, glossary, case studies, troubleshooting, git, web basics
 ├── instructor/          Instructor guide, pre-cohort checklist, variants, tutor prompt, answer keys
 ├── research/            Design rationale, the full research report and notes
-└── scripts/             Link checker, slide builder, starter tests, starter publisher
+├── site/                Course website (VitePress): home page and configuration
+└── scripts/             Link checker, website and slide builders, starter tests, starter publisher
 ```
 
 ## Cost

@@ -6,7 +6,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, dirname, resolve, relative, extname } from "node:path";
 
 const root = resolve(dirname(new URL(import.meta.url).pathname), "..");
-const skipDirs = new Set([".git", "node_modules", "dist", ".vercel"]);
+const skipDirs = new Set([".git", "node_modules", "dist", ".vercel", "site"]); // site/ is checked by the website build
 
 function walk(dir, files = []) {
   for (const name of readdirSync(dir)) {

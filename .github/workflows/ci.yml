@@ -22,9 +22,9 @@ jobs:
         run: npm run check:links
       - name: Test starter kits
         run: npm run test:starters
-      - name: Build slides
-        run: npm run slides
+      - name: Build website and slides
+        run: npm run site:build
       - uses: actions/upload-artifact@v7
         with:
-          name: slides
+          name: website
           path: dist/

@@ -9,12 +9,17 @@
     "node": ">=20"
   },
   "scripts": {
-    "check": "npm run check:links && npm run test:starters && npm run slides",
+    "check": "npm run check:links && npm run test:starters && npm run site:build",
     "check:links": "node scripts/check-links.mjs",
     "test:starters": "node scripts/test-starters.mjs",
+    "site:prepare": "node scripts/build-site.mjs",
+    "site:dev": "npm run site:prepare && vitepress dev site",
+    "site:build": "npm run site:prepare && vitepress build site && npm run slides",
+    "site:preview": "vitepress preview site",
     "slides": "node scripts/build-slides.mjs"
   },
   "devDependencies": {
-    "@marp-team/marp-cli": "^4.5.1"
+    "@marp-team/marp-cli": "^4.5.1",
+    "vitepress": "^1.6.4"
   }
 }

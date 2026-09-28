@@ -14,7 +14,9 @@ Before opening a pull request, run:
 npm run check
 ```
 
-This checks internal links, runs the starter-code tests and builds the slides.
+This checks internal links, runs the starter-code tests, and builds the course website and slides. To preview the website while you edit, run `npm run site:dev`.
+
+The website is assembled from the repository's Markdown by `scripts/build-site.mjs`: a folder's `README.md` becomes its page, instructor-only files and sections are left out, and links to files that aren't pages (starter kits, code) point to GitHub. A section whose heading starts with "For instructors" is automatically cut from the website, so use that wording for teacher-only parts of shared pages.
 
 ## The two-layer rule
 
