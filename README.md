@@ -1,49 +1,53 @@
-# Directed Study: Vibe Coding 101
+# Directed Study: Vibe Coding — Building Software with AI
 
-**Build real software with AI, on a $0 budget.**
-An eight-week, hands-on course that takes people who have never coded to shipping a deployed full-stack web app, by directing AI tools, and teaches the habits that make that software trustworthy.
+**Vibe Coding 101 · Build real software with AI, on a $0 budget.**
+A hands-on University of Idaho course that takes people who have never coded to shipping a deployed full-stack web app, by directing AI tools, and teaches the habits that make that software trustworthy. **3 credits · eight accelerated weeks · two 3-hour studios a week** plus about 11 hours outside class.
 
 [![Check course materials](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/actions/workflows/ci.yml/badge.svg)](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/actions/workflows/ci.yml)
 [![License: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE-CODE)
 
-> **Course website: [boyu-zhang-uoi.github.io/Vibe_Coding_101](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/)** · Tools last verified: 25 September 2026 ([TOOLS.md](TOOLS.md))
+> **Course website: [boyu-zhang-uoi.github.io/Vibe_Coding_101](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/)** · Tools last verified: 21 October 2026 ([TOOLS.md](TOOLS.md))
+>
+> **New here?** Start with the [first-hour quick start](setup/README.md#before-studio-1) (about 60–90 minutes, before Studio 1).
 
 ---
 
 ## What makes this course different
 
-- **Very hands-on.** Each week is one 3-hour studio: at most 20 minutes of talk, then about 100 minutes of building. Students ship five projects.
+- **Very hands-on.** Each week has two 3-hour studios: **Studio A — Learn & build** opens with at most 20 minutes of talk, then a lab; **Studio B — Workshop** adds practice, project time and help. Students ship five projects.
 - **Free tools only.** Every required tool has a free tier, and every layer has **two tested fallbacks** for when free limits run out or a product disappears.
-- **Teaches the loop, not the tool.** One six-step workflow, the [Safe Loop](resources/safe-loop.md), works in a chat window in week 1 and with an autonomous agent in week 8.
-- **Graded on understanding.** Students must explain what they ship. Oral walkthroughs, AI-free reflections and a published list of [six skills you must show without AI](resources/without-ai-skills.md).
-- **Safety built in.** A [safety contract](setup/safety-contract.md) from day one and a week-7 lab where students attack, then fix, their own database, modeled on real breaches of vibe-coded apps.
-- **Evidence-based.** Designed from a review of 2025–26 university and industry courses, education research and security incidents ([why the course looks like this](research/design-rationale.md)).
+- **Teaches the loop, not the tool.** One six-step workflow, the [Safe Loop](resources/safe-loop.md), works in a chat window in week 1 and with an autonomous agent in week 8. Students write the check before the code and explain AI-written changes before they commit them.
+- **Graded on understanding, with plenty of support.** Labs and timed builds are graded on effort, not polish or speed, and exit tickets on completion, not correctness. Three short oral walkthroughs, with the questions [published in advance](assessment/oral-walkthroughs.md#what-to-expect), let students show they understand what they shipped, and walkthroughs 1 and 2 can be retaken.
+- **Safety built in.** A nine-rule [safety contract](setup/safety-contract.md) taught a rule at a time, and a week-7 lab where students test their own database the way an attacker would, then lock it down, modeled on real 2025–26 incidents.
+- **Evidence-based.** Designed from a review of 2025–26 university and industry courses, education research and security incidents, updated in October 2026 ([why the course looks like this](research/design-rationale.md)).
 
 ## The eight weeks
 
 | Week | Title | You build | Main tools |
 |---|---|---|---|
-| 0 | [Pre-work](setup/README.md) | Accounts, privacy settings, safety contract | GitHub · Google account |
-| 1 | [Hello, Vibe Coding](weeks/01-hello-vibe-coding/) | A personal home page, live on the web | Chat assistant with live preview · GitHub Pages |
-| 2 | [Prompting & Save Points](weeks/02-prompting-and-save-points/) | A browser game in one hour, with git save points | Two chat assistants · github.dev |
-| 3 | [Spec First](weeks/03-spec-first/) | Project 1 from your own one-page spec; an app-builder bake-off | Browser app builders · chat assistant |
-| 4 | [Read It, Debug It, Own It](weeks/04-read-debug-own-it/) | The Debug Clinic (AI off); Project 1 final | Codespaces · VS Code · Copilot |
+| 0 | [Pre-work](setup/README.md) | Accounts, privacy settings and a first AI-built page, before Studio 1 | GitHub · Google account |
+| 1 | [Hello, Vibe Coding](weeks/01-hello-vibe-coding/) | A personal home page, live on the web, and your own AI-use rules | Chat assistant with live preview · GitHub Pages |
+| 2 | [Prompting & Save Points](weeks/02-prompting-and-save-points/) | A browser game in one hour, with git save points and a prompt makeover | Two chat assistants · github.dev |
+| 3 | [Spec First](weeks/03-spec-first/) | Project 1 from your own one-page spec, after a jigsaw app-builder bake-off | Browser app builders · Codespaces |
+| 4 | [Read It, Debug It, Own It](weeks/04-read-debug-own-it/) | The Debug Clinic (AI off), your first automated test, Project 1 final | Codespaces · VS Code · Copilot |
 | 5 | [APIs, Secrets & Servers](weeks/05-apis-secrets-servers/) | An AI-powered micro-app with a hidden API key, deployed | Free LLM API · Vercel |
-| 6 | [How Agents Work](weeks/06-agents/) | "Be the Agent"; capstone kickoff with an agent, test first | Copilot agent mode and CLI |
-| 7 | [Security, Data & Review](weeks/07-security-and-review/) | The RLS Attack Lab; a database for your capstone; peer review | Supabase · security scanners |
+| 6 | [How Agents Work](weeks/06-agents/) | "Be the Agent", then your capstone's first agent-built feature and pull request | Copilot agent mode and CLI |
+| 7 | [Security, Data & Review](weeks/07-security-and-review/) | The RLS Attack Lab, a database for your capstone, a pull-request review | Supabase · security scanners |
 | 8 | [Ship It](weeks/08-ship-it/) | Capstone polish and the Project Fair | Everything |
 
 Full details: **[SYLLABUS.md](SYLLABUS.md)**.
 
 ## The Safe Loop
 
-```
-DESCRIBE ──► PLAN ──► STEP ──► TEST ──► READ ──► COMMIT
-goal, context,  ask for a   one small   normal +    read the    save point
-constraints,    plan; edit  change      edge case   diff        in git
-done when       it first
-```
+| # | Step | What you do |
+|---|---|---|
+| 1 | **Describe** | Goal, context, constraints, "done when". Write the check first |
+| 2 | **Plan** | Ask for a plan, and edit it before any code is written |
+| 3 | **Step** | One small change at a time |
+| 4 | **Test** | Run your check, the normal case and an edge case |
+| 5 | **Read** | Read the diff, and write a short teach-back of what changed and why |
+| 6 | **Commit** | A git save point with a clear message |
 
 If two fixes in a row fail, stop, start a fresh chat and rewrite the prompt (the **two-strikes rule**). [Printable card](resources/safe-loop.md).
 
@@ -51,40 +55,40 @@ If two fixes in a row fail, stop, start a fresh chat and rewrite the prompt (the
 
 ### Students
 
-1. Do the [week 0 pre-work](setup/README.md) (about 2 hours): accounts, privacy settings, the safety contract.
-2. Each week, open the week's folder: read the `README.md` before class, follow `lab.md` in class, and do `homework.md` after.
+1. Do the [first-hour quick start](setup/README.md#before-studio-1) before Studio 1, and the [rest of week 0](setup/README.md#during-week-1) during week 1.
+2. Each week, open the week's folder and start with **This week at a glance** at the top of its `README.md`. Read the README before Studio A, follow `lab.md` in both studios, and do `homework.md` before next week's Studio A.
 3. Keep [the Safe Loop](resources/safe-loop.md), [prompt patterns](resources/prompt-patterns.md), [troubleshooting](resources/troubleshooting.md) and the [glossary](resources/glossary.md) open.
 
 ### Self-paced learners
 
-Everything works without an instructor. Follow the weeks in order, skip the pair activities or do them with a friend, and use the [tutor-mode prompt](instructor/course-tutor.md) when you are stuck. Budget about six hours a week.
+Everything works without an instructor. Follow the [self-paced path](resources/self-paced.md): it explains what replaces each studio activity, what to do instead of pair work when you're working alone, and how to use the [tutor-mode prompt](instructor/course-tutor.md) when you're stuck.
 
 ### Instructors
 
 1. Read the [instructor guide](instructor/README.md) and the [design rationale](research/design-rationale.md).
 2. Work through the [pre-cohort checklist](instructor/pre-cohort-checklist.md): smoke-test every tool and update [TOOLS.md](TOOLS.md).
-3. Pick the right [variant](instructor/variants.md) for your cohort's age, region and schedule.
-4. Publish the starter kits as template repositories: `scripts/publish-starters.sh <your-github-user-or-org>`.
-5. Each week's `instructor-notes.md` has a run sheet, a live-demo script, common pitfalls and fallback plans. Answer keys are in [instructor/answer-keys/](instructor/answer-keys/).
+3. Pick the right [variant](instructor/variants.md) for your cohort: small cohorts and one-student Directed Study, 1- or 2-credit versions, a 16-week semester, under-18 or European cohorts, online delivery.
+4. Publish the starter kits as template repositories: `scripts/publish-starters.sh [your-github-user-or-org]`.
+5. Each week's `instructor-notes.md` has run sheets for Studio A and Studio B, a live-demo script, common pitfalls and fallback plans. Answer keys are in [instructor/answer-keys/](instructor/answer-keys/).
 
 The [course website](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/) is built from this repository and republished on every push to `main`. It leaves out instructor material (instructor notes, answer keys, exit tickets and the instructor guide), which stays here on GitHub. Slides are plain Markdown ([Marp](https://marp.app/)) and are published on the website under [/slides/](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/slides/). To preview locally: `npm install`, then `npm run site:dev` for the website or `npm run slides` for the decks.
 
 ## Repository map
 
-```
-├── SYLLABUS.md          Course design, schedule, assessment, AI policy
-├── TOOLS.md             The dated tool handout: the only file with prices and limits
-├── setup/               Week 0: accounts, privacy, GitHub, Codespaces, safety contract
-├── weeks/               One folder per week: README, slides, lab, homework, instructor notes, kits
-├── projects/            Project briefs, capstone ideas, capstone starter kit
-├── templates/           SPEC, AGENTS, PROMPTS, TESTS, SECURITY_CHECKLIST, CODE_REVIEW, REFLECTION, README
-├── assessment/          Weights, rubrics, oral walkthroughs, exit tickets, self-assessment
-├── resources/           Safe Loop, prompt patterns, glossary, case studies, troubleshooting, git, web basics
-├── instructor/          Instructor guide, pre-cohort checklist, variants, tutor prompt, answer keys
-├── research/            Design rationale, the full research report and notes
-├── site/                Course website (VitePress): home page and configuration
-└── scripts/             Link checker, website and slide builders, starter tests, starter publisher
-```
+| Folder or file | What's in it |
+|---|---|
+| `SYLLABUS.md` | Course design, schedule, assessment, AI policy and University policies |
+| `TOOLS.md` | The dated tool handout: the only file with prices and limits |
+| `setup/` | Week 0: the first-hour quick start, accounts, privacy, GitHub, Codespaces, safety contract |
+| `weeks/` | One folder per week: README, slides, lab, homework, instructor notes, kits |
+| `projects/` | Project briefs, capstone ideas, the capstone starter kit and rescue starters |
+| `templates/` | SPEC, AGENTS, PROMPTS, TESTS, SECURITY_CHECKLIST, CODE_REVIEW, REFLECTION, README |
+| `assessment/` | Weights, rubrics, oral walkthroughs, exit tickets, self-assessment |
+| `resources/` | Safe Loop, prompt patterns, glossary, case studies, troubleshooting, git, web basics, accessibility, the self-paced path |
+| `instructor/` | Instructor guide, pre-cohort checklist, variants, tutor prompt, answer keys |
+| `research/` | Design rationale, the research reports and notes |
+| `site/` | Course website (VitePress): home page and configuration |
+| `scripts/` | Link checker, secret scanner, website and slide builders, starter tests, starter publisher |
 
 ## Cost
 

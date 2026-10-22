@@ -69,7 +69,7 @@ Answer these together, then share one answer with the class.
   python3 -m http.server 8000
   ```
 
-- Commit your fix with a clear message, for example `Round each share up so the group covers the bill (fixes #12)`.
+- Commit your fix with a clear message that says what you changed and which report it fixes, in the form `[What you changed, in a few words] (fixes #12)`.
 
 ## Files
 

@@ -1,9 +1,11 @@
 # CODE_REVIEW.md — peer review checklist
 
-> 🔴 **Write this review yourself, without AI.** Reviews are addressed to a person. After you finish, you may ask an AI to review the same code and compare (week 7 lab).
+> 🔴 **AI off. Write this review yourself, without AI.** Reviews are addressed to a person. After you finish, you may ask an AI to review the same code and compare (week 7 lab).
 > Be kind, specific and useful. Point to files and line numbers. Suggest, don't command.
+> **Submit your written review on Canvas**, the course's learning management system. It names a classmate, so it never goes in a repository. You may also leave comments on your classmate's pull request on GitHub; that's ordinary code review and optional. The Canvas review is the graded one.
+> Replace every [square-bracket placeholder].
 
-**Reviewer:** <you> · **Author:** <classmate> · **Repo / pull request:** <link> · **Date:** <date>
+**Reviewer:** [your name] · **Author:** [classmate's name] · **Repo / pull request:** [link] · **Date:** [date]
 
 ## 1. First impressions (5 min)
 
@@ -30,10 +32,10 @@ Try one edge case the author did not list. What happened?
 
 ## 4. Safety (10 min)
 
-- [ ] No secrets in the repo or on the live site
+- [ ] No secrets in the repo or on the live site. (A Supabase publishable key in `public/config.js` is fine, but only if row-level security is on.)
 - [ ] User input shown with `textContent`, not `innerHTML`
-- [ ] Database tables have access rules (if any)
-- [ ] Dependencies look intentional
+- [ ] If there's a database: every table has row-level security on and at least one policy
+- [ ] Dependencies look intentional, with exact versions
 
 ## 5. Summary
 

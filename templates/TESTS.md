@@ -2,6 +2,7 @@
 
 > Manual tests are steps a person follows. Automated tests are code that checks code (`npm test`).
 > Every acceptance criterion in `SPEC.md` should have at least one test here. Include edge cases.
+> **Check first:** write each test before you ask for the code it checks, in a separate step. If an AI writes the test, ask for the test alone, in its own prompt, so it isn't shaped by the code it is meant to check.
 
 ## Manual tests
 
@@ -34,7 +35,7 @@ npm test
 
 | Test file | What it checks |
 |---|---|
-| `tests/<name>.test.js` | |
+| `tests/[name].test.js` | |
 
 ## Bugs found by testing
 

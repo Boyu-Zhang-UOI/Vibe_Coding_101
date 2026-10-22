@@ -14,9 +14,11 @@ permissions:
   pages: write
   id-token: write
 
+# Let a running deployment finish (cancelling one halfway can leave Pages in a broken state);
+# a newer push waits in the queue and deploys right after.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:

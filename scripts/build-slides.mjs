@@ -4,16 +4,23 @@
 // Run it after the website build (npm run site:build does this), because the website
 // build clears dist/ first.
 import { readdirSync, existsSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
-import { join, dirname, resolve } from "node:path";
+import { join, dirname, resolve, relative } from "node:path";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
-const root = resolve(dirname(new URL(import.meta.url).pathname), "..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const weeksDir = join(root, "weeks");
 const out = join(root, "dist", "slides");
 mkdirSync(out, { recursive: true });
 
-const marp = join(root, "node_modules", ".bin", process.platform === "win32" ? "marp.cmd" : "marp");
-const command = existsSync(marp) ? [marp] : ["npx", "--yes", "@marp-team/marp-cli@4"];
+// Run Marp's own script with Node (not the .bin shim), so this works the same on Windows and in
+// folders whose path contains spaces.
+const marp = join(root, "node_modules", "@marp-team", "marp-cli", "marp-cli.js");
+if (!existsSync(marp)) {
+  console.error("Marp is not installed. Run `npm ci` (or `npm install`) in the repository first.");
+  process.exit(1);
+}
+const command = [process.execPath, marp];
 
 const decks = [];
 for (const week of readdirSync(weeksDir).sort()) {
@@ -26,10 +33,11 @@ for (const week of readdirSync(weeksDir).sort()) {
     stdio: ["ignore", "ignore", "inherit"],
   });
   decks.push({ file: `week-${number}.html`, title });
-  console.log(`Built ${target.replace(root + "/", "")}`);
+  console.log(`Built ${relative(root, target)}`);
 }
 
-const items = decks.map((d) => `      <li><a href="${d.file}">${d.title}</a></li>`).join("\n");
+const escapeHtml = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const items = decks.map((d) => `      <li><a href="${d.file}">${escapeHtml(d.title)}</a></li>`).join("\n");
 writeFileSync(
   join(out, "index.html"),
   `<!doctype html>
@@ -46,7 +54,7 @@ writeFileSync(
   <body>
     <h1>Vibe Coding 101 — Slides</h1>
     <p>Concept talks for each week. Press <kbd>p</kbd> inside a deck for presenter view with speaker notes.
-    Course website: <a href="../">Directed Study: Vibe Coding 101</a>.</p>
+    Course website: <a href="../">Vibe Coding 101</a>.</p>
     <ul>
 ${items}
     </ul>

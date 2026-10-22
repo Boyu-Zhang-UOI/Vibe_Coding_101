@@ -40,7 +40,20 @@ Your GitHub account includes a free monthly allowance of Codespaces **hours** (c
 
 ## A tour of the editor
 
-```
+The editor window has five parts. The picture after this table shows the same layout.
+
+| Part | What it's for |
+|---|---|
+| **A. Activity bar** (far left) | Icons that switch the side bar: **Explorer** (files), **Search**, **Source Control** (commits), **Extensions** |
+| **B. Side bar** (next to it) | Shows whatever you picked in the activity bar |
+| **C. Editor** (the large area) | Your open files. A white dot on a tab means the file has **unsaved** changes. Save with `Ctrl+S` (Windows, Linux, ChromeOS) or `Cmd+S` (macOS) |
+| **D. Panel** (below the editor) | The **Terminal**, the **Ports** list, and **Problems** (errors the editor noticed) |
+| **E. Status bar** (along the bottom) | Your current branch, sync status and the Copilot icon |
+| **Chat** (on the right) | GitHub Copilot's chat view (see [below](#turn-on-github-copilot-free)) |
+
+Picture of the layout (if you use a screen reader, skip it: the table above has everything in it):
+
+```text
 ┌────┬──────────────┬──────────────────────────────────────┐
 │ A  │  B           │  C  Editor (open files, as tabs)     │
 │ c  │  Side bar    │                                      │
@@ -55,15 +68,6 @@ Your GitHub account includes a free monthly allowance of Codespaces **hours** (c
 └──────────────────────────────────────────────────────────┘
 ```
 
-| Part | What it's for |
-|---|---|
-| **A. Activity bar** | Icons that switch the side bar: **Explorer** (files), **Search**, **Source Control** (commits), **Extensions** |
-| **B. Side bar** | Shows whatever you picked in the activity bar |
-| **C. Editor** | Your open files. A white dot on a tab means the file has **unsaved** changes. Save with `Ctrl+S` (Windows, Linux, ChromeOS) or `Cmd+S` (macOS) |
-| **D. Panel** | The **Terminal**, the **Ports** list, and **Problems** (errors the editor noticed) |
-| **E. Status bar** | Your current branch, sync status and the Copilot icon |
-| **Chat** | GitHub Copilot's chat view opens on the right (see [below](#turn-on-github-copilot-free)) |
-
 Two shortcuts worth learning now:
 
 - **Command Palette:** `Ctrl+Shift+P` (`Cmd+Shift+P` on macOS). Type what you want to do ("stop codespace", "toggle terminal") and pick it from the list. When you can't find a menu, use this.
@@ -76,7 +80,7 @@ Two shortcuts worth learning now:
 
 Open it from the menu (☰ → **Terminal** → **New Terminal**) or with `` Ctrl+` ``. You'll see a **prompt**, something like:
 
-```
+```text
 @alexkim ➜ /workspaces/habit-tracker (main) $
 ```
 
@@ -132,7 +136,7 @@ npm test
 npm run dev
 ```
 
-- `node --version` should print `v20` or higher.
+- `node --version` should print `v22` or higher. The course uses **Node.js 22 LTS**; anything from `v20.12` works.
 - `npm install` downloads any packages the project needs. The course starters need none, so it finishes almost instantly, but it's a good habit.
 - `npm test` runs the automated tests.
 - `npm run dev` starts the app. Open it from the notification, or from port **3000** in the **Ports** tab, the same way as above. Stop it with `Ctrl+C`.
@@ -195,14 +199,17 @@ Some versions also show an **Edit** mode, which changes files you choose but doe
 
 In Agent mode, Copilot shows each terminal command it wants to run and waits for you to click **Allow** (or **Continue**).
 
+> [!WARNING]
+> **The rule: approvals stay on, and you never use autopilot.** Don't turn on any setting or option that lets an agent run commands, edit outside the project or publish without asking you. These go by names such as "autopilot", "auto-approve", "allow all", "yolo" or "skip permissions", in Copilot, Copilot CLI and every other agent. This is safety contract [rule 9](safety-contract.md#9-agents-dont-publish-and-untrusted-content-never-shares-a-session-with-my-secrets), not a tip: in 2026, an agent in autopilot mode read a hidden instruction on a web page and sent a project's secrets to an attacker in about 28 seconds ([Adversa AI](https://adversa.ai/blog/cryptographic-context-injection-github-copilot/)).
+
 - **Read every command before you allow it.** If you don't understand it, ask: "What will this command do?"
 - Choose the option to allow **once**, not "always".
-- Don't turn on settings that approve every command automatically.
-- Before each agent task, commit. After it, read the diff and commit again (safety contract rule 3).
+- Before each agent task, commit. After it, read the diff and commit again (safety contract [rule 3](safety-contract.md#3-i-commit-before-and-after-every-agent-task)).
+- Your `AGENTS.md` file tells the agent what it may do, but it's **advice, not enforcement**: an agent can ignore it. What actually holds is the codespace sandbox, the approval prompts, scoped keys, spending caps and, for databases, row-level security.
 
 ### Credits
 
-Chat and agent requests use your plan's monthly allowance of AI credits. Agent mode uses much more than Ask mode. When the allowance runs out, chat and agent mode **stop** until it resets. Click the Copilot icon in the status bar to see how much you've used. Numbers are in [TOOLS.md](../TOOLS.md), and what to do when you run out is in [troubleshooting](../resources/troubleshooting.md#i-ran-out-of-free-credits).
+Chat and agent requests use your plan's monthly allowance of AI credits. Agent mode uses much more than Ask mode. When the allowance runs out, chat and agent mode **stop** until it resets. Click the Copilot icon in the status bar to see how much you've used. Numbers, and a plan for spreading your credits across weeks 4–8, are in [TOOLS.md](../TOOLS.md#credits-budget-for-the-course). What to do when you run out is in [troubleshooting](../resources/troubleshooting.md#i-ran-out-of-free-credits).
 
 ## Turn Copilot off for AI-off activities
 
@@ -216,7 +223,7 @@ Some activities are done with the AI off, like the week 4 **Debug Clinic** and t
 
 When the activity is over, untick the same setting to turn Copilot back on.
 
-In the Debug Clinic you may use **tutor mode** after 10 minutes on a bug: a chat assistant that gives only hints, set up with the prompt in [instructor/course-tutor.md](../instructor/course-tutor.md). That's 🟡 Limited use, and it's the only AI allowed there.
+In the Debug Clinic you may use **tutor mode** after 10 minutes on a bug: a chat assistant that gives only hints, set up with the prompt in [instructor/course-tutor.md](../instructor/course-tutor.md). That's 🟡 **AI limited**, and it's the only AI allowed there.
 
 ## Stop and delete codespaces
 
@@ -262,6 +269,11 @@ test -n "$LLM_API_KEY" && echo "LLM_API_KEY is set"
 | Works on your laptop too | Yes | No, only in codespaces |
 | Needed for deployment | No. Set the key in Vercel's settings ([week 5](../weeks/05-apis-secrets-servers/README.md)) | Same |
 
+**Agents and secrets.** A Codespaces secret is available to every codespace for the repositories you chose, so an agent working there can reach it. Safety contract [rule 9](safety-contract.md#9-agents-dont-publish-and-untrusted-content-never-shares-a-session-with-my-secrets) says untrusted content never shares a session with your secrets. When you ask an agent to read web pages, GitHub issues or other people's files, do it in a codespace for a repository that has **no** secrets attached, and keep approvals on.
+
+> [!NOTE]
+> **Not every key is a secret.** In week 7 you connect a Supabase database. Its **project URL** and **publishable key** go in `public/config.js`, where the browser can read them. That's public by design, and safe **only** because row-level security (RLS) rules on every table decide what that key can do. Supabase **secret** keys and AI API keys are always secret: they live only in server environment variables (`.env`, a Codespaces secret, or Vercel's settings), never in `public/`.
+
 ## Start a project from a starter
 
 From week 4, several activities begin from a **starter kit**: a small ready-made project in this course's repository. You'll copy it into **your own** repository, so you can commit, deploy and show it in your portfolio. There are two ways to do it. Use the first if your instructor has set it up.
@@ -271,30 +283,42 @@ From week 4, several activities begin from a **starter kit**: a small ready-made
 Your instructor publishes each starter as a **template repository**, a GitHub repository that others can copy with one click. The course's own templates are linked in [the starters table](#the-starters) below. If your instructor published their own copies, use the links on your course page instead.
 
 1. Open the template link and click **Use this template** → **Create a new repository**. (Don't choose **Open in a codespace** from that menu: it creates a codespace without a repository of your own.)
-2. **Owner:** choose **your personal account**, not an organization, even if you're a member of one for this class. Vercel's free Hobby plan can't deploy repositories owned by an organization, and you'll deploy from week 5.
+2. **Owner:** choose **your personal account**, not an organization, even if you're a member of one for this class. Vercel's free Hobby plan can't deploy private repositories owned by an organization, and you'll deploy from week 5.
 3. **Repository name:** your own, for example `ai-quote-helper` or `capstone-study-buddy`.
 4. Choose **Public**.
 5. Click **Create repository**.
 6. In your new repository: **Code** → **Codespaces** → **Create codespace on main**.
 
-✅ **Checkpoint:** your codespace shows the starter's files, and the repository on github.com belongs to you (`github.com/<your-username>/<name>`).
+✅ **Checkpoint:** your codespace shows the starter's files, and the repository on github.com belongs to you (`github.com/[your-username]/[name]`).
 
 ### Way 2 (fallback): copy the starter with degit
 
 This works whenever the course repository is public, even if no template has been published.
 
+> [!WARNING]
+> **Only ever run degit in a brand-new, empty repository's codespace.** The `--force` option tells degit to copy over whatever is already in the folder, so files with the same names, such as `README.md`, `index.html` or `app.js`, are **replaced without asking**. Run it by mistake in your Project 1 or capstone codespace and it overwrites your work. Uncommitted changes are then lost for good; committed work can be recovered from git history, but it's a painful afternoon.
+
 1. Create a new **public** repository in your personal account and tick **Add a README file** ([how](github-basics.md#create-a-repository)).
 2. Open a codespace on it: **Code** → **Codespaces** → **Create codespace on main**.
-3. In the terminal, run the command for your starter from the list below. For example, for week 5:
+3. **Check that you're in the right, empty codespace.** Run these two commands:
+
+   ```bash
+   git log --oneline
+   ls
+   ```
+
+   You should see exactly **one** commit ("Initial commit") and **one** file (`README.md`). If you see more, you're in the wrong codespace: stop and open the new repository's codespace instead.
+
+4. In the terminal, run the command for your starter from the list below. For example, for week 5:
 
    ```bash
    npx --yes degit Boyu-Zhang-UOI/Vibe_Coding_101/weeks/05-apis-secrets-servers/starter --force
    ```
 
-   [degit](https://www.npmjs.com/package/degit) is a small, widely used tool that copies a folder from a GitHub repository without its history. `npx --yes` downloads and runs it once. `--force` lets it copy into your folder even though it already has a README; the starter's README replaces yours.
+   [degit](https://www.npmjs.com/package/degit) is a small, widely used tool that copies a folder from a GitHub repository without its history. `npx --yes` downloads and runs it once. `--force` lets it copy into your folder even though it already has a README; the starter's README replaces yours (which is why step 3 matters).
 
-4. Run `ls -a` and check that the starter's files are there.
-5. Commit and push:
+5. Run `ls -a` and check that the starter's files are there.
+6. Commit and push:
 
    ```bash
    git add -A
@@ -312,10 +336,10 @@ This works whenever the course repository is public, even if no template has bee
 | 5 | AI micro-app starter | `weeks/05-apis-secrets-servers/starter` | [vc101-micro-app-starter](https://github.com/Boyu-Zhang-UOI/vc101-micro-app-starter) |
 | 6 | Be the Agent kit (contains a bug on purpose) | `weeks/06-agents/be-the-agent` | [vc101-be-the-agent](https://github.com/Boyu-Zhang-UOI/vc101-be-the-agent) |
 | 6–8 | Capstone starter | `projects/capstone-starter` | [vc101-capstone-starter](https://github.com/Boyu-Zhang-UOI/vc101-capstone-starter) |
-| 7 | RLS Attack Lab | `weeks/07-security-and-review/rls-lab` | [vc101-rls-lab](https://github.com/Boyu-Zhang-UOI/vc101-rls-lab) |
-| 7 | Prompt-injection demo | `weeks/07-security-and-review/injection-demo` | [vc101-injection-demo](https://github.com/Boyu-Zhang-UOI/vc101-injection-demo) |
+| 7 | RLS Attack Lab kit (optional: the lab itself uses the [hosted attack page](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/tools/rls-attack.html), so you need this kit only to run it yourself) | `weeks/07-security-and-review/rls-lab` | [vc101-rls-lab](https://github.com/Boyu-Zhang-UOI/vc101-rls-lab) |
+| 7 | Prompt-injection demo (optional: your instructor demonstrates it in class; the kit is for trying it yourself) | `weeks/07-security-and-review/injection-demo` | [vc101-injection-demo](https://github.com/Boyu-Zhang-UOI/vc101-injection-demo) |
 
-The degit command for each (copy one line):
+The degit command for each (copy one line, and run it **only** in a new, empty repository's codespace; see the warning above):
 
 - Week 4 Debug Clinic:
 
@@ -376,12 +400,13 @@ The week 5 starter and the capstone also need a `.env` file made from the exampl
 | `OSError: [Errno 98] Address already in use` or `EADDRINUSE` | A server is already running on that port, probably in another terminal tab. Find it and press `Ctrl+C`, or use another port: `python3 -m http.server 8001` |
 | The preview shows a list of files | You started the server in the wrong folder, or there's no `index.html`. `cd` into the right folder and start it again |
 | My change doesn't appear | Save the file (look for the white dot on its tab), then reload the preview. Try a hard reload: `Ctrl+Shift+R` (`Cmd+Shift+R`) |
-| `node --version` shows a version below 20 | Run `nvm install --lts`, then open a new terminal and check again |
+| `node --version` shows a version below 20.12 | Run `nvm install 22`, then open a new terminal and check again |
 | `npm ERR! enoent ... package.json` | You're in the wrong folder. Run `ls`: you should see `package.json`. Use `cd` to move to the project folder |
 | Copilot doesn't answer, or says you're out of credits | See [Credits](#credits) and [troubleshooting](../resources/troubleshooting.md#i-ran-out-of-free-credits). Meanwhile, use a chat assistant in another tab (fallbacks in [TOOLS.md](../TOOLS.md)) |
-| degit says "could not find commit hash" or "destination directory is not empty" | Check the path's spelling: it's case-sensitive and has no trailing `/`. Make sure you included `--force`. Ask your instructor whether the course repository is public |
-| degit keeps failing | Use git instead: `git clone --depth 1 https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101.git /tmp/course`, then `cp -r /tmp/course/<path-to-starter>/. .` (replace `<path-to-starter>` with the path from the table), then commit |
-| Vercel can't find my repository | The repository is owned by an organization, or you gave Vercel access to selected repositories only. Create the repository in your personal account, or add it in Vercel's GitHub access settings |
+| degit says "could not find commit hash" or "destination directory is not empty" | Check the path's spelling: it's case-sensitive and has no trailing `/`. Make sure you included `--force`, and that you're in a **new, empty** repository's codespace (`git log --oneline` shows one commit). Ask your instructor whether the course repository is public |
+| degit keeps failing | Use git instead, **only in a new, empty repository's codespace** (like degit, `cp -r` overwrites files with the same names): `git clone --depth 1 https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101.git /tmp/course`, then `cp -r /tmp/course/[path-to-starter]/. .` (replace `[path-to-starter]` with the path from the table), then commit |
+| I ran degit or `cp -r` in the wrong codespace | Stop. Don't commit. Run `git status` to see which files changed, then `git restore .` to put every changed tracked file back to your last commit. Files the starter **added** are untracked: delete them by hand, or ask for help. If you already committed, see [troubleshooting](../resources/troubleshooting.md#the-agent-broke-or-deleted-things) |
+| Vercel can't find my repository | The repository is private and owned by an organization, or you gave Vercel access to selected repositories only. Create the repository in your personal account (or make it public), or add it in Vercel's GitHub access settings |
 | `git push` is rejected | Someone (or you, on the web) committed to GitHub since your last pull. Run `git pull`, then `git push` again. If you see "conflict", stop and ask for help |
 | I lost my work | Is the codespace still listed on [github.com/codespaces](https://github.com/codespaces)? Open it: uncommitted work is still there. If it was deleted, only what you pushed survives. Push at the end of every session |
 

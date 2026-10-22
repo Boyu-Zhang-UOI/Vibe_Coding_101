@@ -1,0 +1,6 @@
+# Never commit secrets or system files
+.env
+.env.*
+!.env.example
+.DS_Store
+node_modules/

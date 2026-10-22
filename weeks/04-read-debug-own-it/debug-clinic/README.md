@@ -40,9 +40,9 @@ To stop the server, click in the terminal and press Ctrl+C.
 2. **Pairs.** The **driver** types. The **navigator** reads the code, asks questions and keeps the bug notes. Swap roles after every bug.
 3. **In order.** Fix bug 1 first. Each bug hides behind the one before it.
 4. **Small fixes.** Every bug can be fixed by changing one or two lines. Don't rewrite functions, and don't delete features.
-5. **You may use:** DevTools, reading the code, MDN Web Docs (<https://developer.mozilla.org>), the course [glossary](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/blob/main/resources/glossary.md) and [web basics](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/blob/main/resources/web-basics.md) pages, the [hint cards](hint-cards.md), and your instructor.
-6. **Stuck for 10 minutes on the same bug?** Take a hint card. Still stuck? You may use 🟡 **tutor mode**: open your chat assistant in a new tab, paste the tutor prompt from the course's [course-tutor page](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/blob/main/instructor/course-tutor.md), then describe the bug, paste the error message and the function you're looking at. The tutor gives hints, not fixes.
-7. **Claim and commit.** When a bug is fixed, write its claim in `BUGS.md` (format below), show your instructor or TA if they're collecting claims, then commit, for example: `Fix bug 1: <what you changed>`.
+5. **You may use:** DevTools, reading the code, MDN Web Docs (<https://developer.mozilla.org>), the course [glossary](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/resources/glossary.html) and [web basics](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/resources/web-basics.html) pages, the [hint cards](hint-cards.md), and your instructor.
+6. **Stuck for 10 minutes on the same bug?** Take a hint card. Still stuck? You may use 🟡 **AI limited: tutor mode**. Open your chat assistant in a new tab, paste the tutor prompt from the course's [tutor mode page](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/resources/tutor-mode.html), then describe the bug, paste the error message and the function you're looking at. The tutor gives hints, not fixes.
+7. **Claim and commit.** When a bug is fixed, write its claim in `BUGS.md` (format below), show your instructor or TA if they're collecting claims, then commit, for example: `Fix bug 1: [what you changed]`.
 
 ## Scoring: the bug bounty
 

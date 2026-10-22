@@ -8,12 +8,12 @@ Setting up takes 30–60 minutes. You'll install three things:
 |---|---|---|
 | **VS Code** | The code editor, the same one you use in Codespaces | Editing, Source Control, GitHub Copilot |
 | **Git** | The version-control tool behind GitHub | Commits, history, push and pull |
-| **Node.js** (LTS version, 20 or newer) | Runs JavaScript outside the browser, plus **npm**, its package manager | Running the week 5+ starters and their tests |
+| **Node.js** (22 LTS; minimum 20.12) | Runs JavaScript outside the browser, plus **npm**, its package manager | Running the week 5+ starters and their tests |
 
-**LTS** means "long-term support": the stable version most people should use. The course's code needs Node.js 20 or newer. Some AI command-line tools need newer still, so install whatever the current LTS is.
+**LTS** means "long-term support": the stable version most people should use. The course uses **Node.js 22 LTS**. The starters need at least version 20.12, and Node 20 no longer gets security updates, so install 22 or a newer LTS. Some AI command-line tools need a recent version too.
 
 > [!WARNING]
-> **On your own computer, an AI agent can reach your own files.** Agents have overwritten real users' files and, in one case, wiped a whole drive ([AI Incident Database #1178](https://incidentdatabase.ai/cite/1178/); [Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part)). Keep course projects in one dedicated folder, open only a single project in the editor, and do agent work (weeks 6–8) in a Codespace unless your instructor says otherwise. See [When to stay in Codespaces](#when-to-stay-in-codespaces).
+> **On your own computer, an AI agent can reach your own files.** Agents have overwritten real users' files and, in one case, wiped a whole drive ([AI Incident Database #1178](https://incidentdatabase.ai/cite/1178/); [Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part)). Keep course projects in one dedicated folder, open only a single project in the editor, and do agent work (weeks 6–8) in a Codespace unless your instructor says otherwise. Wherever you run an agent, approvals stay on and you never use autopilot or skip-permissions modes (safety contract [rule 9](safety-contract.md#9-agents-dont-publish-and-untrusted-content-never-shares-a-session-with-my-secrets)). See [When to stay in Codespaces](#when-to-stay-in-codespaces).
 
 ## macOS
 
@@ -29,7 +29,7 @@ Setting up takes 30–60 minutes. You'll install three things:
 
 3. **Node.js.** Choose one:
    - **Official installer (simplest):** download the **LTS** macOS installer from [nodejs.org](https://nodejs.org/) and run it.
-   - **A version manager (flexible):** tools such as [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) let you switch Node versions per project. Follow their install instructions, then run `nvm install --lts` (or `fnm install --lts`).
+   - **A version manager (flexible):** tools such as [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm) let you switch Node versions per project. Follow their install instructions, then run `nvm install 22` (or `fnm install 22`).
 
 ## Windows
 
@@ -67,7 +67,7 @@ Instructions for Ubuntu and Debian; other distributions have equivalents.
 3. **Node.js.** Your distribution's own `nodejs` package is often too old. Use a version manager such as [nvm](https://github.com/nvm-sh/nvm), then:
 
    ```bash
-   nvm install --lts
+   nvm install 22
    ```
 
 ## Check your installation
@@ -80,18 +80,18 @@ node --version
 npm --version
 ```
 
-✅ **Checkpoint:** each command prints a version number, and `node --version` prints `v20` or higher.
+✅ **Checkpoint:** each command prints a version number, and `node --version` prints `v22` or higher (anything from `v20.12` works).
 
 ## Tell git who you are
 
 Git records a name and email address with every commit. Use the private **noreply** address GitHub gives you, so your real email doesn't appear in public repositories. Find it under GitHub **Settings** → **Emails**; it ends in `@users.noreply.github.com`.
 
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "12345678+yourusername@users.noreply.github.com"
+git config --global user.name "[Your Name]"
+git config --global user.email "[12345678+yourusername]@users.noreply.github.com"
 ```
 
-Replace both values with your own.
+Replace both values in square brackets with your own, and delete the brackets.
 
 ## Sign in to GitHub in VS Code
 
@@ -119,14 +119,19 @@ Copilot is built into VS Code. Once you're signed in with GitHub, click the **Co
 3. In a terminal (use `cd` to go into your `vc101` folder first):
 
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone https://github.com/[your-username]/[your-repo].git
+   cd [your-repo]
    code .
    ```
 
+   Replace the parts in square brackets, and delete the brackets.
+
    Or, in VS Code: Command Palette → **Git: Clone** → paste the address → choose your `vc101` folder.
 
-To start a **new** project from a course starter, first create the repository on GitHub and clone it, then run the degit command from [codespaces.md](codespaces.md#start-a-project-from-a-starter) inside the cloned folder. The same command works on your computer.
+To start a **new** project from a course starter, first create a new, empty repository on GitHub and clone it, then run the degit command from [codespaces.md](codespaces.md#start-a-project-from-a-starter) inside that freshly cloned folder. The same command works on your computer.
+
+> [!WARNING]
+> degit's `--force` option overwrites files with the same names without asking. Run it **only** in a brand-new, empty repository's folder, never in an existing project such as your Project 1 or capstone. Check first: `git log --oneline` should show a single commit.
 
 ## Run the starters
 

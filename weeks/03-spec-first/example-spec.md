@@ -1,11 +1,11 @@
 # SPEC: Study Session Timer & Log
 
 > [!NOTE]
-> **This is an example spec** for a made-up student called Sam. It follows [templates/SPEC.md](../../templates/SPEC.md) exactly, so you can see what "good" looks like before you write your own.
+> **This is an example spec** for a made-up student called Sam. It follows the [SPEC template](../../templates/SPEC.md) exactly, so you can see what "good" looks like before you write your own.
 > Don't copy it. You may build a study timer for Project 1 if it's a tool you'd really use, but your spec must be your own words about your own needs. Notes on why this spec works are at the [bottom of the page](#why-this-spec-works).
 
-> **One page.** Write this yourself. You may ask an AI to *critique* it ("What is ambiguous? What edge cases am I missing?"), but not to write it. 🟡
-> A good spec lets a classmate, or an AI agent, build the right thing without asking you questions.
+> **One page.** Write this yourself. You may ask an AI to *critique* it ("What is ambiguous? What edge cases am I missing?"), but not to write it (🟡 AI limited).
+> A good spec lets a classmate, or an AI agent, build the right thing without asking you questions. That's what the [Goldfish test](lab.md#part-4--the-goldfish-test-20-min) checks.
 
 **Author:** Sam (example student) · **Last updated:** 2026-09-25
 
@@ -64,9 +64,21 @@ Things I am deliberately **not** building in version 1:
 
 ## 7. Wireframe
 
-Paper sketch: `docs/wireframe.jpg` (photographed, then screenshotted so the photo carries no location data). Text version:
+Paper sketch: `docs/wireframe.jpg` (photographed, then screenshotted so the photo carries no location data).
 
-```
+The main screen, from top to bottom:
+
+1. The title, "Study Log".
+2. **Subject:** a drop-down menu of my subjects (for example Biology).
+3. **New subject:** a text box with an **Add subject** button next to it.
+4. The timer, large, in mm:ss (for example 25:13), with one button under it that says **Start** or **Stop**.
+5. A message area under the button (for example "Sessions under 1 minute aren't saved.").
+6. **This week (Mon–Sun):** one line per subject with its total minutes (Biology 95 min, Spanish 40 min).
+7. **Log:** one line per session, newest first: date, subject, minutes and a **Delete** button (Tue 23 Sep, Biology, 25 min).
+
+The same layout as a text sketch:
+
+```text
 +----------------------------------------------+
 |  Study Log                                   |
 |                                              |
@@ -112,7 +124,8 @@ Use these notes to check your own spec in lab Part 2.
 | One edge case per risky feature: empty and duplicate input, a too-short session, reloading, the start of a new week | AC2, AC5, AC6, AC7 | AI-built apps usually get the normal case right and the edges wrong |
 | "SHALL NOT" is used where doing nothing is the correct result | AC5, AC7 | It makes "doing nothing" something you can test |
 | The out-of-scope list names what an AI is likely to add on its own: login, charts, sync | §5 | It stops you, and the AI, from wandering. It also explains a limitation (separate logs per device) in advance |
-| Tentative answers are written next to open questions | §8 | The spec is honest about what isn't decided, but still gives a default to build |
+| Tentative answers are written next to open questions | §8 | The spec is honest about what isn't decided, but still gives a default to build. A fresh chat in the Goldfish test would ask most of these questions; here it finds the answers already written down |
+| The wireframe is described in words, top to bottom | §7 | A screen reader, a classmate and an AI can all follow a numbered list. The text sketch is extra |
 
 ### The same idea, written weakly
 

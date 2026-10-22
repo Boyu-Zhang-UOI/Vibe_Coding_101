@@ -8,7 +8,8 @@
 --   * the "anon" role (anyone who has your publishable key) is allowed to
 --     read, insert, update and delete every row.
 --
--- That is the same mistake behind the Lovable and Moltbook data leaks.
+-- That is the same mistake behind the Lovable and Moltbook data leaks, and the
+-- 16,326 Supabase databases with publicly readable tables found in September 2026.
 -- Supabase will warn you about it (for example "RLS Disabled in Public").
 -- That warning is the point of the lab: read it, then fix it with fix.sql.
 --
@@ -39,9 +40,11 @@ insert into public.guestbook (name, message, is_public) values
   ('Margaret', 'PRIVATE: please do not publish this. My (fake) email is margaret@example.com.', false);
 
 -- 4. Make the vulnerable state explicit, whatever this project's defaults are.
---    (Tables made in the Table Editor get RLS on by default. Tables made with
---    SQL do not, and newer projects no longer grant table access automatically,
---    so we switch RLS off and grant access on purpose.)
+--    Tables made in the Table Editor get RLS on by default; tables made with SQL
+--    (or by an AI agent) do not. And from 30 October 2026, Supabase no longer
+--    GRANTS the API roles access to new tables automatically. So we switch RLS
+--    off and grant access on purpose. This grant WITHOUT row-level security is
+--    exactly the mistake to avoid in your own app: never grant without RLS.
 alter table public.guestbook disable row level security;
 
 grant usage on schema public to anon, authenticated;

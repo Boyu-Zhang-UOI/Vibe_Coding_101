@@ -8,24 +8,24 @@
 
 Two things can grow in a course like this: how confident you feel, and what you can actually do. They don't always grow together. In one study, students who struggled with AI tools finished believing they had done better than they had ([Prather et al.](https://dl.acm.org/doi/10.1145/3632620.3671116)). Experienced developers in another study were 19% slower with AI but believed they were about 20% faster ([METR 2025](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)).
 
-No controlled study yet shows how much programming knowledge non-programmers need to vibe-code safely, so this course measures its own students' understanding before and after ([landscape report](../research/landscape-report-2026-09.md)). Your answers help you see your own progress, and help us improve the course.
+No controlled study yet shows how much programming knowledge non-programmers need to vibe-code safely, and there is still no semester-long trial of teaching non-programmers this way, so this course measures its own students' understanding before and after ([September landscape report](../research/landscape-report-2026-09.md); [October update](../research/landscape-update-2026-10.md)). Your answers help you see your own progress, and help us improve the course.
 
 ## When and how
 
 | | Pre-course | Post-course |
 |---|---|---|
-| **When** | Week 0 (with setup) or week 1 (the week 1 homework includes it) | Week 8, with your final submission |
+| **When** | During week 1 (it's on the week 1 checklist) | Week 8, in Studio B |
+| **Where** | On **Canvas**, the course's learning management system, as an ungraded survey | The same survey on Canvas |
 | **Time** | About 15 minutes | About 15 minutes |
-| **Format** | Paper, or a form set up by your instructor | The same questions |
 | **Graded?** | No. Completion is noted | No. Completion is noted |
 
-Keep a copy of your answers. Your final capstone reflection asks you to compare them.
+Your answers stay on Canvas, where only you and the course staff can see them. Don't put them in a repository. Your final capstone reflection asks you to compare your pre-course and post-course answers, so you can look back at them on Canvas.
 
 ---
 
 ## Part A: Confidence
 
-For each statement, circle how confident you are **right now**.
+For each statement, choose how confident you are **right now**.
 
 **Scale:** **1** I wouldn't know where to start · **2** Only with a lot of help · **3** With some help · **4** On my own, slowly · **5** On my own, and I could explain it to someone else
 
@@ -128,7 +128,7 @@ Part B is scored out of **8**: Q1 and Q4 are worth 0–2, the others 0–1.
 | **Q3** | (b) | **1** | It names a situation and an observable result. The others can't be checked. |
 | **Q4** | `app.js`, line 22: a misspelled or undefined variable (`scroe` should probably be `score`) | **2** for the file and line **and** the misspelling · **1** for one of the two · **0** otherwise | Reading an error message is one of the six skills you must show without AI. |
 | **Q5** | (b) | **1** | A revert adds a new commit that undoes the bad one, so the history is kept. |
-| **Q6** | (b) | **1** | Row-level security. A public key plus missing access rules means a public database (the Lovable and Moltbook breaches, see [case studies](../resources/case-studies.md)). |
+| **Q6** | (b) | **1** | Row-level security. A public (publishable) key plus missing access rules means a public database: in 2026 UpGuard found 16,326 Supabase databases with publicly readable tables ([case studies](../resources/case-studies.md)). |
 
 **Matching confidence items to concept checks** (for the calibration step below):
 
@@ -148,8 +148,8 @@ The goal is a simple, honest picture of what your cohort learned. It isn't a res
 
 ### Collect
 
-- Give the same survey in week 0 or 1 and in week 8. Don't hand back the answer key after the pre-course survey.
-- To compare, you need to match each student's two surveys. Use names, or let students choose a code word they write down and reuse. Store results where only staff can see them.
+- Give the same survey on Canvas during week 1 and in week 8 Studio B. Don't hand back the answer key after the pre-course survey.
+- Canvas matches each student's two surveys for you. Export the results only to places where only staff can see them, and delete the exports once grades are final. Self-assessment answers are part of the student's education record (FERPA), so they never go in a repository or a public issue.
 
 ### Analyze (a spreadsheet is enough)
 
@@ -163,9 +163,9 @@ One row per student; columns for each item, pre and post.
 
 ### Use the results
 
-- **Share an anonymous summary with the class in week 8.** Students find it motivating to see how much the group moved, and it supports the "felt versus actual" part of their final reflection.
+- **Share a class summary only with 10 or more students.** In a smaller class, averages can reveal one person's answers. With 10 or more, an anonymous summary in week 8 is motivating and supports the "felt versus actual" part of the final reflection. With fewer, compare each student's pre and post answers with that student only, privately.
 - **Revise the course.** Feed the questions that didn't move into your instructor notes for next time.
-- **Tell the maintainers.** If your institution allows it, share anonymous class-level results in an issue on the course repository. Every cohort's data helps fill the gap the research has left.
+- **Tell the maintainers.** If your institution allows it and the class had 10 or more students, share class-level totals (never individual answers) in an issue on the course repository. Every cohort's data helps fill the gap the research has left.
 
 ### Limits to keep in mind
 

@@ -1,18 +1,20 @@
-# <Project name>
+# [Project name]
 
 > One sentence: what it does and who it is for.
 
-**Live site:** <https://…> · **Demo video:** <link> · **Author:** <you>
+**Live site (production URL):** [https://…] · **Demo video:** [link] · **Author:** [your GitHub username; your real name is optional]
 
-<!-- Add a screenshot at docs/screenshot.png, then delete these comment markers:
-![Screenshot of the app](docs/screenshot.png)
+<!-- Required: a screenshot of the live site. Save it as docs/screenshot.png, describe what it shows
+in the alt text, then delete these comment markers.
+Link your production URL above, not a preview URL: Vercel deletes old preview deployments.
+![Screenshot of the app's main screen](docs/screenshot.png)
 -->
 
 ## What it does
 
-- <feature 1>
-- <feature 2>
-- <feature 3>
+- [feature 1]
+- [feature 2]
+- [feature 3]
 
 ## How to use it
 
@@ -21,16 +23,17 @@
 
 ## How it works
 
-<!-- 3–6 sentences a classmate can follow. Which files matter? Where does data go? Where do secrets live? -->
+<!-- 3–6 sentences a classmate can follow. Which files matter? Where does data go? Where do keys live? -->
 
 | Part | File(s) | What it does |
 |---|---|---|
 | Page structure | `public/index.html` | |
 | Behavior | `public/app.js` | |
 | Server route | `api/…` | |
-| Data | <localStorage / Supabase table …> | |
+| Data | [localStorage / Supabase table …] | |
+| Keys | [for example: `LLM_API_KEY` in Vercel's environment variables; the Supabase publishable key in `public/config.js`] | |
 
-**Authorization is enforced in:** <e.g. "row-level security policies on the `notes` table (see `supabase/policies.sql`)" or "n/a — single-user app, data stays in your browser">
+**Authorization is enforced in:** [for example: "row-level security policies on the `notes` table (see `supabase/policies.sql`)", or "n/a — single-user app, data stays in your browser"]
 
 ## Run it yourself
 
@@ -47,13 +50,21 @@ npm run dev
 | AC1 … | ✅ passes |
 | AC2 … | ⚠️ partly — … |
 
+## Known issues
+
+<!-- Be honest and specific. Saying clearly what doesn't work earns credit; hoping nobody notices doesn't. -->
+
+| Issue | When it happens | Workaround or plan |
+|---|---|---|
+| [for example: Long names overflow the card] | [names over 40 characters on small phones] | [wrap the text; not fixed yet] |
+
+## Next steps
+
+- [What you'd build or fix next]
+
 ## How I built it
 
-Built during Vibe Coding 101 using <tools>. See [PROMPTS.md](PROMPTS.md) for how I used AI, [TESTS.md](TESTS.md) for how I checked it, and [SECURITY_CHECKLIST.md](SECURITY_CHECKLIST.md) for the security review.
-
-## Known issues and next steps
-
--
+Built [during Vibe Coding 101, if you choose to say so] using [tools]. See [PROMPTS.md](PROMPTS.md) for how I used AI, [TESTS.md](TESTS.md) for how I checked it, and [SECURITY_CHECKLIST.md](SECURITY_CHECKLIST.md) for the security review.
 
 ## Credits
 

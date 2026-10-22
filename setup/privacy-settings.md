@@ -1,6 +1,6 @@
 # Privacy settings
 
-> Change these **before** you type anything into an AI tool. Click-paths checked 25 Sep 2026.
+> Change these **before** you type anything into an AI tool. Click-paths checked 21 Oct 2026.
 
 Most free AI tools keep what you type. Many use it to **train** future models (the model learns from your conversation), and some let **human reviewers** read samples. That's the price of a free tier. You can't always avoid it, but you can limit it.
 
@@ -8,7 +8,7 @@ Three rules cover every tool, including ones that aren't on this page:
 
 1. **Opt out of training** wherever there's a setting for it.
 2. **Use a temporary chat** for anything you'd rather not have stored.
-3. **Never paste secrets or other people's data**, into any tool, whatever its settings say. That means no API keys, passwords, tokens, `.env` files, or personal information about other people (safety contract [rule 2](safety-contract.md)).
+3. **Never paste secrets or other people's data**, into any tool, whatever its settings say. That means no API keys, passwords, tokens, `.env` files, or personal information about other people (safety contract [rule 2](safety-contract.md#2-i-never-paste-secrets-or-other-peoples-data-into-an-ai-tool)).
 
 > [!NOTE]
 > **Menus move.** AI companies redesign their settings pages often. If you can't find a setting named here, ask the assistant itself ("Where is the setting that stops my chats being used for training?") or search the company's help pages. If a click-path here is wrong, please tell your instructor so it can be fixed.
@@ -27,7 +27,7 @@ Three rules cover every tool, including ones that aren't on this page:
 | [Groq and OpenRouter](#groq-and-openrouter) | Groq: no. OpenRouter: depends on the model's provider | Review OpenRouter's privacy settings | Not applicable |
 
 > [!WARNING]
-> **Shared chat links are public.** In this course you often paste a share link to a chat into `PROMPTS.md`. Anyone with that link can read the whole conversation. Before you share, scroll through and check it contains nothing personal and no keys.
+> **Shared chat links are public.** In this course you record the prompts that mattered in `PROMPTS.md`, either by copying the prompt in or, where a tool lets you, by pasting a share link to the chat. Anyone with that link can read the whole conversation. Before you share, scroll through and check it contains nothing personal and no keys.
 
 ## ChatGPT
 
@@ -56,7 +56,7 @@ Three rules cover every tool, including ones that aren't on this page:
 **Change this setting.** On [gemini.google.com](https://gemini.google.com/), open **Settings & help** (bottom left) → **Activity** → **Keep activity** → **Turn off**. You can also choose to delete your past activity at the same time.
 
 > [!NOTE]
-> **The trade-off.** With Keep Activity off, Gemini doesn't keep your chat history, so you can't reopen yesterday's chat or share a link to it. Copy the prompts you want to keep into your `PROMPTS.md` as you go. If you'd rather keep your history, leave Keep Activity on, keep everything you type course-only and impersonal, and use **temporary chats** for anything else. Either choice meets the safety contract.
+> **The course setting: keep it off.** With Keep Activity off, Gemini doesn't keep your chat history, so you can't reopen yesterday's chat or share a link to it. That's the trade-off, and the course accepts it. Copy each prompt that mattered (and the final code, before you close the tab) into your `PROMPTS.md` as you go. Where a lab says "save your chat", this is what it means for Gemini.
 
 **Temporary chats.** Click the **Temporary chat** icon next to **New chat**. Temporary chats don't appear in your history and aren't used to train Google's models. Google still keeps them for a short time to run the service.
 
@@ -66,7 +66,7 @@ Three rules cover every tool, including ones that aren't on this page:
 
 **What's collected by default.** GitHub uses "interaction data" from Copilot Free, Pro and Pro+ to train AI models by default. That means your prompts, Copilot's suggestions, and the code around your cursor ([GitHub blog: Copilot interaction data policy](https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/)). GitHub's FAQ suggests that students who get Copilot through GitHub Education are excluded, but the policy doesn't say so clearly, so turn the setting off anyway if you see it.
 
-**Change this setting.** On github.com: profile photo → **Settings** → **Copilot** (left sidebar) → find the setting that allows GitHub to use your data for AI model training → **Disabled**. This one setting covers Copilot everywhere you use it: Codespaces, VS Code on your laptop, and Copilot CLI in the terminal.
+**Change this setting.** On github.com: profile photo → **Settings** → **Copilot** (left sidebar) → **Features** (or go straight to [github.com/settings/copilot/features](https://github.com/settings/copilot/features)) → find the setting that allows GitHub to use your data for AI model training → **Disabled**. This one setting covers Copilot everywhere you use it: Codespaces, VS Code on your laptop, and Copilot CLI in the terminal.
 
 While you're on that page, you can also set **Suggestions matching public code** to **Block**. Copilot will then avoid suggesting code that copies public code word for word.
 
@@ -90,11 +90,11 @@ In the **EEA, the UK and Switzerland**, Google applies its paid-service data ter
 **Also check.**
 
 - AI Studio is for adults only (18+).
-- Your **API key is a password.** Keep it in a `.env` file or a Codespaces secret ([how](codespaces.md#keep-secrets-in-codespaces-secrets)). Never commit it, paste it into a chat, or put it in front-end code. Delete keys you no longer use from AI Studio's API keys page.
+- Your **API key is a password.** Keep it in a `.env` file or a Codespaces secret ([how](codespaces.md#keep-secrets-in-codespaces-secrets)). Never commit it, paste it into a chat, or put it in front-end code. Delete keys you no longer use from AI Studio's API keys page. (Not every key is a secret: in week 7 you'll meet one that is public by design, the Supabase *publishable* key. AI API keys are always secret.)
 
 ## Browser app builders (Bolt, Lovable, v0, Replit)
 
-**What's collected by default.** The research behind this course couldn't confirm each builder's training settings for free accounts. v0 lists "training opt-out by default" as a feature of its paid Business plan, which suggests that free-plan data may be used for training ([v0 pricing](https://v0.app/pricing)). Assume the same of every builder unless its settings say otherwise. Some builders also make free projects **public**, or show them in a community gallery.
+**What's collected by default.** The research behind this course couldn't confirm each builder's training settings for free accounts. v0 lists "training opt-out by default" as a feature of its paid Business plan, which suggests that free-plan data may be used for training ([v0 pricing](https://v0.app/pricing)). Assume the same of every builder unless its settings say otherwise. Some builders also make free projects **public**, or show them in a community gallery. And platforms have flaws of their own: in 2026 a missing check in one builder's project API let any free account read other users' source code, database keys and AI chat history ([Sable Offensive Research](https://dev.to/alejandxr/lovable-bola-48-days-five-api-calls-source-code-database-credentials-of-other-peoples-projects-4ai0)).
 
 **Change this setting.** No opt-out on the free tiers that we could confirm, so **never paste personal or secret data**. Two things you can do:
 
@@ -115,7 +115,7 @@ In the **EEA, the UK and Switzerland**, Google applies its paid-service data ter
 
 **Also check.** Antigravity is an **agent**: it can read and change files and run commands on your own computer. In one reported case, an agent asked to clear a cache wiped a user's entire drive ([Tom's Hardware](https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part)).
 
-- In Settings, find the options that control whether the agent runs terminal commands automatically, and choose the ones that **ask you first**.
+- **Approvals on, always.** In Settings, find the options that control whether the agent runs terminal commands automatically, and choose the ones that **ask you first**. Never turn on a mode that lets it act without asking (safety contract [rule 9](safety-contract.md#9-agents-dont-publish-and-untrusted-content-never-shares-a-session-with-my-secrets)).
 - Open only a single project folder, never your home folder or a whole drive.
 - Commit before and after every agent task (safety contract rule 3).
 
@@ -158,6 +158,7 @@ Before you use a tool that isn't on this page, spend two minutes answering:
 - [ ] Can people (reviewers, or the public) see my chats or projects?
 - [ ] Does it have a temporary or incognito mode?
 - [ ] What is its minimum age, and is it available where I live?
+- [ ] Does it store my API keys on its own servers? If it offers a hosted "console" for your keys, prefer keeping them in your own environment variables: in October 2026 an intruder reached one coding tool's hosted console and ran up charges on users' stored AI keys ([TechCrunch](https://techcrunch.com/2026/10/19/hackers-hit-ai-coding-tool-opencode-running-up-charges-on-users-ai-accounts/)).
 - [ ] Where is the data stored? (For example, the course doesn't require DeepSeek, which stores data in China and is banned on government devices in several countries: [TechCrunch](https://techcrunch.com/2025/02/03/deepseek-the-countries-and-agencies-that-have-banned-the-ai-companys-tech).)
 
 If you can't find the answers, treat the tool as public: nothing personal, nothing secret.

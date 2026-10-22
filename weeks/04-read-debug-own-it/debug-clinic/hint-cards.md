@@ -1,7 +1,7 @@
 # Debug Clinic hint cards
 
 > Read **one hint at a time**, and only after you've been stuck for 10 minutes. Each hint you read costs 3 bounty points. Try the hint for a few minutes before reading the next one.
-> The hints never give you the fix. After hint 3, if you're still stuck, you may use 🟡 tutor mode (see the [README](README.md#the-rules)).
+> The hints never give you the fix. After hint 3, if you're still stuck, you may use 🟡 AI limited: tutor mode (see the [README](README.md#the-rules)).
 > Instructors: these can be printed and cut into strips.
 
 ---

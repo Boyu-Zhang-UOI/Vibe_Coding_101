@@ -3,6 +3,8 @@
 <!--
 Instructions for AI coding assistants and agents working in this repository.
 Keep this file SHORT. Humans: see README.md.
+This file is advice, not enforcement: an agent can ignore it. What actually protects
+you is the Codespace, approval prompts (keep them on), and keeping keys out of the repo.
 -->
 
 ## Project
@@ -17,12 +19,17 @@ A small web app: the visitor types a question, the server route `/api/ask` sends
 - `lib/`: server-only code: `llm.js` (AI provider call), `prompt.js` (system prompt), `validate.js` (input checks). Never import these from `public/`.
 - `tests/*.test.js`: Node's built-in test runner. Tests must not use the network or a real key; stub `fetch`.
 
+## Scope
+
+- You may edit only: `public/`, `api/`, `lib/`, `tests/`.
+- Ask before you delete, move or rename files, install anything, or make network requests.
+
 ## Commands
 
 - `npm run dev`: local server on port 3000 (restart after changing `.env`, `api/` or `lib/`)
 - `npm test`: run all tests
 - `npm run models`: list model IDs for the configured provider
-- `npm run check:secrets`: scan the repo for secrets
+- `npm run check:secrets`: scan the files and the whole git history for keys
 
 ## How to work with me
 

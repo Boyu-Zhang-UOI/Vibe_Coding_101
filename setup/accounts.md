@@ -2,21 +2,22 @@
 
 > Which accounts you need, when you need them, and how to keep them safe.
 
-You don't need every account on day one. In week 0 you create a **Google** account and a **GitHub** account (plus, optionally, a second chat assistant). The rest you create in the week that uses them. Every account in this course is free. None of them needs a credit card to earn full marks.
+You don't need every account on day one. Before Studio 1 you create a **Google** account and a **GitHub** account (plus, optionally, a second chat assistant), and you check that you can sign in to **Canvas**, the course's learning management system. The rest you create in the week that uses them. Every account in this course is free. None of them needs a credit card to earn full marks.
 
 ## Which accounts, and when
 
 | Account | Needed? | Create it in | Used in | Notes |
 |---|---|---|---|---|
-| **Personal Google account** | Required | Week 0 | Weeks 1–3: Gemini with Canvas. Week 3: Google AI Studio *Build*. Weeks 5–8: a Gemini API key | Personal, not school or work (see [below](#keep-course-accounts-separate-from-work-and-school)) |
+| **Canvas** (your university sign-in) | Required | Before Studio 1 | Every week: submitting private work (the safety contract, self-assessments, reflections, your AI journal, written peer reviews) | Your instructor sends the link. Graded personal writing goes here, never in a public repository |
+| **Personal Google account** | Required | Week 0 | Weeks 1–3: Gemini, with its Canvas tool for live previews. Week 3: Google AI Studio *Build*. Weeks 5–8: a Gemini API key | Personal, not school or work (see [below](#keep-course-accounts-separate-from-work-and-school)) |
 | **GitHub** | Required | Week 0 | Every week: repositories, GitHub Pages, github.dev, Codespaces, GitHub Copilot | Your username is part of your portfolio address |
-| **GitHub Education** | Recommended for students | Week 0 (verification can take days) | Weeks 4–8: GitHub Copilot Student | Apply at [education.github.com](https://education.github.com/) |
+| **GitHub Education** | Recommended for students | Week 0 or early in week 1 (verification can take days) | Weeks 4–8: GitHub Copilot Student | Apply at [education.github.com](https://education.github.com/) |
 | **ChatGPT** | Recommended | Week 0 or 1 | Weeks 1–3: fallback chat assistant; week 2: your second assistant for the two-model comparison | Free plan |
 | **Claude** | Optional | Week 0 or 1 | Weeks 1–3: fallback chat assistant with Artifacts (live previews) | **18+ only** |
 | **Bolt** | Recommended | Week 3 | Week 3: the fallback app builder in the bake-off | Free plan |
 | **Lovable, v0, Replit** | Optional | Week 3 | Week 3: one short session each, to see what free credits buy | Free plans |
 | **Google Antigravity** | Optional | Week 4 or later | Weeks 4–8: fallback editor and agent | **18+ only**; uses your personal Google account |
-| **Vercel** (Hobby plan) | Required | Week 5 | Weeks 5–8: hosting apps that have a server part | Sign up **with GitHub**, on your personal account |
+| **Vercel** (Hobby plan) | Required | Week 5 | Weeks 5–8: hosting apps that have a server part | Sign up **with GitHub**, on your personal account. Keep project repositories in your personal account too: the free plan can't deploy private repositories owned by an organization |
 | **Groq** | Required for week 5's provider-swap drill | Week 5 | Weeks 5–8: fallback LLM API (the primary one for EEA, UK and Swiss cohorts) | No card needed |
 | **OpenRouter**, **Cloudflare** | Optional | Week 5 or later | More fallback LLM APIs; Cloudflare is also fallback hosting | See [TOOLS.md](../TOOLS.md) |
 | **Supabase** | Required for the week 7 lab | Week 7 | Weeks 7–8: database and sign-in for your capstone, if it stores shared data | Sign up **with GitHub** |
@@ -34,14 +35,14 @@ AI tools have different minimum ages, and some can't be used in some regions. As
 - **13+ (with parental consent for ChatGPT):** the Gemini app and ChatGPT.
 - **Regions:** the Gemini API's free tier must not be used for apps that serve people in the European Economic Area (EEA), the UK or Switzerland. Several student offers are for one country only.
 
-[TOOLS.md](../TOOLS.md) has the current rules for every tool. If you're under 18, or you live in the EEA, UK or Switzerland, tell your instructor in week 1. The course has an adjusted tool list for both cases: [instructor/variants.md](../instructor/variants.md).
+[TOOLS.md](../TOOLS.md) has the current rules for every tool. If you're under 18, or you live in the EEA, UK or Switzerland, tell your instructor **before Studio 1**. The course has an adjusted tool list for both cases: [instructor/variants.md](../instructor/variants.md).
 
 > [!WARNING]
 > Don't give a false age to get into a tool. Terms of service are a contract, and the course works without the adult-only tools.
 
 ## Security hygiene
 
-Your GitHub account will hold your portfolio, and later in the course some accounts will hold API keys (secret passwords that let a program use a paid service). A stolen account can cost you your work or someone else's money. Four habits prevent almost all of it.
+Your GitHub account will hold your portfolio, and later in the course some accounts will hold API keys (secret passwords that let a program use a paid service). A stolen account can cost you your work or someone else's money. Five habits prevent almost all of it.
 
 ### 1. Use a password manager
 
@@ -72,18 +73,26 @@ Phishing means a fake email or page that tries to get your password.
 - **GitHub:** Settings → **Applications** lists every app you've given access to. Revoke the ones you don't use.
 - **API keys:** delete keys you've stopped using, and all course keys when the course ends. If a key was ever pasted into a chat or committed to a repository, **revoke it and make a new one** (safety contract rule 2).
 
+### 5. Cap anything that can spend money
+
+Safety contract [rule 4](safety-contract.md#4-i-keep-agents-contained) says every key that can spend money has a **hard spending cap**: a limit that cuts the service off, not a warning email.
+
+- On the course's free tiers, the simplest cap is to have **no payment method** on the account. GitHub Codespaces, for example, is blocked, not billed, when the free quota runs out if you have no card on file.
+- If you ever add a card (say, a one-time top-up on an LLM API), set the lowest hard limit the service offers, and turn off automatic top-ups.
+- Stolen AI keys are worth money to attackers, and in 2026 malware started looking for them specifically ([Wiz](https://www.wiz.io/blog/litellm-compromised-steals-credentials)). A cap limits the damage if a key leaks.
+
 Also on GitHub, under Settings → **Emails**, tick **Keep my email addresses private**. Commits (save points) record an email address, and in a public repository anyone can read it. With this setting on, GitHub uses a private "noreply" address instead.
 
 ## Student offers
 
-Some companies offer students a paid plan free for a while. The current offers, who qualifies and their deadlines are in [TOOLS.md](../TOOLS.md#student-offers-check-eligibility).
+Some companies offer students a paid plan free for a while. The current offers, who qualifies and their deadlines are in [TOOLS.md](../TOOLS.md#student-offers-check-eligibility). Some offers are new and not yet tested by the course; TOOLS.md says which.
 
 - **None of them is needed** for this course or for full marks.
 - **Read the terms before you claim.** Several offers need a payment method and **renew automatically** at the full price when the free period ends.
 - **If you claim one, set a calendar reminder** a week before it renews. Cancel then if you don't want to pay, and screenshot the cancellation confirmation.
 - Don't claim offers you won't use. A free period usually starts when you claim it, so if the deadline allows, time it to the weeks it would help most (the agent weeks, 6–8).
 
-The one offer most useful for this course is **GitHub Education** (Copilot Student), which doesn't auto-renew into a paid plan. Apply in week 0.
+The one offer most useful for this course is **GitHub Education** (Copilot Student), which doesn't auto-renew into a paid plan. Apply before Studio 1 if you can, and by the end of week 1 at the latest.
 
 ## Keep course accounts separate from work and school
 
@@ -97,6 +106,7 @@ Keep the course, and the AI tools in it, away from anything that belongs to your
 
 ## Checklist
 
+- [ ] I can sign in to Canvas
 - [ ] Personal Google account (not school or work)
 - [ ] GitHub account with a professional username
 - [ ] Two-factor authentication on Google and GitHub, with recovery codes saved in a password manager

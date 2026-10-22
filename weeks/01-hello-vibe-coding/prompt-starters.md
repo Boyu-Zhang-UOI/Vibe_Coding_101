@@ -1,6 +1,6 @@
 # Week 1 — Prompt starters
 
-Copy a prompt, replace everything in `[square brackets]`, and send it. Every prompt uses the four parts you'll study in week 2: **Goal · Context · Constraints · Done when**.
+Copy a prompt, replace everything in `[square brackets]`, and send it. Every prompt uses the four parts you'll study in week 2: **Goal · Context · Constraints · Done when**. All of them are 🟢 AI on.
 
 > [!WARNING]
 > Your page will be public. Use a first name or nickname only. Never put your surname, email, phone number, address, or anything about other people into a prompt or onto the page.
@@ -106,6 +106,28 @@ Which lines of code make [the thing I see on the page]? Quote them and explain e
 What would happen if I changed [this line] to [this]? Predict it, then tell me how I can check.
 ```
 
+## The three habits
+
+Add these to any prompt. You practice them in Studio B ([lab Part B2](lab.md#part-b2--practice-the-three-habits-25-min)).
+
+**1. Ask me questions first.** Put this before the Goal, or at the end of Constraints:
+
+```text
+Before you write any code, ask me up to 5 questions about what I want, one at a time, and wait for each answer. Then summarize my answers in 3 bullet points and wait for me to say "go".
+```
+
+**2. Show, don't describe.** Attach a cropped photo of a sketch you drew, or a screenshot of your own page with the problem circled:
+
+```text
+The attached picture shows [a sketch of the layout I want / my page at phone size, with the problem circled]. [Follow the arrangement in the sketch. / Explain what causes the problem, then suggest the smallest fix.]
+```
+
+**3. Say what works before asking for a change.** Start the prompt with:
+
+```text
+Before you change anything: [the parts that work, e.g. the heading, the colors, the button and my hand-made changes] all work. Keep them exactly as they are.
+```
+
 ## Fixing prompts
 
 When something goes wrong, give the AI the three facts it can't see:
@@ -133,4 +155,4 @@ Done when: [Exact, checkable result.]
 | "Make it better." | The AI guesses what "better" means and changes everything | Name one thing: "Make the heading bigger and the background calmer." |
 | "Use React" or "Use Tailwind." | Adds tools and a build step you can't publish by uploading one file | "One HTML file, no frameworks, no libraries." |
 | "Add a login" or "Add a contact form that emails me." | Needs a server; a single file can't do this safely | Leave it out. Servers come in week 5. |
-| "Make it look like [famous site]." | Copies someone else's design and may add their images | Describe the feel: "clean, lots of white space, bold headings." |
+| "Make it look like [famous site]." | Copies someone else's design and may add their images | Show your own sketch of the layout (habit 2), and describe the feel: "clean, lots of white space, bold headings; my own words and colors, no copied images." |

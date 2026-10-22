@@ -5,7 +5,17 @@
 
 The patterns are not magic words. They work because they make you do the thinking that good results depend on: saying what "done" means, keeping changes small, and checking the AI's work. One study found that learners who asked the AI for explanations, or asked only conceptual questions and fixed errors themselves, learned far more than learners who handed everything over ([Anthropic, 2026](https://www.anthropic.com/research/AI-assistance-coding-skills)).
 
-**On this page:** [Quick index](#quick-index) · [The patterns](#the-patterns) · [Anti-patterns](#anti-patterns) · [Where these come from](#where-these-come-from)
+**On this page:** [The three habits](#the-three-habits) · [Quick index](#quick-index) · [The patterns](#the-patterns) · [Anti-patterns](#anti-patterns) · [Where these come from](#where-these-come-from)
+
+---
+
+## The three habits
+
+Use these three from week 1, with any assistant. They come from what students in a large 2026 beginner course said helped them most ([CMU 15-113 "Student Wisdom, Fall 2026"](https://www.cs.cmu.edu/~113/bestPracticesF26.html)), and experienced developers describe the same habits ([Hacker News discussion](https://news.ycombinator.com/item?id=49934037)).
+
+1. **Ask me questions first.** Before the AI builds anything, ask it to ask you clarifying questions, one at a time. Its guesses become your decisions. ([Pattern 4](#4-ask-me-questions-first))
+2. **Show, don't describe.** Give it a picture or a reference: a photo of your sketch, a screenshot of a page you like, an example of the output you want. It was the most-cited practice on every CMU assignment. ([Pattern 13](#13-screenshot-and-wireframe-prompts))
+3. **Say what works before asking for a change.** List what already works and must keep working, so the AI doesn't break it while fixing something else. ([Pattern 15](#15-say-what-works-first))
 
 ---
 
@@ -16,7 +26,7 @@ The patterns are not magic words. They work because they make you do the thinkin
 | 1 | [The four-part prompt](#1-the-four-part-prompt) | You ask for anything non-trivial | Week 2 |
 | 2 | [Plan first](#2-plan-first) | A change touches more than one thing | Week 2 |
 | 3 | [One step at a time](#3-one-step-at-a-time) | You're working through a plan | Week 2 |
-| 4 | [Ask me questions first](#4-ask-me-questions-first) | Your idea is still fuzzy | Week 3 |
+| 4 | [Ask me questions first](#4-ask-me-questions-first) | Your idea is still fuzzy | Week 1 |
 | 5 | [Explain this code](#5-explain-this-code) | You can't explain a line you're about to keep | Week 1 |
 | 6 | [The good bug report](#6-the-good-bug-report) | Something is broken | Week 2 |
 | 7 | [Review my diff](#7-review-my-diff) | Before you commit a change you didn't write | Week 4 |
@@ -25,8 +35,12 @@ The patterns are not magic words. They work because they make you do the thinkin
 | 10 | [Compare two approaches](#10-compare-two-approaches) | There's more than one way to do it | Week 2 |
 | 11 | [Rubber duck](#11-rubber-duck) | You want to find the bug yourself | Week 4 |
 | 12 | [Fresh-chat handoff summary](#12-fresh-chat-handoff-summary) | A chat has become long or confused | Week 2 |
-| 13 | [Screenshot and wireframe prompts](#13-screenshot-and-wireframe-prompts) | Layout matters more than words | Week 3 |
+| 13 | [Screenshot and wireframe prompts](#13-screenshot-and-wireframe-prompts) | Layout matters more than words | Week 1 |
 | 14 | [Tutor mode](#14-tutor-mode) | You want to learn, not just get an answer | Week 4 |
+| 15 | [Say what works first](#15-say-what-works-first) | You're asking for a change to something that mostly works | Week 1 |
+| 16 | [Check-first test prompt](#16-check-first-test-prompt) | You need a test before the code exists | Week 4 |
+| 17 | [Teach-back check](#17-teach-back-check) | You've written your teach-back and want it checked | Week 4 |
+| 18 | [The Goldfish test](#18-the-goldfish-test) | You think your SPEC.md or AGENTS.md is finished | Week 3 |
 
 ---
 
@@ -85,7 +99,7 @@ Then stop. Don't start step 3 until I tell you the tests pass.
 
 ### 4. Ask me questions first
 
-**Use it when:** your idea is still fuzzy, or you're starting a spec.
+**Use it when:** your idea is still fuzzy, you're starting a spec, or you're about to ask for a first version of anything. This is [habit 1](#the-three-habits).
 
 **Why it works:** the AI fills gaps with guesses. Letting it interview you surfaces those gaps before they become code. Practitioners use exactly this: an LLM asking one question at a time to hone an idea ([Harper Reed](https://harper.blog/2025/02/16/my-llm-codegen-workflow-atm/)), or letting the agent interview you before writing a spec ([Claude Code best practices](https://code.claude.com/docs/en/best-practices)).
 
@@ -97,7 +111,7 @@ Then summarize what you understood in 5 bullet points so I can correct it.
 ```
 
 > [!NOTE]
-> 🟡 In week 3 the AI may interview you and critique your spec, but you write `SPEC.md` yourself ([AI use policy](../SYLLABUS.md#8-ai-use-policy)).
+> 🟡 AI limited: in week 3 the AI may interview you and critique your spec, but you write `SPEC.md` yourself ([AI use policy](../SYLLABUS.md#8-ai-use-policy)).
 
 **Common mistake:** answering "whatever you think is best". Each answer is a decision about *your* project. If you don't know, say so, and ask the AI for two options with trade-offs ([pattern 10](#10-compare-two-approaches)).
 
@@ -143,7 +157,7 @@ Constraints: Explain the cause in plain English first, then suggest a fix. Chang
 
 **Use it when:** before you commit a change the AI wrote, especially an agent's. It adds a second pair of eyes to the Read step; it doesn't replace your own reading.
 
-**Why it works:** AI code is often "almost right", the top frustration of developers in Stack Overflow's 2025 survey ([Stack Overflow 2025](https://survey.stackoverflow.co/2025/ai)). A reviewer that didn't write the code is less likely to defend it, so Anthropic's guide suggests reviewing in a fresh session ([Claude Code best practices](https://code.claude.com/docs/en/best-practices)).
+**Why it works:** AI code is often "almost right", the top frustration of developers in Stack Overflow's 2025 survey ([Stack Overflow 2025](https://survey.stackoverflow.co/2025/ai)). In the 2026 survey, only 6.6% of developers trusted AI for important decisions, and about 48% trusted it only when they could easily check the answer ([Stack Overflow 2026](https://stackoverflow.co/company/press/archive/stack-overflow-annual-developer-survey-ai-trust-conditional)). A reviewer that didn't write the code is less likely to defend it, so Anthropic's guide suggests reviewing in a fresh session ([Claude Code best practices](https://code.claude.com/docs/en/best-practices)).
 
 Get the diff with `git diff` (before you commit) or `git show` (your last commit). Then, in a **fresh chat** or a different assistant:
 
@@ -164,7 +178,7 @@ Don't rewrite the code. Point to specific lines.
 
 ### 8. Write a failing test first (red/green)
 
-**Use it when:** you're adding a feature or fixing a bug, especially with an agent (week 6 onward).
+**Use it when:** you're adding a feature or fixing a bug, especially with an agent (week 6 onward). This is the agent version of [check first](safe-loop.md#check-first): the test comes before the implementation, in its own prompt. In weeks 4–5, or when you want the test written by something that has never seen the code, use the [check-first test prompt](#16-check-first-test-prompt).
 
 **Why it works:** a test that fails first (red) and then passes (green) proves the test checks something real and that the change fixed it. Simon Willison recommends red/green test-driven development with agents ([Agentic Engineering Patterns](https://simonwillison.net/guides/agentic-engineering-patterns/)), and Anthropic's guide says to give the agent a way to verify its own work and to ask for evidence rather than claims ([Claude Code best practices](https://code.claude.com/docs/en/best-practices)). An agent has produced false test results before ([Fortune](https://fortune.com/2025/07/23/ai-coding-tool-replit-wiped-database-called-it-a-catastrophic-failure/)).
 
@@ -260,7 +274,7 @@ In the new chat, paste the summary, then the **current** version of the file tha
 
 ### 13. Screenshot and wireframe prompts
 
-**Use it when:** layout matters more than words: building a screen from your [wireframe](glossary.md#wireframe), or showing a visual bug. Most chat assistants accept images; check that yours does.
+**Use it when:** layout matters more than words: building a screen from your [wireframe](glossary.md#wireframe), matching a style you like, or showing a visual bug. Most chat assistants accept images; check that yours does. This is [habit 2](#the-three-habits): show, don't describe.
 
 **From a wireframe:**
 
@@ -269,6 +283,15 @@ Goal: Build the layout of my main screen from the attached photo of my wireframe
 Context: This is the wireframe from my SPEC.md. The labels on the sketch are the real button texts.
 Constraints: HTML and CSS only, no JavaScript yet. Use simple class names I can read. It must work on a phone screen.
 Done when: Every box on the sketch is on the page in the same arrangement, and nothing extra has been added.
+```
+
+**From a reference** (a screenshot of a page whose look you like):
+
+```text
+Goal: Restyle my home page using the attached screenshot as a reference for layout and spacing.
+Context: My page is a single index.html with the CSS in a <style> tag. The screenshot is someone else's site.
+Constraints: Borrow the layout ideas only: a wide header, a two-column projects grid, lots of white space. Don't copy their text, images, logo or colors. Keep my content.
+Done when: My page has the same overall arrangement as the reference, with my own words and colors, and still works at phone width.
 ```
 
 **For a visual bug:**
@@ -285,7 +308,7 @@ Explain the cause first, then suggest the smallest fix.
 
 ### 14. Tutor mode
 
-**Use it when:** you want to learn something, not just get it done. For example, you're stuck on a Debug Clinic bug after ten minutes of trying (🟡 the only AI allowed there), or practicing for an oral walkthrough.
+**Use it when:** you want to learn something, not just get it done. For example, you're stuck on a Debug Clinic bug after ten minutes of trying (🟡 AI limited: tutor mode is the only AI allowed there), or practicing for an oral walkthrough.
 
 **Why it works:** in a large trial, students with an unrestricted chatbot did better in practice but worse on the exam, without noticing. A tutor that only gave hints avoided that harm ([Bastani et al., PNAS](https://www.pnas.org/doi/10.1073/pnas.2422633122)). Harvard's CS50 uses a hint-giving tutor for the same reason ([Liu et al.](https://cs.harvard.edu/malan/publications/V1fp0567-liu.pdf)).
 
@@ -299,6 +322,83 @@ Give me a hint, not the answer.
 ```
 
 **Common mistake:** "just tell me the answer", or quietly switching to a normal chat. That turns the tutor back into the thing the research warns about. If a hint doesn't help, ask for a smaller one, or ask the instructor.
+
+### 15. Say what works first
+
+**Use it when:** you're asking for a change to something that mostly works: a new feature, a style change, or a fix for one bug. This is [habit 3](#the-three-habits).
+
+**Why it works:** when an AI changes code, it can quietly rewrite parts you didn't mention. Telling it what already works tells it what to protect, and gives you a list to re-test afterwards. Students in a 2026 beginner course named this as one of their most useful practices ([CMU F26 report](https://www.cs.cmu.edu/~113/bestPracticesF26.html)).
+
+```text
+What works now and must keep working: adding an item, the delete button on each item, and the list surviving a reload.
+Change I want: a "clear all" button above the list that asks me to confirm first.
+Constraints: Don't change how adding or deleting works. Change as few lines as you can.
+Before you write any code, tell me which of the working features your change could affect, and how.
+```
+
+**Common mistake:** listing what works but not checking it afterwards. After the change, test every item on your "works now" list again, not only the new feature. If one broke, that's a bug report ([pattern 6](#6-the-good-bug-report)), not a reason to start over.
+
+### 16. Check-first test prompt
+
+**Use it when:** you're about to ask for a feature or a fix and need its check first, from week 4 onward. This is the [check first](safe-loop.md#check-first) habit of the Safe Loop.
+
+**Why it works:** tests written by an AI that has already seen faulty code tend to agree with the faults. In one 2026 study, tests written after buggy code caught 14% of the faults, against 25% for tests written independently ([Konstantinou et al.](https://arxiv.org/abs/2607.05139)). So the test-writer gets the criterion and the function's name, **not** the code. Use a **separate prompt**: a fresh chat, or a new Copilot Chat session, before you ask for the implementation.
+
+```text
+Goal: Write ONE automated test for this acceptance criterion, before the code exists.
+Criterion: WHEN I add an item whose text is only spaces, THE APP SHALL leave the list unchanged.
+Context: The function will be addItem(list, text) in public/lib/list.js. It takes an array of strings and returns a new array. Tests use Node's built-in runner (node --test) and live in tests/list.test.js.
+Constraints: You haven't seen the code and shouldn't ask for it. Test only this criterion. Use plain assert, no libraries. Add a one-line comment saying what the test checks.
+Done when: The test file runs with node --test, and it would fail if addItem added the item.
+```
+
+Then run the test **before** you ask for the code. It should fail (red), or report that `addItem` doesn't exist yet. Only then write the implementation prompt ([pattern 8](#8-write-a-failing-test-first-redgreen) shows the agent version).
+
+**Common mistake:** pasting the test prompt into the same chat that will write (or already wrote) the code. The point is that the test doesn't know the code. Second mistake: accepting a test you can't read. Before you keep it, say in one sentence what input it uses and what result it expects.
+
+### 17. Teach-back check
+
+**Use it when:** you've written your [teach-back](safe-loop.md#teach-back) for a change and want to know whether it matches what the code actually does. Write the teach-back **first**, yourself; this prompt only checks it.
+
+**Why it works:** explaining code in your own words before you accept it is what protected learners when the AI was taken away: 39% failed a no-AI maintenance task with an explanation step, against 77% without one ([Sankaranarayanan](https://arxiv.org/abs/2602.20206)). A check against the diff catches the parts you explained wrongly or skipped.
+
+```text
+I'm about to commit the change in this diff. Below the diff is my own explanation of it.
+Check my explanation against the diff. Don't rewrite my explanation and don't change the code.
+Tell me:
+1. Anything I said that the diff doesn't actually do
+2. Any change in the diff that I didn't mention
+3. One question an examiner could ask me about this change that my explanation doesn't answer
+Then stop. I'll fix my explanation myself.
+
+Diff:
+[paste the output of git diff]
+
+My explanation:
+[paste your 2–3 sentences]
+```
+
+**Common mistake:** asking the AI to "improve" your teach-back and pasting its version into `PROMPTS.md`. The teach-back is graded because it's yours. Fix your own sentences, and if point 3 stumps you, find the answer in the code before you commit.
+
+### 18. The Goldfish test
+
+**Use it when:** you think your `SPEC.md` (week 3) or `AGENTS.md` (week 6) is finished.
+
+**Why it works:** a goldfish, the story goes, forgets everything in seconds. A fresh chat is the same: it knows nothing about your project except what you paste. If it can't understand and build from your document alone, the document is leaning on things that live only in your head or in an old chat. The test comes from a 2026 University of Michigan course ([EGM README](https://github.com/eecs498-aase/materials/blob/HEAD/egm/README.md)), and writing skill turns out to predict how well students vibe code ([Thorgeirsson et al.](https://arxiv.org/abs/2603.14133)).
+
+**How:** open a **fresh chat** (a temporary chat if your assistant remembers past conversations). Paste **only** the document, then:
+
+```text
+The document above is everything you know about this project. Don't build anything yet.
+1. In 5 bullets, say what you would build from it.
+2. List every question you'd need answered before you could build it without guessing.
+3. Point out anything vague, missing or contradictory, quoting the line.
+4. Name the 3 things you would most likely get wrong if you started now.
+```
+
+Write down what it asked or got wrong (in `PROMPTS.md`, or the place your lab says), then revise the document so a fresh chat wouldn't need to ask. Run the test again on the revised version if you have time.
+
+**Common mistake:** answering the chat's questions in the chat. That fixes the chat, not the document. Every answer belongs in `SPEC.md` or `AGENTS.md`. For `AGENTS.md`, add one more question: "Which folders may you change, and what must you ask me before doing?" If it can't answer from the Scope section, revise Scope.
 
 ---
 
@@ -337,7 +437,7 @@ Here's my .env file, why doesn't my key work?
 LLM_API_KEY=...
 ```
 
-Anything you paste can be stored, read by reviewers and used for training ([safety contract rule 2](../setup/safety-contract.md)). **Instead:** describe it without the value: "My `.env` has `LLM_API_KEY` set, with no quotes or spaces, and I restarted the server after editing it." Replace real values with placeholders such as `<MY_KEY>`. If you've already pasted a key: [revoke it now](troubleshooting.md#i-committed-a-secret).
+Anything you paste can be stored, read by reviewers and used for training ([safety contract rule 2](../setup/safety-contract.md)). **Instead:** describe it without the value: "My `.env` has `LLM_API_KEY` set, with no quotes or spaces, and I restarted the server after editing it." Replace real values with placeholders such as `[MY_KEY]`. If you've already pasted a key: [revoke it now](troubleshooting.md#i-committed-a-secret).
 
 ### Arguing with a confused chat
 
@@ -357,6 +457,10 @@ These patterns combine vendor guides, practitioners and education research. The 
 - Plan first, verify with evidence, fresh sessions, two failed corrections: [Claude Code best practices](https://code.claude.com/docs/en/best-practices)
 - Red/green testing: [Willison, Agentic Engineering Patterns](https://simonwillison.net/guides/agentic-engineering-patterns/)
 - Interview-style spec building: [Harper Reed](https://harper.blog/2025/02/16/my-llm-codegen-workflow-atm/)
+- The three habits (ask questions first, show a reference, say what works): [CMU 15-113 Fall 2026 report](https://www.cs.cmu.edu/~113/bestPracticesF26.html)
+- Writing the test independently of the code: [Konstantinou et al.](https://arxiv.org/abs/2607.05139)
+- Explaining before accepting (teach-back): [Sankaranarayanan](https://arxiv.org/abs/2602.20206)
+- The Goldfish test: [Michigan EECS 498 EGM](https://github.com/eecs498-aase/materials/blob/HEAD/egm/README.md)
 - Learning-friendly habits (ask for explanations, fix errors yourself): [Anthropic, 2026](https://www.anthropic.com/research/AI-assistance-coding-skills)
 - Hint-only tutors: [Bastani et al., PNAS](https://www.pnas.org/doi/10.1073/pnas.2422633122)
 - What novices actually do when vibe coding: [Geng et al.](https://arxiv.org/pdf/2507.22614)

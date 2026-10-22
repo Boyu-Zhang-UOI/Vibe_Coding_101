@@ -117,9 +117,9 @@ Not a tool: this is how the Model ends its turn. Write a short report to the "us
 
 ```text
 DONE
-What I changed: <file, line, old → new>
-Why: <one sentence>
-Evidence: <paste the test summary, e.g. "tests 9, pass 9, fail 0">
+What I changed: [file, line, old → new]
+Why: [one sentence]
+Evidence: [paste the test summary, e.g. "tests 9, pass 9, fail 0"]
 Anything I'm unsure about:
 ```
 

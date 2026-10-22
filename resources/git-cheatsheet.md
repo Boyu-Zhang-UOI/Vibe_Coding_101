@@ -3,7 +3,7 @@
 > Git is your safety net. Every [commit](glossary.md#commit) is a save point you can go back to, whatever an AI does to your files.
 > This page shows each idea two ways: **by clicking** (GitHub website, github.dev, or VS Code in a Codespace) and **by typing** (the terminal). Use whichever you're comfortable with. From week 4 on, you'll use both.
 
-**On this page:** [Quick reference](#quick-reference) · [Where you'll use git](#where-youll-use-git) · [Concepts](#concepts) · [The save-point workflow](#the-save-point-workflow) · [Revert vs reset](#revert-vs-reset) · ["Oh no" recipes](#oh-no-recipes)
+**On this page:** [Quick reference](#quick-reference) · [Where you'll use git](#where-youll-use-git) · [Concepts](#concepts) · [The save-point workflow](#the-save-point-workflow) · [Branches and pull requests](#branches-and-pull-requests) · [Revert vs reset](#revert-vs-reset) · ["Oh no" recipes](#oh-no-recipes)
 
 > [!NOTE]
 > Menus move. If a button isn't where this page says, hover over the icons in the left sidebar, or ask your assistant "Where is the Source Control commit button in VS Code?"
@@ -12,21 +12,23 @@
 
 ## Quick reference
 
-Print this table. In the terminal column, replace anything in `<angle brackets>` with your own value, without the brackets.
+Print this table. In the terminal column, replace anything in `[square brackets]` with your own value, without the brackets.
 
 | I want to… | Click (VS Code in a Codespace) | Type (terminal) |
 |---|---|---|
 | See what changed since my last commit | Source Control panel → click a file | `git status` then `git diff` |
-| Make a save point | Type a message → **Commit** | `git add -A` then `git commit -m "<message>"` |
+| Make a save point | Type a message → **Commit** | `git add -A` then `git commit -m "[message]"` |
+| Say AI helped with a commit | In the message box: the message, a blank line, then `Assisted-by: [tool]` | `git commit -m "[message]" -m "Assisted-by: [tool]"` |
 | Send my commits to GitHub | **Sync Changes** | `git push` |
 | Get commits made elsewhere | **Sync Changes** (or ··· → Pull) | `git pull` |
 | See the history | Source Control Graph, or Timeline under Explorer | `git log --oneline` |
-| See one commit's changes | Click it in the graph | `git show <hash>` |
-| Throw away uncommitted changes to one file | Hover the file → **Discard Changes** (curved arrow) | `git restore <file>` |
-| Undo a commit, safely | *(use the terminal)* | `git revert --no-edit <hash>` |
-| Start a branch | Click the branch name (bottom left) → **Create new branch** | `git switch -c <name>` |
-| Switch branches | Click the branch name → pick one | `git switch <name>` |
-| Find when some text was added or removed | *(use the terminal)* | `git log --oneline -S "<text>"` |
+| See one commit's changes | Click it in the graph | `git show [hash]` |
+| Throw away uncommitted changes to one file | Hover the file → **Discard Changes** (curved arrow) | `git restore [file]` |
+| Undo a commit, safely | *(use the terminal)* | `git revert --no-edit [hash]` |
+| Start a branch | Click the branch name (bottom left) → **Create new branch** | `git switch -c [name]` |
+| Switch branches | Click the branch name → pick one | `git switch [name]` |
+| Propose merging a branch | On github.com: **Compare & pull request** | *(use the website)* |
+| Find when some text was added or removed | *(use the terminal)* | `git log --oneline -S "[text]"` |
 | Check `.env` is not tracked | *(use the terminal)* | `git ls-files .env` (no output = good) |
 | **Never, in this course** | | `git reset --hard` · `git push --force` |
 
@@ -39,6 +41,7 @@ A *hash* is the short code that names a commit, such as `a1b2c3d`. `git log --on
 | 1 | **GitHub website** | Upload files (**Add file → Upload files**), commit, see history. |
 | 2–3 | **github.dev** (press `.` on your repo's page) | Edit files, commit and push in one click, see diffs. No terminal. |
 | 4–8 | **VS Code in a Codespace** | Everything: the Source Control panel *and* a terminal. |
+| 6–8 | **GitHub website, again** | Pull requests: review a branch's diff and merge it into `main` ([how](#branches-and-pull-requests)). |
 
 In a Codespace, git is already installed and signed in to your GitHub account. You don't need to set anything up.
 
@@ -80,6 +83,14 @@ git push
 
 Good messages say what changed, in a few words: `Fix empty-input bug in add button`, not `update` or `stuff`.
 
+**If AI helped**, end the message with an `Assisted-by:` line, after a blank line (taught in week 2, required from week 6; [why](safe-loop.md#the-assisted-by-line)):
+
+```bash
+git commit -m "Fix empty-input bug in add button" -m "Assisted-by: GitHub Copilot"
+```
+
+Each `-m` becomes its own paragraph, so the second one lands on its own line at the end. In a Source Control message box, type the message, press **Enter** twice, then type the `Assisted-by:` line.
+
 ### History
 
 **What it is:** the list of all commits, newest first.
@@ -111,14 +122,14 @@ Press `q` to get your prompt back if the list is long.
 ```bash
 git diff
 git diff --staged
-git show <hash>
+git show [hash]
 ```
 
 The first shows changes you haven't staged yet, the second shows staged changes, and the third shows what one past commit changed.
 
 ### Branch
 
-**What it is:** a separate line of commits where you can try something without touching `main`. *A photocopy of the draft to scribble on.* If it works, you merge it back. If not, you switch back to `main` and nothing was harmed. Useful before a risky agent task (week 6).
+**What it is:** a separate line of commits where you can try something without touching `main`. *A photocopy of the draft to scribble on.* If it works, you merge it back. If not, you switch back to `main` and nothing was harmed. From week 6, each capstone feature gets its own branch ([the full workflow](#branches-and-pull-requests)).
 
 **Click:** in VS Code, click the branch name in the bottom-left corner → **Create new branch…** → type a name such as `add-dark-mode`. Click it again to switch back to `main`.
 
@@ -134,9 +145,9 @@ The first line creates the branch and moves you onto it, the second sends it to 
 
 ### Pull request
 
-**What it is:** a page on GitHub that proposes merging one branch into another. It shows the diff, and people can comment and approve before anything changes on `main`. You'll use pull requests for code review in [week 7](../weeks/07-security-and-review/).
+**What it is:** a page on GitHub that proposes merging one branch into another. It shows the diff, and people can comment and approve before anything changes on `main`. You'll learn them in week 6 (Studio B), merge capstone features through them, and use one for peer review in [week 7](../weeks/07-security-and-review/).
 
-**Click:** push your branch, then open your repo on github.com. Click the yellow **Compare & pull request** banner (or **Pull requests → New pull request**). Write what you changed and how you tested it, then **Create pull request**. When it's reviewed, press **Merge pull request**.
+**Click:** push your branch, then open your repo on github.com. Click the yellow **Compare & pull request** banner (or **Pull requests → New pull request**). Write what you changed and how you tested it, then **Create pull request**. When it's reviewed, press **Merge pull request**. Step by step: [branches and pull requests](#branches-and-pull-requests).
 
 **Type:** most people create pull requests on the website. After merging on GitHub, update your Codespace:
 
@@ -188,14 +199,14 @@ git add -A
 git commit -m "Before agent: add delete button"
 ```
 
-Then let the agent work, and afterwards:
+Then let the agent work, and afterwards read the diff, run the tests, write your [teach-back](safe-loop.md#teach-back) in `PROMPTS.md`, and commit with an `Assisted-by:` line:
 
 ```bash
 git status
 git diff
 npm test
 git add -A
-git commit -m "Add delete button with confirmation (agent, reviewed)"
+git commit -m "Add delete button with confirmation" -m "Assisted-by: GitHub Copilot"
 git push
 ```
 
@@ -203,11 +214,77 @@ If the agent's work is bad, don't commit it. Go back with [the agent made a mess
 
 ---
 
+## Branches and pull requests
+
+From week 6 (Studio B), every capstone feature goes through a **branch** and a **pull request** (PR) before it reaches `main`. Why: `main` is what your production site shows, so it should only ever get changes someone has read. The PR page puts the whole diff in one place for that reading, and if a merged feature turns out bad, you can undo it in one click.
+
+**1. Start clean and up to date on `main`.**
+
+```bash
+git switch main
+git pull
+git status
+```
+
+`git status` should say "nothing to commit, working tree clean".
+
+**2. Make a branch for one feature.** Name it after the feature, in lowercase with hyphens:
+
+```bash
+git switch -c add-dark-mode
+```
+
+Or click the branch name in the bottom-left corner of VS Code → **Create new branch…**.
+
+**3. Work in the Safe Loop on the branch.** Commit before and after each agent task, with `Assisted-by:` lines and a teach-back in `PROMPTS.md`, exactly as [above](#the-save-point-workflow).
+
+**4. Push the branch to GitHub.** The first time:
+
+```bash
+git push -u origin add-dark-mode
+```
+
+In VS Code, the **Publish Branch** button does the same. After that, plain `git push` (or **Sync Changes**) works.
+
+**5. Open the pull request.** On your repo's page on github.com, click **Compare & pull request** (or **Pull requests → New pull request**, base `main`, compare `add-dark-mode`). Fill in:
+
+```markdown
+## What changed
+[One or two sentences, in your own words]
+
+## How I tested it
+[Which tests you ran (paste the npm test summary) and what you tried by hand]
+
+## AI use
+[Tool and mode; link to the PROMPTS.md entry with your teach-back]
+
+## Known issues
+[Anything that doesn't work yet, or "None found"]
+```
+
+Then **Create pull request**. If you deploy on Vercel, a comment on the PR links to a **preview deployment** of this branch. Use it to test, but submit your production URL ([why](troubleshooting.md#production-url-or-preview-url)).
+
+**6. Review it before merging.** Open the **Files changed** tab and read every line, as if a stranger wrote it. Check for: changes you didn't ask for, a weakened or deleted test, any key or `.env` file, and code you couldn't explain. Click a line's **+** to leave yourself a comment on anything you want to check. Working with a partner? Under **Reviewers**, ask them to review. Working alone, review against [CODE_REVIEW.md](../templates/CODE_REVIEW.md) yourself. (Comments on GitHub are ordinary code review. Graded written reviews go on Canvas, not in the repo.)
+
+**7. Merge.** Click **Merge pull request** → **Confirm merge**, then **Delete branch** (its commits are kept in `main`). Then update your Codespace:
+
+```bash
+git switch main
+git pull
+```
+
+**8. Undo a merged PR if you need to.** On the merged PR's page, click **Revert**: GitHub opens a new PR that undoes it, which you review and merge like any other. In the terminal, see [I want to undo a merged pull request](#i-want-to-undo-a-merged-pull-request).
+
+> [!TIP]
+> To make GitHub *enforce* the PR habit, add a **branch protection** rule (GitHub calls the newer version a *ruleset*) that requires a pull request before anything merges into `main`: repo **Settings → Rules → Rulesets** (or **Settings → Branches**). Menus move; search GitHub's docs for "require a pull request before merging" if you can't find it. It also stops an agent pushing straight to `main`.
+
+---
+
 ## Revert vs reset
 
 There are two ways to "undo" in git. Use the first.
 
-| | `git revert <hash>` (use this) | `git reset --hard <hash>` (avoid) |
+| | `git revert [hash]` (use this) | `git reset --hard [hash]` (avoid) |
 |---|---|---|
 | What it does | Makes a **new** commit that does the opposite of an old one | Moves your branch back and **deletes** everything after, including uncommitted work |
 | History | Kept. You can see the mistake and the fix, and undo the undo. | Rewritten. Commits after that point disappear from your branch. |
@@ -237,7 +314,7 @@ git revert --no-edit HEAD
 git push
 ```
 
-`HEAD` means "the commit you're on now". Git makes a new commit called `Revert "…"`, and `--no-edit` accepts that message without opening an editor. To undo an older commit, use its hash instead: `git revert --no-edit <hash>`.
+`HEAD` means "the commit you're on now". Git makes a new commit called `Revert "…"`, and `--no-edit` accepts that message without opening an editor. To undo an older commit, use its hash instead: `git revert --no-edit [hash]`. (If that commit is a **merge**, git stops with "is a merge but no -m option was given": see [undo a merged pull request](#i-want-to-undo-a-merged-pull-request).)
 
 ### I want to throw away changes I haven't committed
 
@@ -247,13 +324,18 @@ For one file:
 git restore app.js
 ```
 
-For every file:
+For every file (run it in the top folder of your repo, since `.` means "this folder and everything in it"):
 
 ```bash
 git restore .
 ```
 
-**Click:** in Source Control, hover a file and click **Discard Changes**. This cannot be undone, so read the diff first to make sure you don't want any of it. Brand-new files that were never committed aren't affected by `git restore`; delete them yourself if you don't want them.
+What `git restore .` does, exactly: it throws away **unstaged** changes to files git already tracks, and brings back tracked files you deleted. It doesn't touch:
+
+- **staged changes** (listed under "Changes to be committed" in `git status`). To throw those away too, use `git restore --staged --worktree .`, which puts every tracked file back as it was in your last commit;
+- **new files** that were never committed (listed under "Untracked files"). Delete them yourself if you don't want them.
+
+**Click:** in Source Control, hover a file and click **Discard Changes**. This cannot be undone, so read the diff first to make sure you don't want any of it.
 
 ### I deleted a file
 
@@ -267,7 +349,7 @@ git restore style.css
 
 ```bash
 git log --oneline --diff-filter=D -- style.css
-git restore --source=<hash>~1 -- style.css
+git restore --source=[hash]~1 -- style.css
 git add style.css
 git commit -m "Restore style.css"
 ```
@@ -276,24 +358,44 @@ git commit -m "Restore style.css"
 
 First, look without changing anything. On github.com, open your commit history and click the **`<>`** button (Browse the repository at this point) next to yesterday's last good commit. Check it really is the version you want.
 
-Then bring it back, keeping history. This undoes every commit after the good one, in a single new commit:
+Then bring it back, keeping history. In the top folder of your repo, make every tracked file match the good commit, check, and save that as one new commit:
 
 ```bash
 git log --oneline
-git revert --no-commit <good-hash>..HEAD
-git commit -m "Go back to the version from <day>"
+git restore --source=[good-hash] --staged --worktree .
+git status
+git commit -m "Go back to the version from [day]"
 git push
 ```
 
-Replace `<good-hash>` with the hash of the last commit you want to *keep*. If you only need one file back, it's simpler:
+Replace `[good-hash]` with the hash of the last commit you want to *keep*. `git restore` copies that commit's files into both your folder and the staging area, and removes tracked files that didn't exist then; `git status` shows what will change before you commit. Nothing is deleted from history: the commits after the good one are still there, and you can go back to them the same way. This works even if your history contains merge commits.
+
+> [!NOTE]
+> You may see the older recipe `git revert --no-commit [good-hash]..HEAD`. It works only while there are no merge commits in that range; after your first merged pull request it stops with "is a merge but no -m option was given". The `git restore` recipe above always works.
+
+If you only need one file back, it's simpler:
 
 ```bash
-git restore --source=<good-hash> -- index.html
+git restore --source=[good-hash] -- index.html
 git add index.html
-git commit -m "Restore index.html from <day>"
+git commit -m "Restore index.html from [day]"
 ```
 
 **No terminal (week 2):** do it on github.com, as in the [week 2 lab](../weeks/02-prompting-and-save-points/lab.md). Open the file and click **History**. Next to the good commit, copy its hash and click **`<>`** (Browse repository at this point). Open the file and click **Copy raw file**. Go back to `main`, open the file again, click the **pencil** (Edit this file), select everything, paste, and commit with a message such as `Restore working version from 4f2a9c1`. If you have github.dev open, close it and press `.` again afterwards, or you'll be editing an old copy.
+
+### I want to undo a merged pull request
+
+Merging a PR makes a **merge commit**, which has two parents (the old `main` and your branch). To revert it, tell git which side to keep with `-m 1` ("keep `main` as it was"):
+
+```bash
+git switch main
+git pull
+git log --oneline --merges
+git revert -m 1 --no-edit [merge-hash]
+git push
+```
+
+`git log --oneline --merges` lists only merge commits; their messages start `Merge pull request #…`. Or click **Revert** on the merged PR's page on github.com, which does the same through a new pull request.
 
 ### The agent made a mess
 
@@ -305,13 +407,13 @@ git commit -m "Restore index.html from <day>"
    git diff --stat
    ```
 
-3. **If it didn't commit:** throw it all away and go back to your "before" commit:
+3. **If it didn't commit:** throw it all away and go back to your "before" commit. This undoes its edits whether or not it staged them:
 
    ```bash
-   git restore .
+   git restore --staged --worktree .
    ```
 
-   Files the agent *created* show under "Untracked files" in `git status`. Read the list and delete the ones you don't want. Don't use commands you don't understand to do this in bulk.
+   Files the agent *created* show under "Untracked files" in `git status`; `git restore` leaves them alone. Read the list and delete the ones you don't want. Don't use commands you don't understand to do this in bulk.
 4. **If it committed:** revert its commits (see [yesterday's version](#i-want-yesterdays-version-back)).
 5. Write down what happened in `PROMPTS.md`, then follow [the two-strikes rule](safe-loop.md#the-two-strikes-rule): fresh session, better prompt, smaller task.
 
@@ -330,10 +432,10 @@ More help: [troubleshooting: the agent broke or deleted things](troubleshooting.
 
    ```bash
    npm run check:secrets
-   git log --oneline -S "<first few characters of the old key>"
+   git log --oneline -S "[first few characters of the old key]"
    ```
 
-The old key is still in your history, but it no longer works. Don't try to rewrite history with `git push --force`; ask your instructor if you think you need to. Full steps: [troubleshooting](troubleshooting.md#i-committed-a-secret).
+`npm run check:secrets` scans your current files *and* your git history, so it will keep finding the old key in past commits. The old key is still in your history, but once revoked it no longer works. Don't try to rewrite history with `git push --force`; ask your instructor if you think you need to. Full steps: [troubleshooting](troubleshooting.md#i-committed-a-secret).
 
 ### I have a merge conflict
 

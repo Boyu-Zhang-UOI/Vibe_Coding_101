@@ -2,12 +2,26 @@
 
 > A clear prompt tells the AI where to go; a commit makes sure you can always get back.
 
-| | |
+## This week at a glance
+
+| Item | Details |
 |---|---|
-| **Time** | One 3-hour studio + about 3 hours of homework |
-| **Tools** | Two chat assistants (Gemini Canvas plus a fallback from [TOOLS.md](../../TOOLS.md)) · github.dev · GitHub Pages |
-| **You'll build** | **Game in an Hour**: a small browser game at `https://<your-username>.github.io/game/`, one commit per working step |
-| **Due before week 3** | The finished game linked from your home page · `PROMPTS.md` with four-part prompts · the prompt makeover · an AI-free reflection |
+| **Before Studio A** (≤1 h) | Your week 1 page is live with a Projects section · you can sign in to two chat assistants · pick two games from the [game menu](game-menu.md) · read this page and the six steps of the [Safe Loop](../../resources/safe-loop.md) |
+| **Studio A** | Concept talk, then **Game in an Hour**: a timed build of a small browser game, one commit per working step |
+| **Studio B** | Break your game and restore it, add an `Assisted-by:` line to AI-helped commits, compare two AI models, explain a classmate's function (🔴 AI off), a prompt makeover workshop, exit ticket |
+| **Due before next week's Studio A** (default 11:59 pm the night before) | Your game at `https://[your-username].github.io/game/`, linked from your home page, with one more feature built in 3+ commits · `PROMPTS.md` week 2 entries · `prompt-makeover.md` · on Canvas (the course's learning management system): your reflection, including the reading. Full list: [deliverables checklist](homework.md#deliverables-checklist) |
+| **AI use this week** | 🟢 AI on: planning and building the game, the model comparison, testing one makeover prompt · 🟡 AI limited: none this week · 🔴 AI off: the peer explanation swap, the prompt-makeover rewrites, the restore drill, "What I wrote or decided myself", the exit ticket and the reflection |
+| **Must read** | This page, the [lab](lab.md), the [homework](homework.md) |
+| **Look up when needed** | [Game menu](game-menu.md) · [Git Cheat Sheet](../../resources/git-cheatsheet.md) · [Prompt Patterns](../../resources/prompt-patterns.md) · [Troubleshooting](../../resources/troubleshooting.md) · [Glossary](../../resources/glossary.md) · [Tool Handout](../../TOOLS.md) · [Screen reader and keyboard guide](../../resources/accessibility.md) |
+| **Minimum to keep up** | Your game is at `/game/` with at least three working-step commits, and you can restore an earlier version of a file from its History. Week 3 starts a new project with the same commit habits |
+| **Time** | Studios 6 h · outside about 10 h (prep up to 1 h, homework core about 9 h); stretch is optional |
+
+## Studio agenda
+
+| Studio | What happens |
+|---|---|
+| **Studio A — Learn & build** | Recap of week 1's most-missed exit-ticket question · concept talk ([slides](slides.md)): prompt anatomy, context, small steps, the two-strikes rule, git as save points · live demo · lab: open github.dev, **Game in an Hour** (timed), play-test, link your game · checkpoint share |
+| **Studio B — Workshop** | Show and tell · lab: break and restore, the `Assisted-by:` line, the two-model comparison, the peer explanation swap, the prompt makeover workshop, project time · debrief · [exit ticket](../../assessment/exit-tickets.md#week-2) (🔴 AI off) |
 
 ## Learning objectives
 
@@ -20,52 +34,24 @@ By the end of this week you can:
 5. Use the **two-strikes rule** when a fix isn't working.
 6. Use git through github.dev: make commits with clear messages, read a diff, and view a file's history.
 7. Go back to an earlier working version of a file, and explain what `git revert` means.
-8. Compare two AI models' answers to the same prompt against your own "Done when".
-9. Explain a function in someone else's code, without AI.
+8. Say when AI helped with a commit, with an `Assisted-by:` line.
+9. Compare two AI models' answers to the same prompt against your own "Done when".
+10. Explain a function in someone else's code, without AI.
 
-## Before class
+## Before Studio A
 
-- [ ] Your week 1 home page is live at `https://<your-username>.github.io`, with a **Projects** section linking to `game/`. If not, finish [week 1's lab](../01-hello-vibe-coding/lab.md) first.
-- [ ] You can sign in to **two** chat assistants from [TOOLS.md](../../TOOLS.md), with privacy settings done ([setup/privacy-settings.md](../../setup/privacy-settings.md)). At least one needs a live preview (Gemini Canvas, or Claude Artifacts if you're 18+).
-- [ ] Skim the [game menu](game-menu.md) and pick two games you'd like to build.
-- [ ] Optional: read the [Safe Loop](../../resources/safe-loop.md). You'll use all six steps this week.
-
-## Studio agenda
-
-| Time | Block | What happens |
-|---|---|---|
-| 0:00–0:10 | Show and tell | Two students show their week 1 home pages and one prompt that surprised them |
-| 0:10–0:30 | Concept talk | [slides.md](slides.md): prompt anatomy, context, small steps, the two-strikes rule, git as save points |
-| 0:30–0:40 | Live demo | The instructor plans a game with the AI, builds step 1, and commits it in github.dev |
-| 0:40–2:20 | Lab | [lab.md](lab.md): set up, then the timed **Game in an Hour**, a break, the peer explanation swap, and linking your game |
-| 2:20–2:45 | Debrief | Play three games on the projector. Who lost work? Who restored it? Which model won the comparison, and why? |
-| 2:45–3:00 | Exit ticket and homework | [Week 2 exit ticket](../../assessment/exit-tickets.md#week-2) (🔴 no AI), then a homework preview |
-
-## Materials
-
-| File | What it is |
-|---|---|
-| [slides.md](slides.md) | The 20-minute concept talk (Marp slides with speaker notes) |
-| [lab.md](lab.md) | Game in an Hour, step by step, with checkpoints and troubleshooting |
-| [game-menu.md](game-menu.md) | Ten games with difficulty ratings and sample 5-step plans |
-| [homework.md](homework.md) | Core and stretch homework, including the prompt makeover |
-| [instructor-notes.md](instructor-notes.md) | Run sheet, demo script, timer management and fallback plans |
-
-Shared course files you will use this week:
-
-- [resources/safe-loop.md](../../resources/safe-loop.md): the six-step loop (print it)
-- [resources/prompt-patterns.md](../../resources/prompt-patterns.md): more prompt examples
-- [resources/git-cheatsheet.md](../../resources/git-cheatsheet.md): git words and actions
-- [templates/PROMPTS.md](../../templates/PROMPTS.md) and [templates/REFLECTION.md](../../templates/REFLECTION.md)
-- [projects/home-page.md](../../projects/home-page.md): the home-page and game project brief
+- [ ] Your week 1 home page is live at `https://[your-username].github.io`, with a **Projects** section linking to `game/`. If not, finish [week 1's lab](../01-hello-vibe-coding/lab.md) first, or ask your instructor for help.
+- [ ] You can sign in to **two** chat assistants from the [Tool Handout](../../TOOLS.md), with [privacy settings](../../setup/privacy-settings.md) done. At least one needs a live preview (Gemini Canvas, or Claude Artifacts if you're 18+).
+- [ ] Skim the [game menu](game-menu.md) and pick two games you'd like to build. First time coding? Pick a ★ Easy game.
+- [ ] Read the six steps of the [Safe Loop](../../resources/safe-loop.md) (about 10 minutes; the rest of the page is for later). You'll use all six this week.
 
 ## Key ideas
 
-If you are working through this week on your own, read this section, then do the [lab](lab.md).
+If you are working through this week on your own, read this section, then do the [lab](lab.md). The [self-paced path](../../resources/self-paced.md) says what to do instead of the pair activities.
 
 ### A prompt is a set of directions
 
-A prompt is a work order for someone who can't ask you questions. Write it in four parts:
+A prompt is a work order for someone who can't ask you questions (unless you invite it to: week 1's first habit). Write it in four parts:
 
 | Part | Question it answers | Example |
 |---|---|---|
@@ -94,21 +80,31 @@ If two attempts to fix the same problem fail, stop. Go back to your last working
 
 This week you commit in **github.dev**: on your repository page, press **.** (period) and VS Code opens in your browser.
 
+### Saying when AI helped: the `Assisted-by:` line
+
+Many open-source projects, including LLVM and Fedora, ask contributors to add a line such as `Assisted-by: Gemini` at the end of a commit message when an AI tool helped write the change ([All Things Open](https://allthingsopen.org/articles/open-source-ai-contributions-assisted-by-git-trailer-standard)). It tells anyone reading your history which changes to read most carefully. You practice it from this week; it's required from week 6.
+
 ### Two models, one prompt
 
 Different assistants give different answers to the same prompt. You judge them against your own "Done when", not by which looks cooler, and not by what the AI claims.
 
+### Game in an Hour is graded on effort
+
+The timer is real, but the score isn't about finishing. Game in an Hour is graded on effort, like every studio ([rubric](../../assessment/rubrics.md#in-class-work-and-participation)). A game that stops at step 3 with clean save points is a full-credit hour. Anyone may do it untimed ([Timed builds](../../resources/accessibility.md#timed-builds)).
+
 ## Understanding check
 
-- **In the lab:** the peer explanation swap. You explain one function in a classmate's game, with no AI (🔴), and they confirm or correct you.
-- **At the end of the studio:** the [Week 2 exit ticket](../../assessment/exit-tickets.md#week-2), on paper or a form, with no AI. Expect questions like: name the four parts of a prompt; what does a commit do; how do you get back to an earlier version.
+- **In Studio B:** the peer explanation swap. You explain one function in a classmate's game, with 🔴 AI off, and they confirm or correct you.
+- **At the end of Studio B:** the [Week 2 exit ticket](../../assessment/exit-tickets.md#week-2), on Canvas or paper, with 🔴 AI off. Expect questions like: name the four parts of a prompt; what does a commit do; how do you get back to an earlier version; plus one question about your week 1 page. It's scored for completion, not correctness.
 
 ## Homework
 
-About 3 hours. Full details in [homework.md](homework.md).
+About 9 hours of core work. Full details and the checklist are on the [homework page](homework.md).
 
-- **Core (required):** finish the game and link it from your home page; `PROMPTS.md` entries in four-part form; the **prompt makeover** (rewrite four weak prompts); the AI-free reflection.
-- **Stretch (optional):** a high score that survives a reload, sound, touch controls for phones, or a second level.
+- **Project time:** finish the game, play-test it, then plan and build **one more feature** in at least three save points.
+- **Homework:** finish the **prompt makeover** (🔴 AI off for the rewrites), a restore drill on your own (🔴 AI off), and one reading: Simon Willison's "Not all AI-assisted programming is vibe coding".
+- **Journal:** `PROMPTS.md` entries in four-part form, with a short teach-back for each feature commit; the reflection on Canvas (🔴 AI off).
+- **Stretch (optional):** a second feature, or a ★★★ game.
 
 Graded on effort and completion of the core tier ([rubric](../../assessment/rubrics.md#weekly-labs-and-homework)).
 
@@ -116,14 +112,14 @@ Graded on effort and completion of the core tier ([rubric](../../assessment/rubr
 
 | Problem | What to do |
 |---|---|
-| Your main assistant is down or you hit a limit | Switch to a fallback from [TOOLS.md](../../TOOLS.md) and paste your current `game/index.html` from GitHub. See [resources/troubleshooting.md](../../resources/troubleshooting.md#i-ran-out-of-free-credits) |
+| Your main assistant is down or you hit a limit | Switch to a fallback from the [Tool Handout](../../TOOLS.md) and paste your current `game/index.html` from GitHub. See [I ran out of free credits](../../resources/troubleshooting.md#i-ran-out-of-free-credits) |
 | Only one assistant works | For the comparison, send the same prompt to two fresh chats in the same assistant |
 | github.dev won't open | Edit and commit on github.com with the pencil icon; create files with **Add file → Create new file** |
 | GitHub is down | Keep working in the chat preview, save your code in a text file, and commit each step later with a clear message |
 
 ## Going further
 
-- [resources/prompt-patterns.md](../../resources/prompt-patterns.md): more prompt structures, with examples.
+- [Prompt Patterns](../../resources/prompt-patterns.md): more prompt structures, with examples.
 - [Kazemitabaar et al. (Koli Calling 2023)](https://arxiv.org/abs/2309.14049): the study behind "small steps".
 - [Pro Git](https://git-scm.com/book/en/v2), chapters 1–2: the free book on git, for when you want the full picture.
-- [resources/reading-list.md](../../resources/reading-list.md).
+- The [Reading List](../../resources/reading-list.md).

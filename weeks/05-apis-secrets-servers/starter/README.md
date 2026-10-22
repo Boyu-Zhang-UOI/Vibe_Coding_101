@@ -2,7 +2,7 @@
 
 > A small web app that sends a question to an AI model through **your own server route**, so your API key never reaches the browser. Starter kit for [Vibe Coding 101](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101), week 5.
 
-**Live site:** <add your Vercel URL here> · **Author:** <you>
+**Live site:** [your Vercel production URL] · **Author:** [your name]
 
 <!-- Homework: replace this section with 2–3 sentences about YOUR version of the app. -->
 ## About this app
@@ -28,14 +28,16 @@ Right now it is "Plain English": type a question and get a short, plain-English 
 | `lib/validate.js` | Server | Checks each request before any AI quota is spent |
 | `dev-server.mjs` | Your Codespace | A local server for development (`npm run dev`) |
 | `scripts/list-models.mjs` | Your Codespace | Lists the model IDs your key can use (`npm run models`) |
+| `scripts/check-secrets.mjs` | Your Codespace | Looks for keys in your files **and in every old commit** (`npm run check:secrets`) |
 | `tests/` | Your Codespace | Automated tests (`npm test`). They use a fake AI, so they need no key and no internet |
+| `package.json`, `package-lock.json` | — | The project's name and commands. The lock file lists the installed packages (none yet), so `npm audit` can check them |
 | `.env.example` | — | A template for your settings. Placeholders only |
 | `.env` | Your Codespace only | Your real settings, including the key. **Never committed** (it's in `.gitignore`) |
 | `vercel.json` | Vercel | Tells Vercel to serve `public/` and run `api/` as serverless functions |
 
 ## Run it in a Codespace
 
-You need a GitHub account and a free LLM API key. Node.js 20.12 or newer is already installed in a Codespace (check with `node --version`).
+You need a GitHub account and a free LLM API key. A Codespace already has Node.js installed: the course uses Node.js 22 LTS (minimum 20.12). Check with `node --version`.
 
 1. **Make your own repository from this starter.** Follow [Start a project from a starter](https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/blob/main/setup/codespaces.md#start-a-project-from-a-starter) with the path `weeks/05-apis-secrets-servers/starter`, then open the repository in a Codespace.
 2. **Create your settings file.** In the Codespace terminal:
@@ -64,6 +66,8 @@ You need a GitHub account and a free LLM API key. Node.js 20.12 or newer is alre
    ```
 
    Click **Open in Browser** in the pop-up (or open the **Ports** tab and click the globe icon next to port 3000). Keep the port **Private**. Ask a question.
+
+   The server only accepts connections from the computer it runs on (in a Codespace, that's the Codespace, which forwards the port to you). To try the app from your phone on the same Wi-Fi when you work on your own laptop, start it with `HOST=0.0.0.0 npm run dev`, and stop it when you're done.
 7. **Run the tests** (in a second terminal, or after stopping the server with `Ctrl+C`):
 
    ```bash
@@ -77,16 +81,37 @@ After any change to `.env`, `api/` or `lib/`, stop the server with `Ctrl+C` and 
 
 ## Deploy to Vercel
 
-Vercel's free Hobby plan hosts `public/` as a website and runs each file in `api/` as a serverless function. It can only import repositories owned by your **personal** GitHub account, not by an organization.
+Vercel's free Hobby plan hosts `public/` as a website and runs each file in `api/` as a serverless function. It can't deploy a **private** repository owned by a GitHub organization, so keep this repository in your **personal** account.
 
 1. Commit and push your work (Source Control panel → **Commit**, then **Sync Changes**). Check on github.com that `.env` is **not** in the repository.
 2. Sign in at [vercel.com](https://vercel.com) with GitHub. Choose **Add New… → Project** and **Import** your repository. If it is not listed, use the link to adjust Vercel's GitHub permissions and give it access to this repository.
 3. Leave the framework preset as **Other** and the build settings empty (`vercel.json` handles them).
 4. Open **Environment Variables** and add `LLM_BASE_URL`, `LLM_API_KEY` and `LLM_MODEL` with the same values as in your `.env`.
-5. Click **Deploy**. When it finishes, open the URL and ask a question.
+5. Click **Deploy**. When it finishes, open the **production URL** (your project's main address, listed under **Domains**) and ask a question. Hand in that address, not the long address of a single deployment: Vercel deletes old deployments, so those links stop working.
 
 > [!IMPORTANT]
 > Environment variables only reach **new** deployments. If you add or change one later (Settings → Environment Variables), go to **Deployments**, open the ⋯ menu on the latest one and choose **Redeploy**. Every push to your main branch also redeploys automatically.
+
+## Check that no key leaked
+
+Run this before every push, and paste the result as evidence when a checklist asks for it:
+
+```bash
+npm run check:secrets
+```
+
+It looks for API keys, tokens and private keys in your files **and in every old commit on every branch**, because deleting a key from a file does not delete it from git history. It skips files that git ignores, such as `.env`, which is where your key belongs. The output never shows a whole key, only its first few characters and a *fingerprint* (a short code that identifies the key without revealing it).
+
+If it finds a key:
+
+1. **Revoke it** on the provider's website and make a new one. Assume it has leaked: bots search GitHub for keys.
+2. Put the new key only in `.env` and in Vercel's environment variables.
+3. Remove the old key from your files and commit.
+4. If the old key is still in an **old commit**, add its fingerprint and a note to a file called `revoked-keys.txt` (for example `1a2b3c4d5e6f Gemini key, revoked 21 Oct`). The scan then reports it as handled. Only do this after revoking the key.
+
+The scan knows the common key formats, not every one, so a clean result is good evidence, not proof. Keep reading your diffs before you commit.
+
+To check the packages your project uses for known security problems, run `npm audit`. This starter has no packages yet, so it reports `found 0 vulnerabilities`; it matters once you add some.
 
 ## The provider-swap drill
 
@@ -107,6 +132,7 @@ To swap the live site, change the same three variables in Vercel and redeploy.
 | "rejected the server's API key" | Wrong, incomplete or deleted key, or a key for a different provider than `LLM_BASE_URL` | Copy the key again, or make a new one. Check the three lines belong to the same provider |
 | "could not find that model" | `LLM_MODEL` is not an ID this provider knows | Run `npm run models` and copy an ID exactly |
 | "The free AI quota is used up for now" | You hit the provider's rate limit (status 429) | Wait (per-minute limits reset quickly, daily ones overnight) or do the provider-swap drill |
+| "Send the question as JSON, with the header Content-Type: application/json" (status 415) | Something called `/api/ask` without saying it was sending JSON, for example `curl` without `-H "Content-Type: application/json"`. The route refuses other kinds of requests, so other websites can't use your quota | Add the header. The page in `public/app.js` already sends it |
 | "Port 3000 is already in use" | The server is already running in another terminal | Stop it there with `Ctrl+C`, or run `PORT=3001 npm run dev` |
 | The live site works but the AI part fails | Usually a missing environment variable on Vercel | Check Vercel → Settings → Environment Variables, then **Redeploy**. Vercel → your project → **Logs** shows the server's error messages |
 

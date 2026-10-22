@@ -1,6 +1,6 @@
 # Game in an Hour — Game menu
 
-Pick **one** game for the week 2 lab. Each entry has a difficulty rating, why it makes a good first game, what tends to go wrong, and a **sample 5-step plan** with a "done when" check for every step.
+Pick **one** game for Game in an Hour (week 2, Studio A). Each entry has a difficulty rating, why it makes a good first game, what tends to go wrong, and a **sample 5-step plan** with a "done when" check for every step.
 
 Use the sample plan to **check and edit** the plan your AI proposes, not to replace it. Asking for a plan and then improving it is the Plan step of the [Safe Loop](../../resources/safe-loop.md).
 
@@ -10,7 +10,7 @@ Use the sample plan to **check and edit** the plan your AI proposes, not to repl
 
 - One file, `game/index.html`, with the CSS and JavaScript inside it.
 - No libraries and no external images, sounds or fonts. Use emoji, colored shapes or the HTML `<canvas>` element (a drawing area on the page; not the same thing as Gemini's Canvas feature).
-- Playable on a laptop with a keyboard or mouse. Touch controls are a homework stretch.
+- Playable on a laptop with a keyboard or mouse. Touch controls are one of the homework feature ideas.
 - Each step adds **one** visible feature you can test in under a minute.
 - Use a generic name for games based on famous ones ("Flappy-style", not the original's name), and draw your own simple shapes rather than copying someone else's art.
 
@@ -18,16 +18,16 @@ Use the sample plan to **check and edit** the plan your AI proposes, not to repl
 
 | # | Game | Difficulty | Controls | Pick it if you… |
 |---|---|---|---|---|
-| 1 | [Reaction timer](#1-reaction-timer) | ★ | Mouse | want a guaranteed win |
-| 2 | [Whack-a-mole](#2-whack-a-mole) | ★ | Mouse | like fast, simple games |
-| 3 | [Memory match](#3-memory-match) | ★ | Mouse | like puzzles more than action |
-| 4 | [Typing speed test](#4-typing-speed-test) | ★ | Keyboard | want something useful |
-| 5 | [Simon says](#5-simon-says) | ★★ | Mouse or keys | like patterns and sequences |
-| 6 | [Snake](#6-snake) | ★★ | Arrow keys | want a classic |
-| 7 | [Pong](#7-pong) | ★★ | Mouse or keys | like smooth movement |
-| 8 | [Flappy-style](#8-flappy-style) | ★★ | Space or click | want a one-button game |
-| 9 | [Breakout](#9-breakout) | ★★★ | Mouse or keys | finished Pong fast and want more |
-| 10 | [2048](#10-2048) | ★★★ | Arrow keys | like logic puzzles and tricky rules |
+| 1 | [Reaction timer](#1-reaction-timer) | ★ Easy | Mouse | want a guaranteed win |
+| 2 | [Whack-a-mole](#2-whack-a-mole) | ★ Easy | Mouse | like fast, simple games |
+| 3 | [Memory match](#3-memory-match) | ★ Easy | Mouse | like puzzles more than action |
+| 4 | [Typing speed test](#4-typing-speed-test) | ★ Easy | Keyboard | want something useful |
+| 5 | [Simon says](#5-simon-says) | ★★ Medium | Mouse or keys | like patterns and sequences |
+| 6 | [Snake](#6-snake) | ★★ Medium | Arrow keys | want a classic |
+| 7 | [Pong](#7-pong) | ★★ Medium | Mouse or keys | like smooth movement |
+| 8 | [Flappy-style](#8-flappy-style) | ★★ Medium | Space or click | want a one-button game |
+| 9 | [Breakout](#9-breakout) | ★★★ Hard | Mouse or keys | finished Pong fast and want more |
+| 10 | [2048](#10-2048) | ★★★ Hard | Arrow keys | like logic puzzles and tricky rules |
 
 **Your own idea?** Fine, if your instructor agrees and it fits the rules above in five small steps. Write your own plan in the same format.
 
@@ -35,7 +35,7 @@ Use the sample plan to **check and edit** the plan your AI proposes, not to repl
 
 ## 1. Reaction timer
 
-**Difficulty:** ★
+**Difficulty:** ★ Easy
 
 Wait for the screen to turn green, then click as fast as you can.
 
@@ -52,7 +52,7 @@ Wait for the screen to turn green, then click as fast as you can.
 
 ## 2. Whack-a-mole
 
-**Difficulty:** ★
+**Difficulty:** ★ Easy
 
 Moles pop up in a 3×3 grid of holes. Click them before they vanish.
 
@@ -69,7 +69,7 @@ Moles pop up in a 3×3 grid of holes. Click them before they vanish.
 
 ## 3. Memory match
 
-**Difficulty:** ★
+**Difficulty:** ★ Easy
 
 Flip cards two at a time to find matching pairs.
 
@@ -86,7 +86,7 @@ Flip cards two at a time to find matching pairs.
 
 ## 4. Typing speed test
 
-**Difficulty:** ★
+**Difficulty:** ★ Easy
 
 Type a sentence as fast and accurately as you can; see your words per minute.
 
@@ -103,7 +103,7 @@ Type a sentence as fast and accurately as you can; see your words per minute.
 
 ## 5. Simon says
 
-**Difficulty:** ★★
+**Difficulty:** ★★ Medium
 
 Four colored pads light up in a sequence; repeat it. Each round adds one more.
 
@@ -120,7 +120,7 @@ Four colored pads light up in a sequence; repeat it. Each round adds one more.
 
 ## 6. Snake
 
-**Difficulty:** ★★
+**Difficulty:** ★★ Medium
 
 Steer a growing snake to eat food without hitting the walls or yourself.
 
@@ -137,7 +137,7 @@ Steer a growing snake to eat food without hitting the walls or yourself.
 
 ## 7. Pong
 
-**Difficulty:** ★★
+**Difficulty:** ★★ Medium
 
 Keep the ball in play against a computer paddle. First to 5 wins.
 
@@ -154,7 +154,7 @@ Keep the ball in play against a computer paddle. First to 5 wins.
 
 ## 8. Flappy-style
 
-**Difficulty:** ★★
+**Difficulty:** ★★ Medium
 
 One button makes your bird flap up through gaps in scrolling pipes.
 
@@ -171,7 +171,7 @@ One button makes your bird flap up through gaps in scrolling pipes.
 
 ## 9. Breakout
 
-**Difficulty:** ★★★
+**Difficulty:** ★★★ Hard
 
 Bounce a ball off your paddle to smash rows of bricks.
 
@@ -188,7 +188,7 @@ Bounce a ball off your paddle to smash rows of bricks.
 
 ## 10. 2048
 
-**Difficulty:** ★★★
+**Difficulty:** ★★★ Hard
 
 Slide numbered tiles on a 4×4 grid; equal tiles merge. Reach 2048.
 
@@ -205,12 +205,12 @@ Slide numbered tiles on a 4×4 grid; equal tiles merge. Reach 2048.
 
 ---
 
-## Ways to break it at step 3
+## Ways to break it on purpose
 
-The lab asks you to break your game on purpose, commit the broken version, and then restore the last working one. Pick one:
+In Studio B (lab Part B1) you break your game on purpose, commit the broken version, and then restore the last working one. Pick one:
 
 - **Accept a vague, unreviewed change.** Send `Make the game much more exciting. Change whatever you like.`, paste the result without testing, and commit it.
 - **Delete a line by hand.** In the `<script>` section, delete a line containing `}` or a line that starts with `if`, and commit.
 - **Change a number to something silly.** Set a speed to `1000` or a grid size to `2`, and commit.
 
-Then follow the lab to go back. Being able to undo a bad change calmly is the point of the exercise.
+Then follow the lab to go back. The restore itself needs no AI. Being able to undo a bad change calmly is the point of the exercise.

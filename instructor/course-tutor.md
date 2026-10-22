@@ -2,16 +2,16 @@
 
 > A prompt that turns any chat assistant into a tutor that gives hints, not answers. Students paste it to switch on **tutor mode**.
 
-This page is for both students and instructors. Students: copy [the tutor prompt](#the-tutor-prompt) and follow [how to use it](#how-to-use-tutor-mode). Instructors: see [how to share it as a Gemini Gem](#build-it-as-a-shared-gemini-gem), [the evidence](#why-a-hint-only-tutor) and [its limitations](#limitations).
+This page is for both students and instructors. Students: copy [the tutor prompt](#the-tutor-prompt) and follow [how to use it](#how-to-use-tutor-mode). Instructors: see [how to share it as a Gemini Gem](#build-it-as-a-shared-gemini-gem), [the evidence](#why-a-hint-only-tutor), [why it stays narrow](#keep-tutor-mode-narrow) and [its limitations](#limitations).
 
 ## When to use it
 
 | Situation | AI use | Tutor mode? |
 |---|---|---|
-| **Debug Clinic** (week 4), after 10 minutes stuck on one bug with the AI off | 🟡 Limited | **Yes. It's the only AI allowed in the Debug Clinic** |
-| Homework, when you want to learn how to fix something, not just get it fixed | 🟢 Expected | Yes, whenever you like |
-| Practicing for an oral walkthrough | 🟢 Expected | Use the ["quiz me" prompt](#a-second-prompt-quiz-me) instead |
-| Exit tickets, oral walkthroughs, reflections, peer reviews | 🔴 Not allowed | **No AI at all**, including tutor mode |
+| **Debug Clinic** (week 4), after 10 minutes stuck on one bug with the AI off | 🟡 AI limited | **Yes. It's the only AI allowed in the Debug Clinic** |
+| Homework, when you want to learn how to fix something, not just get it fixed | 🟢 AI on | Yes, whenever you like (optional) |
+| Practicing for an oral walkthrough | 🟢 AI on | Use the ["quiz me" prompt](#a-second-prompt-quiz-me) instead |
+| Exit tickets, oral walkthroughs, reflections, peer reviews, the AI-off maintenance task | 🔴 AI off | **No AI at all**, including tutor mode |
 
 When you use it, add a line to your `PROMPTS.md`, for example: *"Debug Clinic bug 3: used tutor mode, needed two hints; the bug was the script loading before the page."*
 
@@ -101,13 +101,24 @@ The course requires AI, but the evidence says unstructured help can stop beginne
 - **In programming courses,** Harvard's CS50 Duck is designed to guide students toward answers rather than give them, and students said it felt like having a personal tutor ([Liu et al., SIGCSE 2024](https://cs.harvard.edu/malan/publications/V1fp0567-liu.pdf)). CodeAid answered conceptual questions and pointed out errors in students' code without revealing full solutions, for 700 students over 12 weeks ([Kazemitabaar et al., CHI 2024](https://dl.acm.org/doi/10.1145/3613904.3642773)).
 - **How learners use AI matters.** In Anthropic's trial, the learners who scored well asked for explanations, asked conceptual questions, or fixed errors themselves. Those who handed everything over, or used AI to debug instead of to understand, scored worst ([Anthropic](https://www.anthropic.com/research/AI-assistance-coding-skills)). Tutor mode builds the first pattern in.
 - **Debugging is what AI erodes most** in that trial, which is why the Debug Clinic is AI-off, with tutor mode as the only help.
+- **A course-wide AI tutor can make things worse.** In a 2026 randomized trial across sections of one course at a large US public university, with 2,379 undergraduates and 30 instructors, access to a course-integrated AI tutor **lowered final grades by 0.37 standard deviations** and participation in the course's learning platform by 0.90 standard deviations. Losses were larger for first-generation students. The authors suggest the tutor displaced the course's existing learning activities. The abstract doesn't say whether that tutor gave hints or answers, or whether the course was in computing, so it doesn't contradict the hint-only results above, but it does show that adding AI help to a whole course can lower outcomes at scale ([EdWorkingPapers 26-1598](https://edworkingpapers.com/ai26-1598)).
 
-The landscape report suggested exactly this design (a hint-only Gem, seeded with solutions and common mistakes, as the only AI in the no-AI debugging weeks) while noting that it hasn't been tested as a course design ([landscape report](../research/landscape-report-2026-09.md)).
+The landscape report suggested exactly this design (a hint-only Gem, seeded with solutions and common mistakes, as the only AI in the no-AI debugging weeks) while noting that it hasn't been tested as a course design ([landscape report](../research/landscape-report-2026-09.md)). The October update adds the trial above and recommends keeping tutor mode narrow ([October update, Priority 3](../research/landscape-update-2026-10.md)).
+
+## Keep tutor mode narrow
+
+Tutor mode has two jobs: the only AI in the Debug Clinic, and an optional helper for homework. Keep it that way.
+
+- **Don't turn it into a course-wide tutor.** Don't make it a required part of labs, don't load it with every week's materials, and don't present it as the place to go first when stuck. The labs, the studios, classmates and office hours are the main sources of help.
+- **Watch participation if you ever widen it.** If you add a broader tutor, compare studio attendance, lab checkpoints completed and exit-ticket completion with an earlier cohort. A drop is the warning sign the 2026 trial found.
+- **Pay attention to who uses it most.** The losses in that trial were largest for first-generation students, so a student who leans on the tutor heavily is a reason for a conversation in office hours, not a sign that the tutor is working.
+- **Keep the friction.** The course's AI-off walkthroughs, teach-backs in `PROMPTS.md` and the Debug Clinic exist because explaining or repairing code yourself is what the evidence says protects learning. Tutor mode supports that; it doesn't replace it.
 
 ## Limitations
 
 - **It's a prompt, not a lock.** A student can open a new chat without it, or argue the model round. Long conversations can make the model drift and show more code than it should.
 - **It hasn't been evaluated in this form.** CS50's Duck and CodeAid are purpose-built systems, with features this prompt doesn't have (CS50 also limits how much students can use its Duck).
+- **Hint-only isn't automatically helpful.** In a seven-week pilot with 33 master's students, a hint-only AI coach made no difference to performance, while students who had written their own rules for when to use AI did better in both groups ([Azimi, arXiv 2609.16784](https://arxiv.org/abs/2609.16784)). That's one reason the course asks every student to write personal AI-use rules in week 1.
 - **Feeling tutored isn't the same as learning.** Prather et al. observed a student who *felt* the AI was acting as a tutor but didn't actually use it that way ([Prather et al., "The Widening Gap"](https://juholeinonen.com/assets/pdf/prather2024widening.pdf)).
 - **It can be wrong.** Like any model, the tutor can give a misleading hint. Students should check hints against what the code actually does.
 

@@ -3,7 +3,7 @@
 > A plain-English guide for people who have never coded. Read it before week 1 if you like, and again before week 5, when it matters most.
 > The one idea to take away: **anything that reaches the browser is public. Secrets and rules belong on the server.**
 
-**On this page:** [Browsers and servers](#browsers-and-servers) · [URLs](#urls) · [HTML, CSS and JavaScript](#html-css-and-javascript) · [Requests and responses (HTTP)](#requests-and-responses-http) · [JSON](#json) · [APIs](#apis) · [Front end and back end](#front-end-and-back-end) · [Static and dynamic sites](#static-and-dynamic-sites) · [Databases](#databases) · [The trust boundary](#the-trust-boundary) · [A short DevTools tour](#a-short-devtools-tour) · [Try it](#try-it-10-minutes)
+**On this page:** [Browsers and servers](#browsers-and-servers) · [URLs](#urls) · [HTML, CSS and JavaScript](#html-css-and-javascript) · [Requests and responses (HTTP)](#requests-and-responses-http) · [JSON](#json) · [APIs](#apis) · [Front end and back end](#front-end-and-back-end) · [Static and dynamic sites](#static-and-dynamic-sites) · [CDNs](#cdns-code-from-someone-elses-server) · [Databases](#databases) · [The trust boundary](#the-trust-boundary) · [A short DevTools tour](#a-short-devtools-tour) · [Try it](#try-it-10-minutes)
 
 ---
 
@@ -64,7 +64,7 @@ REQUEST  (browser → server)
 POST /api/ask
 Content-Type: application/json
 
-{"message": "Suggest a name for my cat"}
+{"question": "Suggest a name for my cat"}
 
 
 RESPONSE  (server → browser)
@@ -95,11 +95,14 @@ The first digit tells you whose problem it is: **2** means it worked, **4** mean
 | `401` | Unauthorized | The key or login is missing or wrong. |
 | `403` | Forbidden | The server knows who you are and says no. |
 | `404` | Not Found | Wrong path, wrong file name (check capital letters), or wrong model name. |
+| `405` | Method Not Allowed | Wrong method, such as opening a POST-only route like `/api/ask` in the address bar (which sends a GET). |
+| `415` | Unsupported Media Type | The request didn't say it was JSON: it's missing the `Content-Type: application/json` header. |
 | `429` | Too Many Requests | You hit a [rate limit](glossary.md#rate-limit). Slow down or wait. |
-| `500` | Internal Server Error | Your server code crashed. Read the server's log, not the browser's. |
+| `500` | Internal Server Error | Your server code crashed, or (in the course starters) your server isn't set up right, for example a missing or rejected key. Read the server's log, not the browser's. |
 | `502` | Bad Gateway | Something behind the server failed or isn't running. |
+| `504` | Gateway Timeout | Something behind the server took too long to answer. |
 
-What to do about each one: [troubleshooting.md](troubleshooting.md#my-api-call-returns-an-error).
+There can be two status codes in one exchange: the one the AI provider sends your server, and the one your server sends the browser. The course starters translate the first into the second, so a wrong key, which the provider reports as `401`, reaches your page as a `500` with a message saying the key was rejected. What to do about each one: [troubleshooting.md](troubleshooting.md#my-api-call-returns-an-error).
 
 ## JSON
 
@@ -151,6 +154,18 @@ Many providers accept the same request format, called an [OpenAI-compatible API]
 
 You need a server when you have **a secret to keep** or **data to share between users**. Otherwise, static is simpler, free and faster.
 
+## CDNs: code from someone else's server
+
+A **CDN** (content delivery network) is a group of servers around the world that hand out copies of the same files, so each visitor downloads them from somewhere nearby. GitHub Pages and Vercel serve your own sites through CDNs, which is one reason a change can take a minute to show up everywhere.
+
+Public CDNs such as jsDelivr also host copies of popular code libraries. A page can then load a library from its address, without installing anything. In week 7, your capstone's `public/lib/db.js` loads the Supabase library this way, from this address:
+
+```text
+https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm
+```
+
+Code loaded from a CDN runs inside your page with the same power as your own code, in every visitor's browser. So treat it like installing a package ([safety contract rule 6](../setup/safety-contract.md)): load only well-known libraries your plan names, from a well-known CDN, with a **version in the address**. `@2` means "the newest 2.x release", so a big breaking change can't arrive unannounced; writing the full version number you tested is stricter still, because then your visitors get exactly the code you tested.
+
 ## Databases
 
 A **database** stores data on a server so that many people, on many devices, see the same thing. *Picture a shared spreadsheet: a **table** per kind of thing (notes, scores), a **row** per item, a **column** per detail.*
@@ -164,50 +179,38 @@ Compare the two places your projects store data:
 | Survives clearing the browser? | No | Yes |
 | Needs access rules? | No, it's single-user | **Yes, always** |
 
-Once data is shared, you have to decide who may read and change each row. In Supabase, the database enforces that with [row-level security](glossary.md#row-level-security-rls). Without it, a public key plus a missing rule means anyone can read and change everything. That is exactly what happened to the apps in the [Lovable and Moltbook case studies](case-studies.md).
+Once data is shared, you have to decide who may read and change each row. In Supabase, the database enforces that with [row-level security](glossary.md#row-level-security-rls). Without it, a public key plus a missing rule means anyone can read and change everything. That is exactly what happened to the apps in the [Lovable and Moltbook case studies](case-studies.md), and to the 16,326 databases in the [UpGuard case](case-studies.md#12-upguard-16326-exposed-supabase-databases).
 
 ## The trust boundary
 
-This diagram shows what runs where in a week 5–8 app, and what the public can see.
+A week 5–8 app has parts that run in different places. The **trust boundary** is the line between what the public can see and what only you and your host can see. Here is what sits on each side, and what crosses the line.
 
-```text
-               PUBLIC SIDE: assume anyone can see all of this
-┌──────────────────────────────────────────────────────────────────────┐
-│ The visitor's BROWSER                    Your GitHub REPO (public)   │
-│ • your HTML, CSS and JavaScript          • every file                │
-│ • localStorage on that device            • every old commit, forever │
-│ • every request and response                                         │
-│   (DevTools → Network)                                               │
-│ • the Supabase publishable key                                       │
-└──────────┬──────────────────────────────────────────┬────────────────┘
-           │ fetch("/api/ask")                       │ publishable key,
-           │                                          │ from the page
-═══════════╪═════════════ TRUST BOUNDARY ═════════════╪═════════════════
-           ▼                                          ▼
-┌─────────────────────────────────┐   ┌────────────────────────────────┐
-│ Your SERVER                     │   │ DATABASE (Supabase)            │
-│ api/ask.js, running on Vercel  │   │ row-level security policies    │
-│ • env vars: LLM_API_KEY,        │   │ decide, row by row, what each  │
-│   Supabase secret key           │   │ request may read or change     │
-│ • checks input, sets limits     │   │                                │
-└──────────┬──────────────────────┘   └────────────────────────────────┘
-           │ API key sent in a header
-           ▼
-┌─────────────────────────────────┐
-│ LLM PROVIDER (Gemini, Groq ...) │
-└─────────────────────────────────┘
-               PRIVATE SIDE: only you and your host can see inside
-```
+**Public side: assume anyone can see all of this.**
 
-Four rules follow from the picture:
+- **The visitor's browser:** your HTML, CSS and JavaScript; localStorage on that device; every request and response (DevTools → Network); the Supabase project URL and publishable key (in `public/config.js`).
+- **Your GitHub repository (public):** every file, and every old commit, forever.
 
-1. **Everything above the line is public.** That includes your front-end code, anything in localStorage, every network request, and every commit in a public repo, including old ones. "Hidden" in a variable or a minified file still means public.
-2. **Secrets live only below the line**, in environment variables on the server. The Supabase secret key and your LLM API key never go above it.
+**Private side: only you and your host can see inside.**
+
+- **Your server:** `api/ask.js`, running on Vercel. It holds the environment variables (`LLM_API_KEY`, and the Supabase secret key if you use one), checks every input and sets limits.
+- **The database (Supabase):** its row-level security policies decide, row by row, what each request may read or change.
+- **The LLM provider** (Gemini, Groq and others): it receives requests only from your server.
+
+**What crosses the line:**
+
+1. **Browser → your server:** `fetch("/api/ask")` with the user's question. No key.
+2. **Your server → the LLM provider:** the question, plus the API key in a request header. This happens entirely on the private side.
+3. **Browser → the database:** requests that carry the publishable key, straight from the page. The database's policies, not your page, decide what each one may do.
+
+Four rules follow:
+
+1. **Everything on the public side is public.** That includes your front-end code, anything in localStorage, every network request, and every commit in a public repo, including old ones. "Hidden" in a variable or a minified file still means public.
+2. **Secrets live only on the private side**, in environment variables on the server. The Supabase secret key and your LLM API key never cross the line.
 3. **Anything that crosses the line can be faked.** A visitor can edit your JavaScript, skip your checks and send any request they like. So the server and the database must check every request themselves. That is where [authorization](glossary.md#authorization) lives.
 4. **The publishable key is meant to cross the line**, which is exactly why row-level security must be on for every table.
 
 > [!IMPORTANT]
-> One of the [six skills you must show without AI](without-ai-skills.md) is saying where authorization is enforced in your app. The answer is always a place below the line.
+> One of the [six skills you must show without AI](without-ai-skills.md) is saying where authorization is enforced in your app. The answer is always a place on the private side: your server or your database's policies.
 
 ## A short DevTools tour
 

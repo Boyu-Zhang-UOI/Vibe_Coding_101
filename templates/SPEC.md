@@ -1,9 +1,11 @@
-# SPEC — <Project name>
+# SPEC — [Project name]
 
-> **One page.** Write this yourself. You may ask an AI to *critique* it ("What is ambiguous? What edge cases am I missing?"), but not to write it. 🟡
+> **One page.** 🟡 **AI limited:** write this yourself. You may ask an AI to *critique* it ("What is ambiguous? What edge cases am I missing?"), but not to write it.
 > A good spec lets a classmate, or an AI agent, build the right thing without asking you questions.
+> **Goldfish test** (weeks 3 and 6): paste only this file into a fresh chat and ask what it would build and what it would need to ask you. Wherever it guesses wrong or has to ask, revise the spec.
+> Replace every [square-bracket placeholder].
 
-**Author:** <your name> · **Last updated:** <date>
+**Author:** [your name or GitHub username] · **Last updated:** [date]
 
 ## 1. Problem
 
@@ -44,16 +46,16 @@ Things you are deliberately **not** building this time. (This list stops you, an
 
 ## 6. Constraints
 
-- **Technology:** <e.g. plain HTML, CSS and JavaScript; no frameworks; no build step>
-- **Data:** <e.g. saved in the browser with localStorage / in a Supabase table with row-level security>
-- **Must work on:** <e.g. phone and laptop browsers>
+- **Technology:** [for example: plain HTML, CSS and JavaScript; no frameworks; no build step]
+- **Data:** [for example: saved in the browser with localStorage / in a Supabase table with row-level security]
+- **Must work on:** [for example: phone and laptop browsers]
 - **Never:** real payments, real personal data about other people, secrets in front-end code
 
 ## 7. Wireframe
 
 Sketch the main screen on paper, photograph it and add it to the repo (for example `docs/wireframe.jpg`), then link it here. A text sketch is fine too:
 
-```
+```text
 +--------------------------------+
 |  Title                         |
 |  [ input box       ] [ Add ]   |

@@ -2,16 +2,24 @@
 
 > This course **requires** AI. It also requires that you can do six things with the AI switched off. This page says exactly what they are, why they matter, when you learn them, how they're checked, and how to practice.
 
-| # | Skill | Taught in | Checked in |
-|---|---|---|---|
-| 1 | [Read an error message and find the failing line](#1-read-an-error-message-and-find-the-failing-line) | Week 4 (first seen in week 1) | [Week 4 exit ticket](../assessment/exit-tickets.md#week-4) · all three oral walkthroughs |
-| 2 | [Explain any function you committed](#2-explain-any-function-you-committed) | Weeks 1–2, then every week | [Week 1 exit ticket](../assessment/exit-tickets.md#week-1) · all three oral walkthroughs |
-| 3 | [Write an acceptance criterion and a test for it](#3-write-an-acceptance-criterion-and-a-test-for-it) | Week 3 (criteria), week 4 (manual tests), week 6 (automated tests) | [Week 3 exit ticket](../assessment/exit-tickets.md#week-3) · walkthroughs [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) and [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) |
-| 4 | [Revert a bad commit](#4-revert-a-bad-commit) | Week 2 (web), week 4 (terminal), week 6 (agents) | [Week 2 exit ticket](../assessment/exit-tickets.md#week-2) · walkthroughs [1](../assessment/oral-walkthroughs.md#walkthrough-1-week-4) and [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) |
-| 5 | [Spot a committed secret](#5-spot-a-committed-secret) | Week 5, again in week 7 | [Week 5 exit ticket](../assessment/exit-tickets.md#week-5) · [walkthrough 3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) |
-| 6 | [Say where authorization is enforced in your app](#6-say-where-authorization-is-enforced-in-your-app) | Week 7 (groundwork in week 5) | [Week 7](../assessment/exit-tickets.md#week-7) and [week 8](../assessment/exit-tickets.md#week-8) exit tickets · [walkthrough 3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) |
+| # | Skill | Taught in | Practice (exit tickets) | Shown in (oral walkthroughs) |
+|---|---|---|---|---|
+| 1 | [Read an error message and find the failing line](#1-read-an-error-message-and-find-the-failing-line) | Week 4 (first seen in week 1) | [Week 4](../assessment/exit-tickets.md#week-4) | [1](../assessment/oral-walkthroughs.md#walkthrough-1-week-4), [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) and [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) (Debug) |
+| 2 | [Explain any function you committed](#2-explain-any-function-you-committed) | Weeks 1–2, then every week (each teach-back) | [Week 1](../assessment/exit-tickets.md#week-1) | [1](../assessment/oral-walkthroughs.md#walkthrough-1-week-4), [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) and [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) (Explain) |
+| 3 | [Write an acceptance criterion and a test for it](#3-write-an-acceptance-criterion-and-a-test-for-it) | Week 3 (criteria), week 4 (manual tests and your first automated test), weeks 5–6 (check-first tests) | [Week 3](../assessment/exit-tickets.md#week-3) | [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) (Modify: always this task) |
+| 4 | [Revert a bad commit](#4-revert-a-bad-commit) | Week 2 (web), week 4 (terminal, practiced just before walkthrough 1), week 6 (agents and merges) | [Week 2](../assessment/exit-tickets.md#week-2) | [1](../assessment/oral-walkthroughs.md#walkthrough-1-week-4) and [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) (Process) |
+| 5 | [Spot a committed secret](#5-spot-a-committed-secret) | Week 5, again in week 7 | [Week 5](../assessment/exit-tickets.md#week-5) | [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) and [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) (Process: a sample diff) |
+| 6 | [Say where authorization is enforced in your app](#6-say-where-authorization-is-enforced-in-your-app) | Week 7 (groundwork in week 5) | [Week 7](../assessment/exit-tickets.md#week-7) and [week 8](../assessment/exit-tickets.md#week-8) | [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) (Explain) |
 
-The exact questions and rules are in [assessment/exit-tickets.md](../assessment/exit-tickets.md) and [assessment/oral-walkthroughs.md](../assessment/oral-walkthroughs.md). Grading: [assessment/rubrics.md](../assessment/rubrics.md).
+## How the requirement works
+
+- **Each skill must be shown at least once** in an oral walkthrough, a walkthrough retake or a short skill follow-up, and showing all six is needed for a C or higher ([syllabus](../SYLLABUS.md#six-skills-you-must-be-able-to-show-without-ai)).
+- **"Shown" means** you do it correctly, with the AI off and no more than one hint. Once shown, a skill stays shown.
+- **Exit tickets are practice.** They're graded on completion and don't count as showing a skill, but they tell you which skill to work on.
+- **Not yet?** The skill comes up again in the next walkthrough that checks it. After walkthrough 3, any skill still "not yet" gets a 5-minute follow-up by appointment in week 8.
+- **Skills 3 and 6 have the fewest scheduled chances** (one walkthrough each), so practice them early.
+
+The exact rules, and what the examiner asks, are in [assessment/oral-walkthroughs.md](../assessment/oral-walkthroughs.md#the-six-skills-you-must-show-without-ai) ([what to expect](../assessment/oral-walkthroughs.md#what-to-expect)). Practice questions: [assessment/exit-tickets.md](../assessment/exit-tickets.md). Grading: [assessment/rubrics.md](../assessment/rubrics.md).
 
 ---
 
@@ -21,11 +29,13 @@ The exact questions and rules are in [assessment/exit-tickets.md](../assessment/
 
 **Because feeling that you understand is not the same as understanding.** In one study, students who struggled while using AI finished believing they had done better than they had ([Prather et al.](https://dl.acm.org/doi/10.1145/3632620.3671116)). In a large trial, students who used an unrestricted chatbot for practice scored lower on the exam and didn't notice ([Bastani et al., PNAS](https://www.pnas.org/doi/10.1073/pnas.2422633122)). A check with the AI off is the only way you, or anyone, can tell the difference.
 
-**Because understanding drops when agents take over.** In a similar course at Carnegie Mellon, students' self-rated understanding was lowest during the assignments where agents wrote most of the code ([CMU 15-113 Student Wisdom report](https://www.cs.cmu.edu/~113/bestPractices.html)). That's why two of the three oral walkthroughs fall in the agent weeks.
+**Because understanding drops when agents take over.** In a similar course at Carnegie Mellon, students' self-rated understanding was lowest during the assignments where agents wrote most of the code ([CMU 15-113 Student Wisdom report](https://www.cs.cmu.edu/~113/bestPractices.html)). In fall 2026, satisfaction on the same assignments rose while self-rated understanding fell on all four ([CMU F26 report](https://www.cs.cmu.edu/~113/bestPracticesF26.html)). That's why two of the three oral walkthroughs fall in the agent weeks.
+
+**Because finishing with AI isn't remembering.** In a 2026 experiment, students using ChatGPT scored 89% on the task against 69% for students using web search, but two days later recalled less of what they had done (39% against 52%) and credited themselves with less of their own code (45% against 81%) ([Bergh et al.](https://arxiv.org/abs/2609.21194)). In another, 77% of learners who had used AI without restrictions failed a maintenance task once the AI was switched off, against 39% of those who had to explain the code before adding it ([Sankaranarayanan](https://arxiv.org/abs/2602.20206)). That's why the Safe Loop has a [teach-back](safe-loop.md#teach-back), and why these checks happen with the AI off.
 
 ### Practice with AI, prove without it
 
-You may use AI to *learn* these skills: ask it to [explain code](prompt-patterns.md#5-explain-this-code), use [tutor mode](prompt-patterns.md#14-tutor-mode), or have it quiz you. The *checks* are AI-free (🔴 in the [AI use policy](../SYLLABUS.md#8-ai-use-policy)). "Without AI" means no chat assistant, no AI completions and no agent. You still have your own code, the browser and DevTools, the terminal, and (in oral walkthroughs) the course [glossary](glossary.md). None of the six skills is about memorizing syntax. They're about reading, reasoning and using those tools.
+You may use AI to *learn* these skills: ask it to [explain code](prompt-patterns.md#5-explain-this-code), use [tutor mode](prompt-patterns.md#14-tutor-mode), or have it quiz you. The *checks* are 🔴 AI off ([AI use policy](../SYLLABUS.md#8-ai-use-policy)). "Without AI" means no chat assistant, no AI completions and no agent. You still have your own code, the browser and DevTools, the terminal, and (in oral walkthroughs) the course [glossary](glossary.md). None of the six skills is about memorizing syntax. They're about reading, reasoning and using those tools.
 
 ---
 
@@ -33,9 +43,9 @@ You may use AI to *learn* these skills: ask it to [explain code](prompt-patterns
 
 **Why it matters.** Debugging is the skill AI use erodes most. In Anthropic's trial, the biggest gap between people who learned with AI and people who learned without it was on debugging questions ([Anthropic, 2026](https://www.anthropic.com/research/AI-assistance-coding-skills)). Students vibe coding spent only 7.4% of their actions looking at code or logs, and 61% of their prompts asked the AI to debug ([Geng et al.](https://arxiv.org/pdf/2507.22614)). Non-programmers tend to re-prompt instead of debugging ([Fawzy et al.](https://arxiv.org/html/2605.24521v1)). An error message usually tells you where to look. Reading it takes seconds.
 
-**When you learn it.** You first open the Console in week 1. Week 4 teaches it properly with DevTools, and the [Debug Clinic](../weeks/04-read-debug-own-it/) has you fix planted bugs with the AI switched off.
+**When you learn it.** You first open the Console in week 1. Week 4 teaches it properly with DevTools, and the [Debug Clinic](../weeks/04-read-debug-own-it/) has you fix planted bugs with the AI switched off. Week 6 adds a planted bug in agent-written code.
 
-**How it's checked.** The [week 4 exit ticket](../assessment/exit-tickets.md#week-4), and the "find a planted bug" part of every [oral walkthrough](../assessment/oral-walkthroughs.md).
+**How it's checked.** Practice: the [week 4 exit ticket](../assessment/exit-tickets.md#week-4). Shown: the Debug part of every [oral walkthrough](../assessment/oral-walkthroughs.md): an error the examiner causes (walkthrough 1), a failing test's output (walkthrough 2), a planted bug (walkthrough 3).
 
 **Practice (15 minutes).**
 
@@ -95,9 +105,9 @@ Read the error out loud in plain English: "I tried to set the text of something 
 
 **Why it matters.** "If you can't explain it, you didn't build it" ([UMich syllabus](https://eecs498-aase.github.io/syllabus.html)). Simon Willison's rule for responsible AI-assisted programming is never to commit code you couldn't explain to someone else ([Willison](https://simonwillison.net/2025/Mar/19/vibe-coding/)). Learners who generated whole solutions from one prompt did worst when they later had to change that code ([Kazemitabaar et al.](https://arxiv.org/abs/2309.14049)). You can only change what you understand.
 
-**When you learn it.** Week 1: explain three parts of your page. Week 2: explain one function in a classmate's game. Every week after: step 5 of [the Safe Loop](safe-loop.md), "keep only what you can explain."
+**When you learn it.** Week 1: explain three parts of your page. Week 2: explain one function in a classmate's game. Every week after: step 5 of [the Safe Loop](safe-loop.md), "keep only what you can explain", and the [teach-back](safe-loop.md#teach-back) you write before committing AI-written code. Each teach-back is practice for this skill.
 
-**How it's checked.** The [week 1 exit ticket](../assessment/exit-tickets.md#week-1), and every [oral walkthrough](../assessment/oral-walkthroughs.md): you explain your code (in walkthrough 2, the code the agent wrote), then change it live.
+**How it's checked.** Practice: the [week 1 exit ticket](../assessment/exit-tickets.md#week-1), and each week's delayed-recall exit-ticket question about last week's project. Shown: the Explain part of every [oral walkthrough](../assessment/oral-walkthroughs.md): you explain your code (in walkthrough 2, the code the agent wrote), then change it live.
 
 **Practice (15 minutes): the four-question explanation.** Pick a function from your latest commit. Without AI, write short answers:
 
@@ -141,16 +151,16 @@ Afterwards, if you like, use [explain this code](prompt-patterns.md#5-explain-th
 
 **Why it matters.** Beginners test the happy path. In one study of students vibe coding, 91.7% of their tests tried common cases, only 2.2% tried edge cases, and **no student wrote a unit test** ([Geng et al.](https://arxiv.org/pdf/2507.22614)). Courses that grade robustness give credit only for edge cases and how features interact ([Utah syllabus](https://github.com/utah-cs3960-sp26/syllabus/blob/main/syllabus.md)). The WHEN … SHALL format comes from a requirements style people without programming experience can learn in minutes ([Kiro](https://kiro.dev/blog/introducing-kiro/)). With agents, tests are how the AI checks its own work and how you check its claims ([Claude Code best practices](https://code.claude.com/docs/en/best-practices)).
 
-**When you learn it.** Week 3: acceptance criteria in `SPEC.md`. Week 4: manual edge-case tests in `TESTS.md`. Week 6: automated tests, written red first, then green.
+**When you learn it.** Week 3: acceptance criteria in `SPEC.md`. Week 4: manual edge-case tests in `TESTS.md`, and your **first automated test**, from a worked example in Studio B (a [pure function](glossary.md#pure-function) tested with `node --test`). Week 5: a validation test from a fill-in skeleton. Week 6: [check-first](safe-loop.md#check-first) tests, written before the agent writes the code, red first, then green.
 
-**How it's checked.** The [week 3 exit ticket](../assessment/exit-tickets.md#week-3); walkthroughs [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) and [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8), where you may be asked to explain or add a test; and your capstone's `TESTS.md`.
+**How it's checked.** Practice: the [week 3 exit ticket](../assessment/exit-tickets.md#week-3). Shown: [walkthrough 2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6), whose Modify task is always this: say a new criterion in WHEN … THE APP SHALL … form, write its test by hand, watch it fail, then make it pass. [Walkthrough 3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8) may also ask you to explain a test. Your capstone's `TESTS.md` and tests are graded in the capstone rubric.
 
 **Practice (20 minutes).** The feature: *a live word count under a text box.*
 
 1. Write one **normal** criterion in the form WHEN … THE APP SHALL ….
 2. Write two **edge-case** criteria.
 3. Turn one of them into a manual test row: ID · Checks · Steps · Expected result.
-4. (Week 6 onward) Write an automated test for it.
+4. (Week 4 onward) Write an automated test for it, before the code that makes it pass.
 
 <details>
 <summary>Sample answers</summary>
@@ -193,9 +203,9 @@ Afterwards, if you like, use [explain this code](prompt-patterns.md#5-explain-th
 
 **Why it matters.** Git is your undo button when an AI goes wrong. In July 2025 an AI agent deleted a company's production database, then wrongly claimed it couldn't be rolled back ([Fortune](https://fortune.com/2025/07/23/ai-coding-tool-replit-wiped-database-called-it-a-catastrophic-failure/)). Anthropic warns that its agent's own checkpoints are "not a replacement for git" ([Claude Code best practices](https://code.claude.com/docs/en/best-practices)). Google's DORA research names strong version control and small batches as two of the conditions under which AI helps teams rather than hurts them ([DORA AI Capabilities Model](https://services.google.com/fh/files/misc/2025_dora_ai_capabilities_model.pdf)).
 
-**When you learn it.** Week 2 on github.com, with a deliberate break-and-rollback in the Game in an Hour. Week 4 in the Codespace terminal. Week 6: commit before and after every agent task.
+**When you learn it.** Week 2 on github.com, with a deliberate break-and-rollback in the Game in an Hour. Week 4 in the Codespace terminal, in a practice session just before walkthrough 1. Week 6: commit before and after every agent task, and merge features through pull requests (reverting a merge needs one extra flag: [how](git-cheatsheet.md#i-want-to-undo-a-merged-pull-request)).
 
-**How it's checked.** The [week 2 exit ticket](../assessment/exit-tickets.md#week-2), and walkthroughs [1](../assessment/oral-walkthroughs.md#walkthrough-1-week-4) and [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6); in walkthrough 2 you may be asked to undo an agent's task.
+**How it's checked.** Practice: the [week 2 exit ticket](../assessment/exit-tickets.md#week-2). Shown: the Process part of walkthroughs [1](../assessment/oral-walkthroughs.md#walkthrough-1-week-4) (revert a commit) and [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) (undo an agent's commit).
 
 **Practice (10 minutes).** In a practice repo, or on a line of your home page you don't mind breaking:
 
@@ -209,7 +219,7 @@ Afterwards, if you like, use [explain this code](prompt-patterns.md#5-explain-th
 3. Undo it with a new commit, and push:
 
    ```bash
-   git revert --no-edit <hash>
+   git revert --no-edit [hash]
    git push
    ```
 
@@ -227,9 +237,9 @@ Do it once looking at the [git cheat sheet](git-cheatsheet.md#i-want-to-undo-my-
 
 **Why it matters.** AI-assisted commits leak secrets about **twice as often** as ordinary ones: 3.2% versus 1.6% ([GitGuardian 2026](https://blog.gitguardian.com/the-state-of-secrets-sprawl-2026/)). Leaked keys cost money and data. Moltbook's database key sat in its public JavaScript ([Wiz](https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys)), and the Nx attack leaked 2,349 credentials from 1,079 systems ([GitGuardian](https://blog.gitguardian.com/the-nx-s1ngularity-attack-inside-the-credential-leak/)). Stories: [case studies](case-studies.md).
 
-**When you learn it.** Week 5: keys, `.env`, `.gitignore`, and proving your key isn't visible in the browser or in git. Week 7: a security sweep of your capstone.
+**When you learn it.** Week 5: keys, `.env`, `.gitignore`, which keys are secret and which aren't, and proving your key isn't visible in the browser or in git. Week 7: a security sweep of your capstone, including a secret scan of its whole history.
 
-**How it's checked.** The [week 5 exit ticket](../assessment/exit-tickets.md#week-5) and the week 5 understanding check ("show where the key lives and who can read it"); the secrets section of your [SECURITY_CHECKLIST.md](../templates/SECURITY_CHECKLIST.md); and [walkthrough 3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8), where you may be shown a sample diff and asked to find the secret.
+**How it's checked.** Practice: the [week 5 exit ticket](../assessment/exit-tickets.md#week-5) and the week 5 understanding check ("show where the key lives and who can read it"); the secrets section of your [SECURITY_CHECKLIST.md](../templates/SECURITY_CHECKLIST.md). Shown: walkthroughs [2](../assessment/oral-walkthroughs.md#walkthrough-2-week-6) and [3](../assessment/oral-walkthroughs.md#walkthrough-3-week-8), where you're shown a sample diff and asked to find the secret, or to say why a key in it is fine.
 
 **Practice A (10 minutes).** Which of these is a problem? Decide for each, then check.
 
@@ -238,8 +248,8 @@ Do it once looking at the [git cheat sheet](git-cheatsheet.md#i-want-to-undo-my-
 3. In `public/app.js`: `const LLM_API_KEY = "xyzFAKEkey0123notReal";`
 4. `git ls-files .env` prints `.env`.
 5. Your README includes a screenshot of Vercel's environment variables page with the values visible.
-6. In `public/app.js`, a Supabase client created with the **publishable** key.
-7. In `public/app.js`, a Supabase client created with the **secret** (service-role) key.
+6. In `public/config.js`, your Supabase project URL and **publishable** key (`sb_publishable_…`).
+7. In `public/app.js`, a Supabase client created with the **secret** key (`sb_secret_…`, or a legacy `service_role` key).
 
 <details>
 <summary>Answers</summary>
@@ -249,7 +259,7 @@ Do it once looking at the [git cheat sheet](git-cheatsheet.md#i-want-to-undo-my-
 3. **Leak.** A key in front-end code is public, and now it's in git history too. Revoke it.
 4. **Leak.** `.env` is tracked by git, so its contents are in the repo. Revoke every key in it.
 5. **Leak.** A screenshot is still a copy of the key. Revoke it and replace the image.
-6. **Allowed by design**, but safe **only** if row-level security is on for every table (skill 6).
+6. **Allowed by design.** Not every key is a secret: the publishable key is meant to be public, but it's safe **only** if row-level security is on, with policies, for every table (skill 6).
 7. **Serious leak.** That key bypasses all access rules. Revoke it immediately.
 
 </details>
@@ -262,7 +272,7 @@ git log --oneline -S "LLM_API_KEY="
 npm run check:secrets
 ```
 
-The first should print nothing. The second lists every commit that added or removed that text. Open each with `git show <hash>`: you should find only placeholders, as in `.env.example`. The third scans the whole repository. Finally, open your **live** site, and search DevTools → Sources and Network for your key.
+The first should print nothing. The second lists every commit that added or removed that text. Open each with `git show [hash]`: you should find only placeholders, as in `.env.example`. The third scans your current files **and every past commit** for the key formats the course uses, and prints the file or commit of any match with the key masked. A clean scan is good evidence, not proof: it only knows the formats it looks for. Finally, open your **live** site, and search DevTools → Sources and Network for your key.
 
 If you find a real key: [revoke it first](troubleshooting.md#i-committed-a-secret).
 
@@ -274,7 +284,7 @@ If you find a real key: [revoke it first](troubleshooting.md#i-committed-a-secre
 
 ## 6. Say where authorization is enforced in your app
 
-**Why it matters.** This is where real vibe-coded apps failed. A scan of apps built with Lovable found **170 of 1,645** with exposed databases, because the browser used the database's public key and the access rules were missing ([Superblocks](https://www.superblocks.com/blog/lovable-vulnerabilities)). Moltbook had the same pattern and exposed about 1.5 million API tokens ([Wiz](https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys)). Karpathy describes agents building his app to match users across services by email address instead of a permanent user ID, a design mistake only someone who understood the code would catch ([Karpathy, 2026](https://karpathy.bearblog.dev/sequoia-ascent-2026/)). Newer AI models are not writing more secure code ([Veracode Spring 2026](https://www.veracode.com/blog/spring-2026-genai-code-security/)), so this check stays your job.
+**Why it matters.** This is where real vibe-coded apps failed. A scan of apps built with Lovable found **170 of 1,645** with exposed databases, because the browser used the database's public key and the access rules were missing ([Superblocks](https://www.superblocks.com/blog/lovable-vulnerabilities)). In September 2026, UpGuard found **16,326** Supabase databases with publicly readable tables, and noted that tables agents create through the API start without row-level security ([case 12](case-studies.md#12-upguard-16326-exposed-supabase-databases)). In an audit of 200 deployed apps built with AI tools, 91% had at least one vulnerability, mostly broken access control ([Deng et al.](https://arxiv.org/abs/2606.23130)). Moltbook had the same pattern and exposed about 1.5 million API tokens ([Wiz](https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys)). Karpathy describes agents building his app to match users across services by email address instead of a permanent user ID, a design mistake only someone who understood the code would catch ([Karpathy, 2026](https://karpathy.bearblog.dev/sequoia-ascent-2026/)). Newer AI models are not writing more secure code ([Veracode Spring 2026](https://www.veracode.com/blog/spring-2026-genai-code-security/)), so this check stays your job.
 
 **When you learn it.** Week 5 lays the groundwork: the browser is public, the server is not ([trust boundary](web-basics.md#the-trust-boundary)). Week 7 teaches [authentication](glossary.md#authentication) versus [authorization](glossary.md#authorization) and has you attack your own table in the RLS Attack Lab, then fix it with [row-level security](glossary.md#row-level-security-rls).
 
@@ -286,7 +296,7 @@ If you find a real key: [revoke it first](troubleshooting.md#i-committed-a-secre
 2. A notes app whose page reads a Supabase table with the publishable key. Row-level security is on, with a policy that returns a row only when its `user_id` matches the logged-in user.
 3. The same notes app, but row-level security is **off**. The page hides other people's notes with `notes.filter((n) => n.user_id === me.id)` in `app.js`.
 4. An admin page whose "Delete everything" button is hidden with CSS unless you're an admin. The server route that deletes everything has no checks.
-5. The week 5 AI micro-app: anyone can use it, and `api/ask.js` rejects messages that are too long before calling the LLM.
+5. The week 5 AI micro-app: anyone can use it, and `api/ask.js` rejects questions that are too long before calling the LLM.
 
 <details>
 <summary>Answers</summary>
@@ -318,9 +328,9 @@ which checks ________ before ________.
 
 - [ ] I can explain every function I committed since the last walkthrough (skill 2).
 - [ ] I've practiced finding a bug from an error message with the AI closed (skill 1).
-- [ ] I can point to the test for each acceptance criterion (skill 3, from week 6).
+- [ ] I can write a criterion and its test by hand, and point to the test for each criterion (skill 3, shown in walkthrough 2).
 - [ ] I've reverted a commit in this project at least once (skill 4).
-- [ ] I've run the secret checks on this project (skill 5, from week 5).
-- [ ] I can say where authorization is enforced (skill 6, week 8).
+- [ ] I've run the secret checks on this project (skill 5, walkthroughs 2 and 3).
+- [ ] I can say where authorization is enforced (skill 6, walkthrough 3).
 
 Can't do one yet? That's what the practice above and office hours are for. The walkthroughs are there to find gaps while there's still time to close them.

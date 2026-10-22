@@ -13,6 +13,13 @@
 --
 -- You (the owner) can still edit everything in the Supabase dashboard, because
 -- the dashboard does not use the publishable key.
+--
+-- Grants vs RLS: setup.sql GRANTED the anon role select, insert, update and
+-- delete. A grant decides which ACTIONS a role may try on a table; RLS policies
+-- decide which ROWS each action may touch. This file leaves the grants alone, so
+-- you can see RLS do the work: blocked updates and deletes report "0 rows", not
+-- an error. In your own app, grant only the actions it needs AND turn RLS on,
+-- together (see supabase/policies.sql in the capstone starter).
 -- ============================================================================
 
 -- 1. Turn on row-level security. From now on, every request made with the

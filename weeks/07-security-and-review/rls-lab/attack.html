@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RLS Lab Tester</title>
-  <meta name="description" content="Vibe Coding 101 week 7 kit: test what the publishable key can reach on your OWN Supabase practice table, before and after row-level security.">
+  <title>RLS Attack Lab tester · Vibe Coding 101</title>
+  <meta name="description" content="Vibe Coding 101 week 7: test what a Supabase publishable key can read and change on your OWN practice table, before and after row-level security.">
   <style>
     :root {
       --bg: #f6f6f3; --panel: #fff; --text: #1b1b1b; --muted: #565656;
       --border: #ccccc6; --accent: #1f5fbf; --accent-text: #fff;
       --note-bg: #fff4d6; --note-border: #a97a00;
-      --bad-bg: #fde7e7; --bad-text: #8a1111; --good-bg: #e3f4e6; --good-text: #185c26;
+      --allowed-bg: #fde7e7; --allowed-text: #8a1111;
+      --blocked-bg: #e3f4e6; --blocked-text: #185c26;
+      --error-bg: #ececec; --error-text: #333;
       --code-bg: #eeeeea;
     }
     @media (prefers-color-scheme: dark) {
@@ -18,7 +20,9 @@
         --bg: #161616; --panel: #212121; --text: #ededed; --muted: #b3b3b3;
         --border: #454545; --accent: #7fb0ff; --accent-text: #10203a;
         --note-bg: #3a2e0c; --note-border: #d9a400;
-        --bad-bg: #4a1717; --bad-text: #ffc9c9; --good-bg: #163a1f; --good-text: #b9f0c5;
+        --allowed-bg: #4a1717; --allowed-text: #ffc9c9;
+        --blocked-bg: #163a1f; --blocked-text: #b9f0c5;
+        --error-bg: #2e2e2e; --error-text: #e0e0e0;
         --code-bg: #2b2b2b;
       }
     }
@@ -36,216 +40,469 @@
       border-radius: 8px; padding: 16px; margin-bottom: 16px; }
     label { display: block; font-weight: 600; margin: 10px 0 4px; }
     .hint { color: var(--muted); font-size: .9rem; margin: 2px 0 0; }
-    input[type=text], input[type=number], textarea { width: 100%; padding: 8px;
+    input[type=text], textarea { width: 100%; padding: 8px;
       font: inherit; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
       background: var(--bg); color: var(--text); border: 1px solid var(--border);
       border-radius: 6px; }
     textarea { min-height: 60px; resize: vertical; }
-    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-end; }
-    .row > div { flex: 1 1 160px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: flex-start; }
+    .row > div { flex: 1 1 200px; }
     button { font: inherit; font-weight: 600; cursor: pointer; padding: 9px 14px;
       border-radius: 6px; border: 1px solid var(--accent); background: var(--accent);
       color: var(--accent-text); }
     button.secondary { background: transparent; color: var(--accent); }
     button:disabled { opacity: .5; cursor: not-allowed; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--accent); outline-offset: 2px; }
     .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .status { margin: 8px 0; font-weight: 600; }
-    .out { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace,
-      "SF Mono", Menlo, Consolas, monospace; font-size: .86rem; background: var(--code-bg);
-      border: 1px solid var(--border); border-radius: 6px; padding: 10px; margin-top: 6px;
-      max-height: 320px; overflow: auto; }
-    .tag { display: inline-block; padding: 1px 8px; border-radius: 999px;
-      font-size: .82rem; font-weight: 700; }
-    .tag.ok { background: var(--good-bg); color: var(--good-text); }
-    .tag.blocked { background: var(--bad-bg); color: var(--bad-text); }
+    .status.warn { color: var(--allowed-text); }
+    details { margin-top: 12px; }
+    summary { cursor: pointer; font-weight: 600; }
+    .log { margin-top: 8px; }
+    .entry { border: 1px solid var(--border); border-radius: 6px; padding: 10px; margin-bottom: 10px; }
+    .entry-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-weight: 600; }
+    .entry pre { white-space: pre-wrap; word-break: break-word; font-size: .82rem;
+      background: var(--code-bg); border-radius: 6px; padding: 8px; margin: 6px 0 0; max-height: 260px; overflow: auto; }
+    .tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: .82rem; font-weight: 700; }
+    .tag.allowed { background: var(--allowed-bg); color: var(--allowed-text); }
+    .tag.blocked { background: var(--blocked-bg); color: var(--blocked-text); }
+    .tag.error { background: var(--error-bg); color: var(--error-text); border: 1px dashed var(--muted); }
+    table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+    th, td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
     code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px;
       font-family: ui-monospace, Menlo, Consolas, monospace; }
     footer { color: var(--muted); font-size: .85rem; margin: 24px 0; }
-    .visually-hidden { position: absolute; width: 1px; height: 1px;
-      overflow: hidden; clip: rect(0 0 0 0); }
   </style>
 </head>
 <body>
 <main>
-  <h1>RLS Lab Tester</h1>
+  <h1>RLS Attack Lab tester</h1>
+  <p>Part of <a href="https://boyu-zhang-uoi.github.io/Vibe_Coding_101/">Vibe Coding 101</a>, week 7.
+    Instructions: <a href="https://boyu-zhang-uoi.github.io/Vibe_Coding_101/weeks/07-security-and-review/lab.html">the week 7 lab</a>.
+    SQL for the practice table: <a href="https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/blob/main/weeks/07-security-and-review/rls-lab/setup.sql">setup.sql</a>
+    and <a href="https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/blob/main/weeks/07-security-and-review/rls-lab/fix.sql">fix.sql</a>.</p>
 
   <div class="banner" role="note">
-    <strong>Only test a practice project you own.</strong>
-    <p style="margin:.4rem 0 0">This page connects to a Supabase project using its
-      <strong>publishable key</strong> and tries ordinary read and write operations, so you can
-      see what a stranger with that key could do. Use it <strong>only</strong> on a project
-      <strong>you created</strong> and filled with the fake data in <code>setup.sql</code>.
-      Pointing tools like this at a database you do not own is not part of this course and may be illegal.</p>
-    <p style="margin:.4rem 0 0">Your URL and key stay <strong>in this browser tab's memory only</strong>.
-      Nothing is saved to disk or sent anywhere except your own Supabase project. Close the tab and they are gone.</p>
+    <strong>Only test a project you own.</strong>
+    <p>This page connects to a Supabase project with its <strong>publishable key</strong> and tries
+      ordinary reads and writes, so you can see what any stranger with that key could do. Use it
+      <strong>only</strong> on a project <strong>you created</strong>: the practice table from
+      <code>setup.sql</code>, or your own capstone's tables. Pointing it at a database you don't own is not
+      part of this course and may be illegal.</p>
+    <p>Your URL and key stay <strong>in this tab's memory only</strong>. Nothing is saved, and nothing is
+      sent anywhere except to the Supabase project you name. Close the tab and they're gone.</p>
   </div>
 
-  <section class="card">
-    <h2>1. Connect to your practice project</h2>
-    <p class="hint">Find both values in the Supabase dashboard: click <strong>Connect</strong> at the
-      top, or go to <strong>Settings &rarr; API Keys</strong>. Copy the <strong>Project URL</strong>
-      and the <strong>publishable</strong> key (it starts with <code>sb_publishable_</code>; on older
-      projects it is the <code>anon</code> key, a long JWT). Never paste a <em>secret</em> key here.</p>
+  <section class="card" aria-labelledby="connect-heading">
+    <h2 id="connect-heading">1. Connect to your project</h2>
+    <p class="hint">In the Supabase dashboard, click <strong>Connect</strong> at the top, or go to
+      <strong>Settings &rarr; API Keys</strong>. Copy the <strong>Project URL</strong> and the
+      <strong>publishable</strong> key (it starts with <code>sb_publishable_</code>).
+      Never paste a <strong>secret</strong> key (<code>sb_secret_…</code>, or the old
+      <code>service_role</code> key) into any web page: this page refuses them.</p>
     <label for="url">Project URL</label>
-    <input id="url" type="text" autocomplete="off" spellcheck="false"
-      placeholder="https://YOUR-PROJECT.supabase.co">
-    <label for="key">Publishable key (public)</label>
-    <input id="key" type="text" autocomplete="off" spellcheck="false"
-      placeholder="sb_publishable_... (or the legacy anon key)">
+    <input id="url" type="text" autocomplete="off" spellcheck="false" placeholder="https://abcdefgh.supabase.co">
+    <label for="key">Publishable key</label>
+    <input id="key" type="text" autocomplete="off" spellcheck="false" placeholder="sb_publishable_…">
     <label for="table">Table name</label>
     <input id="table" type="text" autocomplete="off" spellcheck="false" value="guestbook">
+    <p class="hint">Tables in the <code>public</code> schema only, for example <code>guestbook</code> or your capstone's table.</p>
     <div class="btns">
       <button id="connect" type="button">Connect</button>
       <button id="forget" type="button" class="secondary">Forget key</button>
     </div>
-    <p id="connStatus" class="status" aria-live="polite">Not connected.</p>
+    <p id="connStatus" class="status" role="status">Not connected.</p>
   </section>
 
-  <section class="card">
-    <h2>2. Run the attacks</h2>
-    <p class="hint">Each button runs one operation with the publishable key and shows the raw
-      result or error. Before <code>fix.sql</code>, all of them succeed. After it, read is limited
-      and writes are blocked.</p>
+  <section class="card" aria-labelledby="run-heading">
+    <h2 id="run-heading">2. Try what a stranger would try</h2>
+    <p class="hint">Each button sends one request with the publishable key and tells you what happened.
+      Before <code>fix.sql</code>, all four work. After it, reading shows only public rows and changes are blocked.</p>
     <div class="btns">
       <button class="op" data-op="read" type="button" disabled>Read all rows</button>
       <button class="op" data-op="insert" type="button" disabled>Insert a row</button>
-      <button class="op" data-op="update" type="button" disabled>Update row #1</button>
-      <button class="op" data-op="delete" type="button" disabled>Delete newest row</button>
+      <button class="op" data-op="update" type="button" disabled id="updateButton">Update row #1</button>
+      <button class="op" data-op="delete" type="button" disabled id="deleteButton">Delete newest row</button>
     </div>
+    <p id="opStatus" class="status" role="status"></p>
 
-    <label for="iname">Insert &mdash; name</label>
-    <input id="iname" type="text" value="Mallory">
-    <label for="imsg">Insert &mdash; message</label>
-    <textarea id="imsg">I reached your database with only the public key.</textarea>
     <div class="row">
       <div>
-        <label for="ipublic">Insert &mdash; is_public</label>
+        <label for="iname">Insert: name</label>
+        <input id="iname" type="text" value="Mallory">
+      </div>
+      <div>
+        <label for="ipublic">Insert: is_public</label>
         <input id="ipublic" type="text" value="true">
         <p class="hint">Try <code>false</code> to attempt a hidden row.</p>
       </div>
-      <div>
-        <label for="unew">Update / row id target</label>
-        <input id="unew" type="text" value="Changed by the tester">
-        <p class="hint">Text written into row #1's message.</p>
-      </div>
     </div>
+    <label for="imsg">Insert: message</label>
+    <textarea id="imsg">I reached your database with only the public key.</textarea>
+    <label for="unew">Update: new message for the row</label>
+    <input id="unew" type="text" value="Changed by a stranger">
 
-    <p id="opStatus" class="status" aria-live="polite"></p>
-    <div id="out" class="out" role="log" aria-live="polite">Results appear here.</div>
+    <details id="custom">
+      <summary>Testing your own table instead?</summary>
+      <p class="hint">The fields above match the practice <code>guestbook</code> table. For another table,
+        describe the row in JSON (the same format as <code>{"name": "Ada"}</code>). Leave a box empty to use the fields above.</p>
+      <label for="insertJson">Row to insert (JSON)</label>
+      <textarea id="insertJson" spellcheck="false" placeholder='{"text": "Hello", "done": false}'></textarea>
+      <label for="updateJson">Changes for the update (JSON)</label>
+      <textarea id="updateJson" spellcheck="false" placeholder='{"text": "Changed by a stranger"}'></textarea>
+      <div class="row">
+        <div>
+          <label for="idColumn">ID column</label>
+          <input id="idColumn" type="text" value="id" spellcheck="false">
+        </div>
+        <div>
+          <label for="targetId">Row ID to update or delete</label>
+          <input id="targetId" type="text" placeholder="1" spellcheck="false">
+          <p class="hint">Empty: update row 1, and delete the newest row you can see.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="card" aria-labelledby="results-heading">
+    <h2 id="results-heading">3. Results</h2>
+    <table>
+      <caption class="hint" style="text-align:left">Latest result for each action. Copy these into your lab table.</caption>
+      <thead><tr><th scope="col">Action</th><th scope="col">Latest result</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Read all rows</th><td id="sum-read">not run yet</td></tr>
+        <tr><th scope="row">Insert a row</th><td id="sum-insert">not run yet</td></tr>
+        <tr><th scope="row">Update a row</th><td id="sum-update">not run yet</td></tr>
+        <tr><th scope="row">Delete a row</th><td id="sum-delete">not run yet</td></tr>
+      </tbody>
+    </table>
+    <details>
+      <summary>How to read the results</summary>
+      <ul>
+        <li><span class="tag allowed">ALLOWED</span> The publishable key could do it. Fine for things a stranger <em>should</em> do (read public rows, add a guestbook message); a leak for anything else.</li>
+        <li><span class="tag blocked">0 ROWS (FILTERED)</span> No error, but no rows came back or changed. With RLS on, rows you may not see or change are invisible, so the request matches nothing. That is RLS working, as long as the table really has rows (check the Table Editor).</li>
+        <li><span class="tag blocked">REFUSED BY RLS</span> A policy's <code>with check</code> rule rejected the new row: "new row violates row-level security policy".</li>
+        <li><span class="tag blocked">REFUSED: NO GRANT</span> "permission denied": the role has no permission for this action on this table at all. That blocks it, but through a grant, not RLS. From 30 October 2026 new tables get no grants until you add them. When you add one, turn RLS on and add policies in the same script; never fix this with a grant alone.</li>
+        <li><span class="tag blocked">REFUSED BY A COLUMN RULE</span> The data itself broke a column rule (empty, too long, wrong type). Valid data might still get through, so this says nothing about who may write.</li>
+        <li><span class="tag error">ERROR</span> Not a security result: a wrong URL, key, table or column name, or the project is paused. Fix the setup and try again.</li>
+      </ul>
+    </details>
+    <div id="log" class="log" role="log" aria-label="Results, newest first"></div>
     <div class="btns"><button id="clear" type="button" class="secondary">Clear results</button></div>
   </section>
 
   <footer>
-    <p>Vibe Coding 101 &middot; week 7 RLS Attack Lab. Library:
-      <code>@supabase/supabase-js</code> loaded from the jsDelivr CDN. Full instructions:
-      <a href="../lab.md">lab.md</a>. CC BY 4.0.</p>
+    <p>Vibe Coding 101 &middot; week 7 RLS Attack Lab &middot; CC BY 4.0 (text), MIT (code).
+      Uses the official <code>@supabase/supabase-js</code> library from the jsDelivr CDN.
+      Source: <a href="https://github.com/Boyu-Zhang-UOI/Vibe_Coding_101/tree/main/weeks/07-security-and-review/rls-lab">rls-lab kit on GitHub</a>.</p>
   </footer>
 </main>
 
 <script type="module">
-  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+  // ---------------------------------------------------------------- BEGIN pure helpers
+  // These functions only take values and return values (no page, no network), so the course's
+  // test suite can check them (scripts/tests/rls-attack-page.test.mjs).
 
-  // State lives only in memory for the life of this tab. Nothing is persisted.
-  let client = null;
-  let table = "guestbook";
+  /** Read the middle part of a JWT. The legacy Supabase keys are JWTs. */
+  function decodeJwtPayload(token) {
+    const part = String(token).split(".")[1];
+    if (!part) return null;
+    try {
+      const base64 = part.replace(/-/g, "+").replace(/_/g, "/");
+      return JSON.parse(atob(base64 + "=".repeat((4 - (base64.length % 4)) % 4)));
+    } catch {
+      return null;
+    }
+  }
+
+  /** What kind of key is this? Returns { ok, kind, message }. */
+  function inspectKey(raw) {
+    const key = String(raw || "").trim();
+    if (!key) return { ok: false, kind: "empty", message: "Paste the publishable key." };
+    const secretWarning = " It skips every security rule, so this test would prove nothing, and it must never be pasted into a web page. " +
+      "If it was ever in a page, a chat or a commit, revoke it in Settings → API Keys. Use the publishable key instead.";
+    if (key.startsWith("sb_secret_")) {
+      return { ok: false, kind: "secret", message: "STOP: that is a SECRET key (sb_secret_…)." + secretWarning };
+    }
+    if (key.startsWith("eyJ")) {
+      const role = decodeJwtPayload(key)?.role;
+      if (role === "service_role") {
+        return { ok: false, kind: "legacy-secret", message: "STOP: that is the legacy service_role key, which is a SECRET key." + secretWarning };
+      }
+      if (role === "anon") {
+        return { ok: true, kind: "legacy-anon", message: "This is a legacy anon key. It works for this test, but Supabase is retiring the legacy keys by the end of 2026: create a publishable key (sb_publishable_…) under Settings → API Keys and use that." };
+      }
+      return { ok: false, kind: "unknown-jwt", message: "That looks like a sign-in token, not a project key" + (role ? ` (role: ${role})` : "") + ". Copy the publishable key from Settings → API Keys." };
+    }
+    if (key.startsWith("sb_publishable_")) return { ok: true, kind: "publishable", message: "" };
+    return { ok: true, kind: "unknown", message: "This doesn't look like a publishable key (those start with sb_publishable_). Trying anyway." };
+  }
+
+  /** Clean up a Project URL. Returns { ok, url, message }. */
+  function normalizeProjectUrl(raw) {
+    let text = String(raw || "").trim();
+    if (!text) return { ok: false, url: "", message: "Paste the Project URL." };
+    const dashboard = text.match(/supabase\.com\/dashboard\/project\/([a-z0-9]+)/i);
+    if (dashboard) {
+      const url = `https://${dashboard[1].toLowerCase()}.supabase.co`;
+      return { ok: true, url, message: `That was the dashboard's address, so this page is using your Project URL instead: ${url}` };
+    }
+    if (!/^https?:\/\//i.test(text)) text = "https://" + text;
+    let parsed;
+    try {
+      parsed = new URL(text);
+    } catch {
+      return { ok: false, url: "", message: "That isn't a web address. It should look like https://abcdefgh.supabase.co" };
+    }
+    const local = ["localhost", "127.0.0.1", "[::1]"].includes(parsed.hostname);
+    if (parsed.protocol !== "https:" && !local) {
+      return { ok: false, url: "", message: "The Project URL must start with https://" };
+    }
+    return { ok: true, url: parsed.origin, message: "" };
+  }
+
+  function isValidName(name) {
+    return /^[A-Za-z_][A-Za-z0-9_]*$/.test(String(name));
+  }
+
+  const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+  /**
+   * Turn one supabase-js result into a verdict.
+   * op: "read" | "insert" | "update" | "delete"; result: { data, error, count, status }.
+   * Returns { tag: "allowed" | "blocked" | "error", label, explanation }.
+   */
+  function classifyResult(op, result, table = "the table") {
+    const { data, error, count, status } = result || {};
+    if (error) {
+      const code = String(error.code || "");
+      const text = [error.message, error.details, error.hint].filter(Boolean).join(" ");
+      if (code === "42501" && /row-level security/i.test(text)) {
+        return { tag: "blocked", label: "REFUSED BY RLS",
+          explanation: "A row-level security policy refused this row: its with check rule was false. This is RLS working." };
+      }
+      if (code === "42501" || /permission denied/i.test(text)) {
+        return { tag: "blocked", label: "REFUSED: NO GRANT",
+          explanation: `"permission denied": the publishable key's role has no permission to ${op} on ${table} at all. ` +
+            "That blocks it through a grant, not through RLS. If your app needs this action, add the grant, turn RLS on and add a policy, together, in one SQL script. Never add the grant alone." };
+      }
+      if (status === 401 || /^PGRST30/.test(code) || /invalid api key|no api key|unauthori[sz]ed|jwt/i.test(text)) {
+        return { tag: "error", label: "ERROR: KEY REJECTED",
+          explanation: "Supabase didn't accept this key for this project. Copy the publishable key from the same project as the URL. (Not a security result.)" };
+      }
+      if (code === "PGRST205" || code === "42P01" || /could not find the table|relation .* does not exist/i.test(text)) {
+        return { tag: "error", label: "ERROR: TABLE NOT FOUND",
+          explanation: `There's no table called ${table} that the API can see in the public schema. Check the spelling. (Not a security result.)` };
+      }
+      if (code === "PGRST204" || code === "42703" || /column .* does not exist|could not find the .* column/i.test(text)) {
+        return { tag: "error", label: "ERROR: COLUMN NOT FOUND",
+          explanation: "Your table doesn't have a column this test uses. Open \"Testing your own table instead?\" and describe a row with your table's columns. (Not a security result.)" };
+      }
+      if (/^2[23]/.test(code)) {
+        return { tag: "blocked", label: "REFUSED BY A COLUMN RULE",
+          explanation: "The database rejected the data itself (for example an empty, too long or wrongly typed value). That is a data rule, not an access rule: valid data might get through." };
+      }
+      if (/failed to fetch|networkerror|load failed|fetch failed/i.test(text)) {
+        return { tag: "error", label: "ERROR: COULDN'T REACH THE PROJECT",
+          explanation: "Check the Project URL and your internet connection. A paused free project can't be reached until you restore it in the dashboard. (Not a security result.)" };
+      }
+      return { tag: "error", label: "ERROR", explanation: "Something went wrong that isn't a security result. Read the details below. " + (error.message || "") };
+    }
+
+    if (op === "read") {
+      const rows = Array.isArray(data) ? data : [];
+      if (rows.length === 0) {
+        return { tag: "blocked", label: "0 ROWS (FILTERED)",
+          explanation: "No error, but no rows came back. Either the table is empty, or RLS hides every row from the publishable key. Compare with the Table Editor: if the table has rows, RLS is filtering them." };
+      }
+      const hidden = rows.filter((row) => row && row.is_public === false).length;
+      return { tag: "allowed", label: `ALLOWED: READ ${plural(rows.length, "ROW").toUpperCase()}`,
+        explanation: `A stranger can read ${plural(rows.length, "row")}` +
+          (hidden > 0 ? `, including ${plural(hidden, "row")} marked is_public = false. Those were meant to be private!` : ". Is every one of them meant to be public?") };
+    }
+    if (op === "insert") {
+      return { tag: "allowed", label: "ALLOWED: INSERTED",
+        explanation: "A stranger can add this row. Fine for a guestbook message; a leak if strangers shouldn't add rows like this one." };
+    }
+    const verb = op === "update" ? "changed" : "deleted";
+    if (typeof count !== "number") {
+      return { tag: "allowed", label: "NO ERROR",
+        explanation: `The request was accepted, but Supabase didn't say how many rows were ${verb}. Click "Read all rows" to check.` };
+    }
+    if (count === 0) {
+      return { tag: "blocked", label: `0 ROWS ${verb.toUpperCase()} (FILTERED)`,
+        explanation: `No error, but nothing was ${verb}. With RLS on, rows you may not ${op} are invisible to the request, so it matches nothing. (It also happens when no row has that ID.) Always check the number of rows, not just for an error.` };
+    }
+    return { tag: "allowed", label: `ALLOWED: ${plural(count, "ROW").toUpperCase()} ${verb.toUpperCase()}`,
+      explanation: `A stranger ${verb} ${plural(count, "row")} that wasn't theirs.` };
+  }
+  // ---------------------------------------------------------------- END pure helpers
 
   const $ = (id) => document.getElementById(id);
   const opButtons = () => document.querySelectorAll(".op");
+  let client = null; // lives only in this tab's memory
+  let table = "guestbook";
+  let createClient = null;
 
-  function setConnected(on, message) {
-    $("connStatus").textContent = message;
-    $("connStatus").style.color = on ? "var(--good-text)" : "var(--muted)";
-    opButtons().forEach((b) => { b.disabled = !on; });
+  async function loadLibrary() {
+    if (!createClient) {
+      ({ createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm"));
+    }
+    return createClient;
   }
 
-  function stamp(label, tag, payload) {
-    const out = $("out");
-    const time = new Date().toLocaleTimeString();
-    const line = document.createElement("div");
-    line.style.marginBottom = "12px";
+  function setStatus(element, text, warn = false) {
+    element.textContent = text;
+    element.classList.toggle("warn", warn);
+  }
+
+  function setConnected(on, message, warn = false) {
+    setStatus($("connStatus"), message, warn);
+    opButtons().forEach((button) => { button.disabled = !on; });
+  }
+
+  function report(op, label, verdict, details) {
+    const entry = document.createElement("div");
+    entry.className = "entry";
     const head = document.createElement("div");
-    const badge = document.createElement("span");
-    badge.className = "tag " + (tag === "ok" ? "ok" : "blocked");
-    badge.textContent = tag === "ok" ? "SUCCEEDED" : "BLOCKED";
-    head.append(`[${time}] ${label}  `, badge);
-    const body = document.createElement("div");
-    body.textContent = payload;
-    line.append(head, body);
-    if (out.firstChild && out.textContent.startsWith("Results appear")) out.textContent = "";
-    out.prepend(line);
-  }
-
-  function summarize(label, { data, error, count }) {
-    if (error) {
-      stamp(label, "blocked", "error: " + JSON.stringify(error, null, 2));
-      $("opStatus").textContent = label + ": blocked (see result).";
-      return;
+    head.className = "entry-head";
+    const tag = document.createElement("span");
+    tag.className = "tag " + verdict.tag;
+    tag.textContent = verdict.label;
+    head.append(`${new Date().toLocaleTimeString()} · ${label}`, tag);
+    const body = document.createElement("p");
+    body.textContent = verdict.explanation;
+    entry.append(head, body);
+    if (details !== undefined) {
+      const raw = document.createElement("details");
+      const summary = document.createElement("summary");
+      summary.textContent = "What Supabase sent back";
+      const pre = document.createElement("pre");
+      pre.textContent = JSON.stringify(details, null, 2);
+      raw.append(summary, pre);
+      entry.append(raw);
     }
-    const rows = Array.isArray(data) ? data.length : (data ? 1 : 0);
-    const note = (rows === 0)
-      ? "No error, but 0 rows were affected. With RLS on, blocked rows are simply invisible."
-      : rows + " row(s).";
-    stamp(label, "ok", note + "\n" + JSON.stringify(data, null, 2));
-    $("opStatus").textContent = label + ": " + note;
+    $("log").prepend(entry);
+    $("sum-" + op).textContent = `${verdict.label} (${label})`;
+    setStatus($("opStatus"), `${label}: ${verdict.label}. Details under 3. Results.`);
   }
 
-  function parseBool(v) {
-    return String(v).trim().toLowerCase() === "true";
-  }
-
-  $("connect").addEventListener("click", () => {
-    const url = $("url").value.trim();
-    const key = $("key").value.trim();
-    table = ($("table").value.trim() || "guestbook");
-    if (!url || !key) { setConnected(false, "Enter both the URL and the publishable key."); return; }
-    if (key.startsWith("sb_secret_") || key.startsWith("eyJ") && key.includes("service_role")) {
-      setConnected(false, "That looks like a SECRET key. Do not use it here. Use the publishable / anon key.");
-      return;
-    }
+  function readJson(id) {
+    const text = $(id).value.trim();
+    if (!text) return { value: null };
     try {
-      client = createClient(url, key, { auth: { persistSession: false } });
-      setConnected(true, "Connected to " + url + " (table: " + table + "). Run the attacks below.");
+      const value = JSON.parse(text);
+      if (value === null || typeof value !== "object" || Array.isArray(value)) throw new Error("not an object");
+      return { value };
+    } catch {
+      return { error: `The box "${$(id).previousElementSibling.textContent}" must hold one JSON object, like {"text": "Hello"}.` };
+    }
+  }
+
+  function targetSettings() {
+    const idColumn = $("idColumn").value.trim() || "id";
+    const raw = $("targetId").value.trim();
+    const targetId = raw === "" ? null : (/^-?\d+$/.test(raw) ? Number(raw) : raw);
+    return { idColumn, targetId };
+  }
+
+  function updateButtonLabels() {
+    const { targetId } = targetSettings();
+    $("updateButton").textContent = `Update row #${targetId ?? 1}`;
+    $("deleteButton").textContent = targetId === null ? "Delete newest row" : `Delete row #${targetId}`;
+  }
+
+  $("connect").addEventListener("click", async () => {
+    client = null;
+    const url = normalizeProjectUrl($("url").value);
+    const key = inspectKey($("key").value);
+    table = $("table").value.trim() || "guestbook";
+    if (!url.ok) return setConnected(false, url.message, true);
+    if (!key.ok) {
+      if (key.kind === "secret" || key.kind === "legacy-secret") $("key").value = "";
+      return setConnected(false, key.message, true);
+    }
+    if (!isValidName(table)) return setConnected(false, "Table names here are letters, digits and _ only, for example guestbook.", true);
+    try {
+      const create = await loadLibrary();
+      client = create(url.url, $("key").value.trim(), {
+        auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      });
+      const notes = [url.message, key.message].filter(Boolean).join(" ");
+      setConnected(true, `Ready: ${url.url}, table "${table}". ${notes}`.trim(), Boolean(notes));
     } catch (e) {
-      setConnected(false, "Could not connect: " + e.message);
+      setConnected(false, "Couldn't load the Supabase library from the CDN. Check your internet connection, then try again. (" + e.message + ")", true);
     }
   });
 
   $("forget").addEventListener("click", () => {
     client = null;
     $("key").value = "";
-    setConnected(false, "Key cleared from this tab.");
+    setConnected(false, "Key removed from this tab.");
   });
 
   $("clear").addEventListener("click", () => {
-    $("out").textContent = "Results appear here.";
-    $("opStatus").textContent = "";
+    $("log").replaceChildren();
+    ["read", "insert", "update", "delete"].forEach((op) => { $("sum-" + op).textContent = "not run yet"; });
+    setStatus($("opStatus"), "");
   });
+
+  $("targetId").addEventListener("input", updateButtonLabels);
 
   async function run(op) {
     if (!client) return;
-    $("opStatus").textContent = "Working...";
+    setStatus($("opStatus"), "Working…");
+    const { idColumn, targetId } = targetSettings();
+    if (!isValidName(idColumn)) {
+      return report(op, "Setup", { tag: "error", label: "ERROR", explanation: "The ID column name may only contain letters, digits and _." });
+    }
     try {
       if (op === "read") {
-        summarize("READ all rows", await client.from(table).select("*"));
-      } else if (op === "insert") {
-        const row = { name: $("iname").value, message: $("imsg").value, is_public: parseBool($("ipublic").value) };
-        summarize("INSERT a row", await client.from(table).insert(row).select());
-      } else if (op === "update") {
-        summarize("UPDATE row #1", await client.from(table).update({ message: $("unew").value }).eq("id", 1).select());
-      } else if (op === "delete") {
-        // Find the newest row, then try to delete it.
-        const newest = await client.from(table).select("id").order("id", { ascending: false }).limit(1);
-        if (newest.error) { summarize("DELETE newest row", newest); return; }
-        const id = newest.data && newest.data[0] && newest.data[0].id;
-        if (id == null) { stamp("DELETE newest row", "blocked", "Could not read any id to delete (read may be blocked)."); return; }
-        summarize("DELETE row #" + id, await client.from(table).delete().eq("id", id).select());
+        const result = await client.from(table).select("*").limit(100);
+        return report(op, "Read all rows", classifyResult(op, result, table), result.error ?? result.data);
+      }
+      if (op === "insert") {
+        const custom = readJson("insertJson");
+        if (custom.error) return report(op, "Insert a row", { tag: "error", label: "ERROR", explanation: custom.error });
+        const row = custom.value ?? {
+          name: $("iname").value,
+          message: $("imsg").value,
+          is_public: $("ipublic").value.trim().toLowerCase() === "true",
+        };
+        // count: "exact" without .select() asks only "did it work?", so the answer doesn't
+        // depend on whether the key may also READ the new row.
+        const result = await client.from(table).insert(row, { count: "exact" });
+        return report(op, "Insert a row", classifyResult(op, result, table), result.error ?? { inserted: row, count: result.count });
+      }
+      if (op === "update") {
+        const custom = readJson("updateJson");
+        if (custom.error) return report(op, "Update a row", { tag: "error", label: "ERROR", explanation: custom.error });
+        const changes = custom.value ?? { message: $("unew").value };
+        const id = targetId ?? 1;
+        const result = await client.from(table).update(changes, { count: "exact" }).eq(idColumn, id);
+        return report(op, `Update row #${id}`, classifyResult(op, result, table), result.error ?? { changes, count: result.count });
+      }
+      if (op === "delete") {
+        let id = targetId;
+        if (id === null) {
+          const newest = await client.from(table).select(idColumn).order(idColumn, { ascending: false }).limit(1);
+          if (newest.error) return report(op, "Delete newest row (finding it)", classifyResult("read", newest, table), newest.error);
+          id = newest.data?.[0]?.[idColumn];
+          if (id === undefined || id === null) {
+            return report(op, "Delete newest row", { tag: "blocked", label: "NOT TESTED: NO VISIBLE ROW",
+              explanation: "The key can't see any row, so there was no newest row to aim at. Rows you can't read can't be targeted this way either. To aim at a specific row anyway, type its ID under \"Testing your own table instead?\"." });
+          }
+        }
+        const result = await client.from(table).delete({ count: "exact" }).eq(idColumn, id);
+        return report(op, `Delete row #${id}`, classifyResult(op, result, table), result.error ?? { count: result.count });
       }
     } catch (e) {
-      stamp("Unexpected error", "blocked", e.message);
+      report(op, "Unexpected problem", { tag: "error", label: "ERROR", explanation: e.message });
     }
   }
 
-  opButtons().forEach((b) => b.addEventListener("click", () => run(b.dataset.op)));
+  opButtons().forEach((button) => button.addEventListener("click", () => run(button.dataset.op)));
 </script>
 </body>
 </html>

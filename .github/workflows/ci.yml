@@ -20,10 +20,14 @@ jobs:
       - run: npm ci
       - name: Check internal links
         run: npm run check:links
+      - name: Test the course scripts
+        run: npm run test:scripts
       - name: Test starter kits
         run: npm run test:starters
       - name: Build website and slides
         run: npm run site:build
+      - name: Check links on the built website
+        run: npm run check:site
       - uses: actions/upload-artifact@v7
         with:
           name: website

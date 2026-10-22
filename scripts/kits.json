@@ -1,0 +1,61 @@
+{
+  "$comment": "The starter kits: folders that students copy into their own repositories. Used by check-links.mjs (links must stay inside a kit or be absolute), test-starters.mjs, build-site.mjs (kit READMEs are not website pages) and publish-starters.sh (one template repository per kit).",
+  "kits": [
+    {
+      "path": "weeks/04-read-debug-own-it/debug-clinic",
+      "repo": "debug-clinic",
+      "description": "Vibe Coding 101 week 4: Debug Clinic (contains planted bugs on purpose)",
+      "plantedSyntaxError": { "file": "app.js", "line": 46 }
+    },
+    {
+      "path": "weeks/05-apis-secrets-servers/starter",
+      "repo": "micro-app-starter",
+      "description": "Vibe Coding 101 week 5: AI micro-app starter"
+    },
+    {
+      "path": "weeks/06-agents/be-the-agent",
+      "repo": "be-the-agent",
+      "description": "Vibe Coding 101 week 6: Be the Agent kit (contains a planted bug on purpose)"
+    },
+    {
+      "path": "weeks/07-security-and-review/rls-lab",
+      "repo": "rls-lab",
+      "description": "Vibe Coding 101 week 7: RLS Attack Lab"
+    },
+    {
+      "path": "weeks/07-security-and-review/injection-demo",
+      "repo": "injection-demo",
+      "description": "Vibe Coding 101 week 7: harmless prompt-injection demo"
+    },
+    {
+      "path": "projects/capstone-starter",
+      "repo": "capstone-starter",
+      "description": "Vibe Coding 101 capstone starter"
+    },
+    {
+      "path": "projects/rescue-starters/study-timer",
+      "repo": "rescue-study-timer",
+      "description": "Vibe Coding 101 rescue starter: a working Project 1 study timer, for reference"
+    }
+  ],
+  "sharedFiles": {
+    "$comment": "Files that must stay identical in both Node starters. Edit one, then copy it to the other.",
+    "between": ["weeks/05-apis-secrets-servers/starter", "projects/capstone-starter"],
+    "files": [
+      ".gitignore",
+      "api/ask.js",
+      "dev-server.mjs",
+      "lib/llm.js",
+      "lib/validate.js",
+      "public/lib/input.js",
+      "scripts/check-secrets.mjs",
+      "scripts/list-models.mjs",
+      "tests/ask.test.js",
+      "tests/check-secrets.test.js",
+      "tests/input.test.js",
+      "tests/llm.test.js",
+      "tests/validate.test.js",
+      "vercel.json"
+    ]
+  }
+}

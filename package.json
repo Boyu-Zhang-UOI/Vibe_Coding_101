@@ -6,11 +6,13 @@
   "type": "module",
   "license": "SEE LICENSE IN LICENSE",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.12"
   },
   "scripts": {
-    "check": "npm run check:links && npm run test:starters && npm run site:build",
+    "check": "npm run check:links && npm run test:scripts && npm run test:starters && npm run site:build && npm run check:site",
     "check:links": "node scripts/check-links.mjs",
+    "check:site": "node scripts/check-site.mjs",
+    "test:scripts": "node --test scripts/tests/*.test.mjs",
     "test:starters": "node scripts/test-starters.mjs",
     "site:prepare": "node scripts/build-site.mjs",
     "site:dev": "npm run site:prepare && vitepress dev site",

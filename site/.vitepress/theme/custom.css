@@ -1,0 +1,102 @@
+/*
+ * Readability rules for the course website, added on top of VitePress's default theme.
+ */
+
+/* 1. Prompts and other plain-text blocks wrap instead of scrolling sideways, so a long
+ *    prompt can be read (and checked before copying) on any screen. Code blocks in real
+ *    programming languages keep scrolling, because wrapping would change how they read.
+ *    The copy button still copies the original lines. */
+.vp-doc div[class*='language-text'] pre,
+.vp-doc div[class*='language-txt'] pre,
+.vp-doc div[class*='language-plaintext'] pre,
+.vp-doc div[class*='language-markdown'] pre,
+.vp-doc div[class*='language-md'] pre,
+.vp-doc div[class='language-'] pre,
+.vp-doc div[class^='language- '] pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.vp-doc div[class*='language-text'] code,
+.vp-doc div[class*='language-txt'] code,
+.vp-doc div[class*='language-plaintext'] code,
+.vp-doc div[class*='language-markdown'] code,
+.vp-doc div[class*='language-md'] code,
+.vp-doc div[class='language-'] code,
+.vp-doc div[class^='language- '] code {
+  width: auto;
+  white-space: inherit;
+  overflow-wrap: anywhere;
+}
+
+/* Text diagrams (boxes drawn with + - | characters) must NOT wrap, or the drawing falls
+ * apart. scripts/build-site.mjs wraps them in .ascii-diagram with a text alternative. */
+.vp-doc .ascii-diagram {
+  margin: 16px 0;
+}
+
+.vp-doc .ascii-diagram div[class*='language-'] pre {
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
+.vp-doc .ascii-diagram div[class*='language-'] code {
+  width: fit-content;
+  white-space: pre;
+}
+
+/* 2. Tables stay readable on phones: they scroll sideways inside their own box (never the
+ *    whole page), cells wrap long words and code, and spacing tightens on narrow screens. */
+.vp-doc table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.vp-doc td,
+.vp-doc th {
+  overflow-wrap: break-word;
+}
+
+.vp-doc td code {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .vp-doc table {
+    font-size: 14px;
+  }
+
+  .vp-doc th,
+  .vp-doc td {
+    padding: 6px 10px;
+    min-width: 7rem;
+  }
+}
+
+/* A table whose header row was empty in the Markdown gets hidden header labels for screen
+ * readers (added by build-site.mjs). Don't show an empty grey bar for it. */
+.vp-doc thead:has(th > .visually-hidden:only-child) th {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 0;
+  line-height: 0;
+}
+
+/* 3. Hidden text for screen readers only. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 4. The "Copy this template" block on template pages. */
+.vp-doc .template-copy .custom-block-title {
+  margin-bottom: 4px;
+}

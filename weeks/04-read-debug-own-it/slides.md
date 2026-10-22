@@ -11,8 +11,9 @@ footer: "CC BY 4.0"
 You must be able to read and fix what the AI wrote.
 
 <!--
-Today is the most important week for your independence. Up to now the AI wrote and you checked by using the app. Today you read the code, debug it with the AI switched off, and write a feature yourself.
+Today is the most important week for your independence. Up to now the AI wrote and you checked by using the app. This week you read the code, debug it with the AI switched off, write a feature yourself, and write your first automated test.
 Reassure them early: nobody expects them to write apps from scratch. Reading and fixing is a different, learnable skill.
+Slides 1–15 are the Studio A talk. Slides 17–18 are two short Studio B mini-lessons.
 -->
 
 ---
@@ -36,18 +37,22 @@ The AI users who scored well asked for explanations, asked conceptual questions,
 
 <!--
 Geng et al. watched 19 students build a web app with an AI agent while thinking aloud. Only 7.4% of their actions involved looking at the code or the logs. Only 2.2% of their checks tried edge cases, no student wrote or ran a unit test, and 61% of their prompts asked the AI to debug for them. https://arxiv.org/pdf/2507.22614
-Today you do the opposite: look at the code, the console, and the edges.
+This week you do the opposite: look at the code, the Console and the edges, and write a test.
 -->
 
 ---
 
-## Reading builds understanding
+## Explain it before you keep it
 
-Understanding peaked when students **read and partly wrote** the code.
+AI off, 30 minutes, fix your own code:
+
+**77%** failed after unrestricted AI use.
+**39%** failed when they'd had to explain first.
 
 <!--
-CMU's 15-113 course surveyed students after every assignment. Understanding and code-reading scores peaked on the assignment where students read and partly wrote the code, using a workflow where the AI plans, the student writes and the AI reviews. Scores then fell during the assignments where agents wrote the code. https://www.cs.cmu.edu/~113/bestPractices.html
-Caveat: these are self-reported scores from one course, so treat them as a signal, not proof. That workflow is Part 3 of today's lab.
+Sankaranarayanan (2026), 78 learners who grew up with AI tools: on a 30-minute maintenance task with the AI blacked out, 77% of those who had used AI without restrictions failed, versus 39% of those whose tool had required a short explanation before generated code could be added. https://arxiv.org/abs/2602.20206
+That's why the course has teach-backs in PROMPTS.md, and why you'll write code yourself in Studio B.
+CMU's course found the same pattern from the other side: understanding peaked on the assignment where students read and partly wrote the code (self-reported; a signal, not proof). https://www.cs.cmu.edu/~113/bestPractices.html
 -->
 
 ---
@@ -64,7 +69,8 @@ Caveat: these are self-reported scores from one course, so treat them as a signa
 
 <!--
 Every static app in this course has these five parts. When something breaks, first ask: which part?
-Show your own Project 1 files, or the Debug Clinic app: index.html, style.css, app.js.
+CSS rarely crashes; it just looks wrong. If your app looks broken but the Console is clean, suspect CSS. If it behaves wrongly, suspect JavaScript.
+In the lab's Part 1 you find all five in your own Project 1.
 -->
 
 ---
@@ -85,24 +91,7 @@ The id must be unique on the page, and JavaScript must spell it exactly the same
 
 ---
 
-## CSS: how it looks
-
-```css
-.book {
-  padding: 14px 0;
-}
-```
-
-CSS rarely crashes. It just looks wrong.
-
-<!--
-A selector (.book) picks elements; properties (padding) style them.
-If your app looks broken but the Console is clean, suspect CSS. If it behaves wrongly, suspect JavaScript.
--->
-
----
-
-## JavaScript: variables and functions
+## JavaScript: variables, functions, events
 
 ```js
 let books = [];
@@ -110,29 +99,18 @@ let books = [];
 function addBook(title) {
   books.push({ title: title });
 }
+
+button.addEventListener("click", () => {
+  addBook(input.value);
+});
 ```
 
 <!--
 A variable is a labeled box that holds a value: here, a list (an array) of books.
 A function is a named recipe. addBook(...) runs it: we say we "call" it.
 { title: title } is an object: a bundle of name: value pairs, separated by commas.
--->
-
----
-
-## Events and the DOM
-
-```js
-button.addEventListener("click", () => {
-  addBook(input.value);
-});
-```
-
-The **DOM** is the page as JavaScript sees it.
-
-<!--
-The DOM (Document Object Model) is the live version of your HTML that JavaScript can read and change.
 An event is something the user does: click, type, submit. addEventListener says "when this happens, run this code".
+The DOM (Document Object Model) is the live version of your HTML that JavaScript can read and change.
 Important detail for later: input.value is always text, even in a number box.
 -->
 
@@ -203,7 +181,7 @@ Hypothesize: say out loud what you think is wrong and why.
 Test: check the idea before changing code: type a variable in the Console, or add console.log.
 Fix: the smallest change that fixes the cause.
 Verify: repeat the steps, and check you didn't break anything else.
-Most beginners jump from Reproduce to Fix. Don't.
+Most beginners jump from Reproduce to Fix. Don't. I'll demo it now.
 -->
 
 ---
@@ -216,37 +194,7 @@ Bugs live at the edges.
 
 <!--
 The normal case usually works, because it's the case the AI was thinking about.
-Today you'll write three edge-case tests for your Project 1 in TESTS.md and run them.
--->
-
----
-
-## Copilot has three modes
-
-**Inline suggestions** · **Ask** (chat) · **Agent**
-
-This week: **Ask only.**
-Agents arrive in week 6.
-
-<!--
-Inline suggestions: grey "ghost text" that appears as you type. Today you switch them off while you write code, so the thinking is yours.
-Ask: a chat that answers questions and doesn't change your files.
-Agent: edits files and runs commands by itself. That needs the habits you're building now, so it waits until week 6.
-Copilot usage limits are in TOOLS.md. Ask mode uses your allowance too, so ask good questions.
--->
-
----
-
-## The AI plans, you write, the AI reviews
-
-1. Copilot (Ask) proposes a plan, no code
-2. **You** write the code
-3. Copilot reviews your diff
-4. You fix, test, commit
-
-<!--
-This is the workflow credited with the highest understanding scores in CMU's course.
-The AI does what it's good at (planning, spotting problems). You keep the part that builds your skill: writing and deciding.
+After the clinic you'll check your own Project 1 for the same five kinds of bug, and in the homework you'll write three edge-case tests in TESTS.md.
 -->
 
 ---
@@ -257,42 +205,119 @@ The AI does what it's good at (planning, spotting problems). You keep the part t
 
 Stuck 10 minutes → hint card → 🟡 tutor mode
 
+Feeling stuck is normal. Bugs 1–3 is a good result.
+
 <!--
-The clinic is practice. Points are for fun, not your grade.
+The clinic is practice. Points are for fun, not your grade; taking part is.
 Driver types, navigator reads and asks questions, swap every bug.
-Tutor mode = a chat assistant with the course's hint-only prompt (instructor/course-tutor.md). It gives hints, not fixes.
+Tutor mode = a chat assistant with the course's hint-only prompt. It gives hints, not fixes. AI limited.
 Feeling uncomfortable without the AI is normal and expected. That discomfort is the skill being built.
 -->
 
 ---
 
-## Today's lab
+## Studio B: you write it, the AI reviews
 
-1. Project 1 in a Codespace (10 min)
-2. Debug Clinic, AI off (45 min)
-3. AI plans, you write, AI reviews (20 min)
-4. TESTS.md + `git revert` (15 min)
+Copilot: **inline suggestions** · **Ask** · **Agent**
 
-Oral walkthrough 1 runs alongside.
+This week: **Ask only**, suggestions off.
+
+A feature card gives the plan. **You** fill the blanks.
 
 <!--
-Open lab.md. Walkthrough slots start during Part 3; if your name is called, go, then come back to where you were.
-Remind everyone to stop their codespaces at the end. Free hours are limited (TOOLS.md).
+Inline suggestions: grey "ghost text" that appears as you type. Switch them off while you write, so the thinking is yours.
+Ask: a chat that answers questions and doesn't change your files. It reviews your diff.
+Agent: edits files and runs commands by itself. That needs the habits you're building now, so it waits until week 6.
+Ask mode uses your monthly Copilot allowance too (numbers in TOOLS.md). Check the Copilot icon in the status bar.
+Each card has a criterion, a plan and a skeleton with blanks. You find your own names (your list, your draw function, your storage key) and fill them in. That's the feature you wrote yourself for Project 1.
+-->
+
+---
+
+## Check first, with code
+
+Write the **test** before the function.
+
+Run it: **red**. Write the function: **green**.
+
+<!--
+Last week your checks were things you tried by hand. From this week, a check can be code: an automated test.
+You'll take one pure function out of your app (the "is this input OK?" check), write five tests for it first, see them fail because the function doesn't exist yet, then write it and see them pass.
+Why first? When an AI writes tests after faulty code, the tests tend to agree with the faults: in a 2026 study they caught 14% of faults, against 25% for tests written independently (Konstantinou et al., https://arxiv.org/abs/2607.05139).
+Week 5's starter has tests like this, and in week 6 you'll use them to check an agent's work.
+-->
+
+---
+
+## Studio A lab
+
+1. Map your own app (15 min)
+2. Debug Clinic, 🔴 AI off (60 min)
+3. Debrief (25 min)
+4. The five bugs in your own code (15 min)
+
+<!--
+Open the lab. Two codespaces today: your Project 1 and the clinic. Stop both at the end; free hours are limited (TOOLS.md).
+Never copy the kit into your Project 1 codespace.
+-->
+
+---
+
+## Mini-lesson: your history
+
+`git log --oneline` · what happened
+`git diff` · what changed since your last commit
+`git revert HEAD` · undo, with a new commit
+
+<!--
+Studio B, before Part 6. Demo in the demo repository.
+git log: one line per save point, newest first. q gets you out of the pager.
+git diff: red removed, green added. In walkthrough 1, it's a second way to find the line the examiner changed.
+git restore [file]: throw away uncommitted changes. No undo.
+git revert: a new commit that undoes an old one. History stays honest. Never git reset --hard or git push --force.
+Walkthroughs start after this part, once everyone has practiced.
+-->
+
+---
+
+## Mini-lesson: red, then green
+
+`npm test` before the function exists: **red** ("cannot find module", `fail 1`)
+
+`npm test` after you write it: **green** (`pass 5`, `fail 0`)
+
+<!--
+Studio B, before Part 8. Demo red: the tests exist, the function doesn't. Read the message aloud.
+Then green after creating lib/validate.js.
+Then break it on purpose (<= to <) and read which test failed, what it expected and what came back: a boundary bug, like the clinic's, caught in a second.
+Three small files: package.json, tests/validate.test.js, lib/validate.js. Using it in your app (type="module") comes after.
+-->
+
+---
+
+## Studio B lab
+
+6. Git log, diff and revert (20 min)
+7. You write it: a feature card (30 min)
+8. Your first automated test (30 min)
+9. Project work time + oral walkthrough 1 (50 min)
+
+<!--
+Walkthrough slots start after Part 6. If you're called, commit first, close AI chat panels, and come back to where you were afterwards.
+Exit ticket at the end: AI off, graded on completion, not correctness.
 -->
 
 ---
 
 ## Homework: Project 1 final
 
-- All MUST criteria pass
-- TESTS.md, run and dated
-- PROMPTS.md
-- README: acceptance table + "How it works"
-- Reflection (🔴 AI-free)
-
-Stretch: an automated test with `node --test`.
+- All MUST criteria pass on Pages
+- TESTS.md: every criterion, 3+ edge cases, dated
+- One automated test passing, used in your app
+- README, SPEC.md, PROMPTS.md (with teach-backs)
+- Reflection on Canvas (🔴 AI off)
 
 <!--
-homework.md has the checklist and the rubric link. This is the first graded project.
-The stretch goal is a preview of weeks 6-8: code that checks code.
+The homework page has the checklist and a time plan (about 9½ hours). This is the first graded project.
+Minimum to keep up: npm test runs at least one passing test. Week 5 starts from a Node project with tests.
 -->

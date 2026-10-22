@@ -20,7 +20,7 @@ One checkable sentence that says what the app must do in one situation, written 
 
 ### Accessibility
 
-Making your app usable by everyone, including people who use a screen reader, navigate with a keyboard, or see colors differently. The basics: text alternatives (`alt` text) for images, enough contrast between text and background, real buttons and headings in the HTML, and everything reachable with the keyboard. *Week 8.*
+Making your app usable by everyone, including people who use a screen reader, navigate with a keyboard, or see colors differently. The basics: text alternatives (`alt` text) for images, enough contrast between text and background, real buttons and headings in the HTML, and everything reachable with the keyboard. Using the course's own tools with a screen reader or keyboard: [accessibility.md](accessibility.md). *Weeks 1 and 8.*
 
 ### Agent
 
@@ -34,13 +34,21 @@ The professional way to build serious software with [agents](#agent): the AI wri
 
 The setting in an editor assistant such as Copilot where the AI acts as an [agent](#agent): it edits files and runs commands itself, asking for your approval along the way. It uses far more credits than [Ask mode](#ask-mode). *Week 6.*
 
+### Agent skill
+
+A folder of instructions for an agent, built around a `SKILL.md` file and sometimes scripts, that the agent loads by itself when a task matches the skill's description, such as "how to deploy this project". Skills follow an open standard, so one skill works in many agents. A skill can make the agent do anything the agent is allowed to do, and attackers publish harmful ones, so read a skill before you add it ([safety contract rule 7](../setup/safety-contract.md); [case studies 14 and B](case-studies.md#14-pixelleak-agents-publish-13000-screenshots)). *Week 6.*
+
 ### AGENTS.md
 
-A file in the top folder of a repository that gives AI agents standing instructions: what the project is, which commands to run, what never to do. *A README written for agents.* Read any AGENTS.md you copy from the internet before using it, because hidden instructions can be planted in it. Template: [templates/AGENTS.md](../templates/AGENTS.md). *Week 6.*
+A file in the top folder of a repository that gives AI agents standing instructions: what the project is, which commands to run, what never to do. *A README written for agents.* Read any AGENTS.md you copy from the internet before using it, because hidden instructions can be planted in it. Its **Scope** section lists the folders the agent may change and what it must ask about first. It is *advice*, not enforcement: an agent can ignore it, so the real protection comes from the Codespace, approval prompts, [scoped tokens](#scoped-token), [spending caps](#spending-cap) and row-level security. Template: [templates/AGENTS.md](../templates/AGENTS.md). *Week 6.*
 
 ### AI credits
 
 The usage allowance some tools, such as GitHub Copilot, give you each month. Every AI answer spends some. When they run out, the AI features stop until the allowance resets, so switch to a fallback tool. Current allowances are in [TOOLS.md](../TOOLS.md). See [troubleshooting](troubleshooting.md#i-ran-out-of-free-credits). *Weeks 4–8.*
+
+### AI journal
+
+Your private notes, week by week, on how you are using AI and what you are learning from it, kept on [Canvas](#canvas-lms) and never in a repository. Unlike `PROMPTS.md`, which is a public log of one project's key prompts, the journal is personal writing; your weekly reflection draws on it. *Week 1 onward.*
 
 ### Alt text
 
@@ -48,7 +56,7 @@ A short description of an image, written in the HTML `alt` attribute: `<img src=
 
 ### Anon key
 
-The older name for Supabase's [publishable key](#publishable-key).
+Supabase's legacy public key (a long key starting `eyJ`), replaced by the [publishable key](#publishable-key) and deprecated by the end of 2026. If a tutorial or an AI tells you to use it, use the publishable key instead.
 
 ### API
 
@@ -70,6 +78,10 @@ A list of values in JavaScript, written in square brackets: `["milk", "eggs", "b
 
 The setting in an editor assistant such as Copilot where the AI only answers questions and suggests code in the chat; it doesn't change your files. The mode used in week 4, when *you* write the code. Compare [agent mode](#agent-mode). *Week 4.*
 
+### Assisted-by line
+
+A line at the end of a commit message, after a blank line, that names the AI tool that helped, such as `Assisted-by: GitHub Copilot`. Many open-source projects ask for the same line. How to add it: [safe-loop.md](safe-loop.md#the-assisted-by-line). *Taught in week 2; required on AI-assisted commits from week 6.*
+
 ### async and await
 
 JavaScript words for code that has to wait, such as a request to a server. `await` pauses that function until the answer arrives, without freezing the whole page; a function that uses `await` must be marked `async`. *Week 5.*
@@ -81,6 +93,10 @@ Proving **who you are**, usually by logging in. *Showing your ID at the front de
 ### Authorization
 
 Deciding **what you are allowed to do** once the app knows who you are (or knows you're anonymous). *Your ID gets you into the building; authorization decides which rooms your key card opens.* It must be enforced on the server or in the database, for example with [row-level security](#row-level-security-rls). Hiding a button in the browser is not authorization. *Week 7.*
+
+### Autopilot mode
+
+A setting in some agents that lets them carry out a whole task without asking you to approve each step. Other tools call it "skip-permissions", "full auto" or "YOLO" mode. **Never use it in this course.** An agent in autopilot that reads untrusted content, such as a web page, can be steered into sending your secrets away before you can stop it ([case study C](case-studies.md#c-autopilot-a-web-page-that-sent-secrets-away); [safety contract rule 9](../setup/safety-contract.md)). Keep approvals on. *Week 6.*
 
 ## B
 
@@ -94,7 +110,11 @@ The start of a web API's address, which every request builds on, such as `https:
 
 ### Branch
 
-A separate line of [commits](#commit) where you can try something without touching your main version. When it works, you [merge](#merge) it back. *Like photocopying a draft so you can scribble on the copy.* *Week 6.*
+A separate line of [commits](#commit) where you can try something without touching your main version. When it works, you [merge](#merge) it back, usually through a [pull request](#pull-request). *Like photocopying a draft so you can scribble on the copy.* *Week 6.*
+
+### Branch protection
+
+A GitHub repository setting that guards a [branch](#branch), usually `main`. GitHub's newer version is called a *ruleset*. A typical rule: nothing reaches `main` except through a [pull request](#pull-request), and nobody, including an agent, can push straight to it or overwrite its history. It is real enforcement, unlike a line in `AGENTS.md`. How: [git-cheatsheet.md](git-cheatsheet.md#branches-and-pull-requests). *Week 6.*
 
 ### Breakpoint
 
@@ -114,9 +134,21 @@ An extra stage some projects need before a browser can run them, where a tool co
 
 Copies of files that your browser keeps so pages load faster. Sometimes it shows you an old version of your site after you've changed it. A [hard reload](#hard-reload) fixes that. *Weeks 1–4.*
 
+### Canvas (LMS)
+
+**Canvas, the course's learning management system** ([LMS](#lms)): the private course website where you submit graded personal writing (reflections, your [AI journal](#ai-journal), exit tickets, the signed safety contract, written peer reviews) and see your grades. It has nothing to do with Gemini's Canvas, a [live preview](#live-preview) panel, or with the HTML [canvas element](#canvas-element). *Week 0 onward.*
+
 ### Canvas element
 
-`<canvas>`: an HTML element that JavaScript can draw on, pixel by pixel. Most browser games use one. Not the same thing as Gemini's Canvas, which is a [live preview](#live-preview) panel. *Week 2.*
+`<canvas>`: an HTML element that JavaScript can draw on, pixel by pixel. Most browser games use one. Not the same thing as Gemini's Canvas, which is a [live preview](#live-preview) panel, or the course's [Canvas](#canvas-lms) website. *Week 2.*
+
+### CDN
+
+Short for *content delivery network*: servers around the world that hand out copies of the same files, so each visitor gets them from somewhere nearby. Public CDNs such as jsDelivr also host code libraries that a page can load with one `import` line; the week 7 database code loads the Supabase library this way. Code from a CDN runs with full power inside your page, so load only libraries your plan names, and pin the version. See [web-basics.md](web-basics.md#cdns-code-from-someone-elses-server). *Week 7.*
+
+### Check first
+
+The Safe Loop habit of writing the check for a change *before* asking the AI for the code, in a separate prompt: the "done when" list, and from week 4 an automated test. Tests written after faulty code tend to agree with the faults. See [safe-loop.md](safe-loop.md#check-first). *Week 2 onward; automated tests from week 4.*
 
 ### CLI
 
@@ -128,7 +160,7 @@ The side of a conversation that asks for something, usually the [browser](#brows
 
 ### Clone
 
-To download a complete copy of a repository, including its history, with `git clone <address>`. A Codespace does this for you. You only need it for the optional [local setup](../setup/local-setup.md).
+To download a complete copy of a repository, including its history, with `git clone [address]`. A Codespace does this for you. You only need it for the optional [local setup](../setup/local-setup.md).
 
 ### Codespace
 
@@ -240,7 +272,7 @@ An *event* is something that happens on the page: a click, a key press, the page
 
 ### Exit ticket
 
-A three-question check, done without AI, in the last minutes of every studio. See [assessment/exit-tickets.md](../assessment/exit-tickets.md). *Every week.*
+A three-question check, done with the AI off, at the end of every [Studio B](#studio-a-and-studio-b). One question each week asks about *last* week's project, because remembering it later is what counts. Graded on completion, not correctness. *Every week.*
 
 ## F
 
@@ -300,15 +332,23 @@ A light version of VS Code that opens in the browser when you press the `.` key 
 
 ### GitHub Pages
 
-GitHub's free hosting for [static sites](#static-site) from a public repository. Your home page lives at `https://<username>.github.io`. *Week 1.*
+GitHub's free hosting for [static sites](#static-site) from a public repository. Your home page lives at `https://[username].github.io`. *Week 1.*
 
 ### .gitignore
 
 A file listing things git must never track, such as `.env`, `node_modules/` and `.DS_Store`. Adding a file here does **not** remove it from past commits. *Week 5.*
 
+### Goldfish test
+
+Paste **only** your `SPEC.md` (or `AGENTS.md`) into a fresh chat, and ask what it would build and what it would need to ask you. If it can't understand or build from the document alone, revise the document, not the chat. *A goldfish remembers nothing, and neither does a fresh chat.* Prompt: [prompt-patterns.md](prompt-patterns.md#18-the-goldfish-test). *Weeks 3 and 6.*
+
 ### Grace token
 
 One of the two 48-hour extensions each student can use on most deadlines without asking. The rules are in [assessment/README.md](../assessment/README.md#late-work-and-grace-tokens).
+
+### Grant
+
+In a database, a permission that lets a role use a table at all, such as `grant select on notes to authenticated`. In Supabase, `anon` is the role for anyone using your publishable key and `authenticated` is a signed-in user. From 30 October 2026, new Supabase tables start with no grants, so the API answers "permission denied" until you add one. A grant says *which roles may use a table*; [row-level security](#row-level-security-rls) policies say *which rows*. Always add both together, and never answer "permission denied" with a bare grant to `anon` ([how](troubleshooting.md#permission-denied-for-a-new-table)). *Week 7.*
 
 ## H
 
@@ -327,6 +367,10 @@ A reload that ignores the [cache](#cache) and fetches fresh files: **Ctrl+Shift+
 ### Harness
 
 The program around an AI model that turns it into an [agent](#agent). It gives the model its tools, runs each [tool call](#tool-call) the model asks for, and feeds the result back. In *Be the Agent*, one student plays the harness. *Week 6.*
+
+### Hook
+
+A script that runs automatically at a set moment. Three kinds matter here. (1) In a coding agent, a hook you configure runs before or after the agent's actions, and unlike a rules file it can actually *block* one. (2) In git, a *pre-commit* hook runs checks before each commit (they can be skipped with `--no-verify`, so they help but don't guarantee). (3) In npm, an install hook such as `preinstall` runs a package's code the moment you install it, which is how malicious packages strike ([case study 15](case-studies.md#15-malware-that-hunts-for-ai-keys)). Read any hook from someone else before you adopt it ([safety contract rule 7](../setup/safety-contract.md)). *Weeks 6–7.*
 
 ### HTML
 
@@ -366,7 +410,7 @@ Simon Willison's name for a dangerous combination in an AI agent: access to **pr
 
 ### Live preview
 
-A chat assistant feature that runs the HTML, CSS and JavaScript it writes in a panel next to the chat, so you can see and click your page without saving any files. Gemini calls it *Canvas* and Claude calls it *Artifacts*; which to use is in [TOOLS.md](../TOOLS.md). *Weeks 1–3.*
+A chat assistant feature that runs the HTML, CSS and JavaScript it writes in a panel next to the chat, so you can see and click your page without saving any files. Gemini calls it *Canvas* (not the course's [Canvas](#canvas-lms) website) and Claude calls it *Artifacts*; which to use is in [TOOLS.md](../TOOLS.md). *Weeks 1–3.*
 
 ### LLM
 
@@ -374,7 +418,7 @@ Short for *large language model*: an AI trained on huge amounts of text that wri
 
 ### LMS
 
-Learning management system: your school's course website, where you submit links and see grades. Some are called "Canvas", which has nothing to do with Gemini's Canvas.
+Learning management system: your school's course website, where you submit work and see grades. This course uses [Canvas](#canvas-lms), which has nothing to do with Gemini's Canvas.
 
 ### localhost
 
@@ -430,7 +474,7 @@ Minimum viable product: the smallest version of your idea that is actually usefu
 
 ### Node.js
 
-A program that runs JavaScript outside the browser: on a server, or in your Codespace terminal. The course's starters, servers and tests use it. *Week 5.*
+A program that runs JavaScript outside the browser: on a server, or in your Codespace terminal. The course's starters, servers and tests use it, on **Node.js 22 LTS (minimum 20.12)**. *Week 5.*
 
 ### npm
 
@@ -456,7 +500,7 @@ An [API](#api) that accepts requests in the same format as OpenAI's "chat comple
 
 ### Oral walkthrough
 
-A 10-minute conversation with the AI switched off, in weeks 4, 6 and 8: you explain your code, change it live and find a planted bug. See [assessment/oral-walkthroughs.md](../assessment/oral-walkthroughs.md). *Weeks 4, 6, 8.*
+A 10-minute conversation with the AI switched off, in weeks 4, 6 and 8: you explain your code, change it live and find a planted bug. It's also where you show the [six skills](without-ai-skills.md) you must be able to do without AI. See [what to expect](../assessment/oral-walkthroughs.md#what-to-expect). *Weeks 4, 6, 8.*
 
 ## P
 
@@ -492,9 +536,17 @@ A numbered "door" on a computer that a server listens on, such as 8000 or 3000. 
 
 PostgreSQL: a popular free [database](#database) that stores data in tables of rows and columns and is queried with [SQL](#sql). Every Supabase project includes one. *Week 7.*
 
+### Preview deployment
+
+A copy of your app that Vercel builds for one branch or pull request, at its own address with a random-looking part in the name. Use it to try a change before you merge. On the free plan, older preview deployments get deleted, and visitors may be asked to sign in to Vercel, so never submit one: submit your [production URL](#production-url). *Weeks 5–8.*
+
 ### Production
 
 The real, live version of an app that real users rely on, as opposed to *development*, where you experiment. Keep them separate, and never give an agent production passwords or keys ([case study](case-studies.md#4-replit-the-deleted-production-database)). *Weeks 5–7.*
+
+### Production URL
+
+The stable public address of your deployed app, usually `https://[project-name].vercel.app`. It always shows your latest production deployment, built from `main`. It's the address you submit, with a screenshot. Compare [preview deployment](#preview-deployment); [which is which](troubleshooting.md#production-url-or-preview-url). *Weeks 5–8.*
 
 ### Prompt
 
@@ -514,11 +566,11 @@ A server that passes requests along on someone else's behalf. Your week 5 server
 
 ### Publishable key
 
-Supabase's public key (older projects call it the *anon key*). It is designed to sit in browser code, so it is safe **only** if [row-level security](#row-level-security-rls) protects every table. A public key plus missing rules means a public database. *Week 7.*
+Supabase's public key, starting `sb_publishable_` (it replaces the legacy [anon key](#anon-key)). It is designed to sit in browser code, in your capstone's `public/config.js` with the project URL: not every key is a secret. It is safe **only** if [row-level security](#row-level-security-rls) protects every table. A public key plus missing rules means a public database. *Week 7.*
 
 ### Pull request
 
-A request on GitHub to merge one [branch](#branch) into another. It opens a page where people can read the [diff](#diff), comment and approve before anything changes. Often shortened to PR. *Week 7.*
+A request on GitHub to merge one [branch](#branch) into another, usually a feature branch into `main`. Its page shows the whole [diff](#diff) in the **Files changed** tab, lets people comment on single lines and approve, and keeps the discussion; nothing changes on `main` until someone clicks **Merge**. If a merged pull request turns out bad, its **Revert** button undoes it. On Vercel, each one also gets a [preview deployment](#preview-deployment). From week 6 every capstone feature goes through a pull request, and the week 7 peer review is a pull-request review. Often shortened to PR. How: [git-cheatsheet.md](git-cheatsheet.md#branches-and-pull-requests). *Weeks 6–7.*
 
 ### Pure function
 
@@ -544,7 +596,7 @@ The front page of a repository (`README.md`): what the project is, how to use it
 
 ### Red/green testing
 
-Write a test **first** and watch it fail (red), then change the code until it passes (green). The red step proves the test really checks something. *Week 6.*
+Write a test **first** and watch it fail (red), then change the code until it passes (green). The red step proves the test really checks something. It is the automated form of [check first](#check-first). *Weeks 4 and 6.*
 
 ### Release
 
@@ -564,7 +616,7 @@ To cancel a key or token so it stops working. If a secret was ever committed, pa
 
 ### Row-level security (RLS)
 
-Database rules, called *policies*, that decide which rows each user may read or change. The database enforces them itself, whatever the browser asks for. In Supabase you must turn RLS on for every table and write policies; missing RLS is how the Lovable and Moltbook data leaks happened ([case studies](case-studies.md)). *Like safe-deposit boxes in a bank vault: everyone walks into the same vault, but your key opens only your box.* *Week 7.*
+Database rules, called *policies*, that decide which rows each user may read or change. The database enforces them itself, whatever the browser asks for. In Supabase you must turn RLS on for every table and write policies, together with the table's [grants](#grant); tables an agent creates through the API start with RLS off. Missing RLS is how the Lovable and Moltbook leaks, and the 16,326 databases UpGuard found, happened ([case studies](case-studies.md)). With RLS on and no matching policy, a query returns zero rows rather than an error. *Like safe-deposit boxes in a bank vault: everyone walks into the same vault, but your key opens only your box.* *Week 7.*
 
 ### Rule of Two
 
@@ -574,11 +626,15 @@ Meta's guideline for AI agents: in one session, an agent should have **no more t
 
 ### Safe Loop
 
-The course's six-step way of working with AI: **Describe → Plan → Step → Test → Read → Commit**. See [safe-loop.md](safe-loop.md). *Week 2 onward.*
+The course's six-step way of working with AI: **Describe → Plan → Step → Test → Read → Commit**, with two habits inside it: [check first](#check-first) and [teach back](#teach-back). See [safe-loop.md](safe-loop.md). *Week 2 onward.*
 
 ### Sandbox
 
 An isolated place where a program, especially an [agent](#agent), can work without reaching your real files, passwords or accounts. If it breaks something, only the sandbox is damaged. The course uses a [Codespace](#codespace) as the sandbox. *Week 6.*
+
+### Scoped token
+
+A key or token limited to exactly the job it is for: one project, one kind of action, read-only where possible, ideally with an expiry date. If it leaks, or an agent finds it, the damage stays small. In 2026 an agent deleted a company's database with a broad token it found in an unrelated file ([case study 13](case-studies.md#13-pocketos-a-nine-second-database-deletion)). [Safety contract rule 4](../setup/safety-contract.md): agents get only narrowly scoped tokens, kept outside the project folder. *Weeks 5–6.*
 
 ### Secret
 
@@ -586,7 +642,7 @@ Anything that grants access: API keys, passwords, access [tokens](#token), a Sup
 
 ### Secret key (service-role key)
 
-Supabase's server-only key, called the *service-role key* in older projects. It **bypasses** row-level security and can read or delete everything, like a master key. Never put it in front-end code, never commit it, and never give it to an agent. *Week 7.*
+Supabase's server-only key, starting `sb_secret_`. It replaces the legacy *service_role* key (a long `eyJ…` key), which is deprecated by the end of 2026. It **bypasses** row-level security and can read or delete everything, like a master key. It lives only in server environment variables: never in front-end code or `config.js`, never committed, and never given to an agent. *Week 7.*
 
 ### Server
 
@@ -607,6 +663,10 @@ The part of VS Code (and github.dev) where you see changed files, read their dif
 ### Spec
 
 A short document, `SPEC.md`, that says what you will build and how you'll know it works: problem, user, user stories, acceptance criteria, what's out of scope, and a wireframe. *The prompt for the whole project.* Template: [templates/SPEC.md](../templates/SPEC.md). *Week 3.*
+
+### Spending cap
+
+A hard limit on how much a paid service may charge, after which it stops working instead of billing you more. Every key that can spend money should have one ([safety contract rule 4](../setup/safety-contract.md)), so a stolen key or a runaway agent can't run up a bill; stolen AI keys have cost people over $1,000 ([case study 15](case-studies.md#15-malware-that-hunts-for-ai-keys)). The course's free tiers stop at their limits; set a cap before you ever add a payment method. *Week 5.*
 
 ### SQL
 
@@ -640,6 +700,10 @@ Sending an AI's reply in small pieces as it is generated, so the text appears wo
 
 Text inside a program, written in quotes: `"hello"`. Anything read from an input box is a string, so `"10" + "5"` gives `"105"`, not `15`, until you convert with `Number(...)`. *Week 4.*
 
+### Studio A and Studio B
+
+The course's two 3-hour classes each week. **Studio A (Learn & build):** a recap, a short concept talk, a live demo and the core of the lab. **Studio B (Workshop):** show and tell, the rest of the lab or a second skill, project time (with oral walkthroughs in weeks 4, 6 and 8), a debrief and the exit ticket. Each week's `lab.md` has a section for each. See the [syllabus](../SYLLABUS.md#two-studios-a-week). *Every week.*
+
 ### SyntaxError, TypeError and ReferenceError
 
 Three JavaScript errors you will meet. **SyntaxError:** the code is not valid JavaScript (often a missing bracket), so none of the file runs. **TypeError:** a value is the wrong kind for what the code tried, such as reading a property of [null](#null). **ReferenceError:** a name that was never defined, often a typo. The Console shows each with a file and line number. *Week 4.*
@@ -649,6 +713,10 @@ Three JavaScript errors you will meet. **SyntaxError:** the code is not valid Ja
 Instructions given to a model before the conversation starts, setting its role and rules. Users usually don't see it. In your week 5 app it's the message with the role `"system"`; the [course tutor](../instructor/course-tutor.md) is a system prompt too. It is not a security wall: [prompt injection](#prompt-injection) can override it. *Weeks 5–6.*
 
 ## T
+
+### Teach-back
+
+Two or three sentences you write in `PROMPTS.md`, in your own words and with the AI off, before you commit AI-written code: what changed, why it works, and what you'd check first if it broke. If you can't write it, you're not ready to commit. From week 6 it's graded in the capstone Process row. See [safe-loop.md](safe-loop.md#teach-back). *Week 2 onward; graded from week 6.*
 
 ### Telemetry
 
@@ -668,7 +736,7 @@ A text window where you type commands, such as `git status` or `npm test`, and r
 
 ### Test (manual and automated)
 
-A check that the code does what it should. A **manual test** is a list of steps a person follows and a result to expect ([templates/TESTS.md](../templates/TESTS.md)). An **automated test** is code that checks code, run with `npm test`, so you can re-check everything in seconds after each change. *Manual: weeks 3–4. Automated: week 6.*
+A check that the code does what it should. A **manual test** is a list of steps a person follows and a result to expect ([templates/TESTS.md](../templates/TESTS.md)). An **automated test** is code that checks code, run with `npm test`, so you can re-check everything in seconds after each change. *Manual: weeks 3–4. Automated: from week 4.*
 
 ### Token
 
@@ -680,7 +748,7 @@ A request from an AI model to its [harness](#harness) to use one tool, such as "
 
 ### Tutor mode
 
-Using an AI that gives hints and asks questions instead of handing you the answer. You switch it on by pasting the [course tutor prompt](../instructor/course-tutor.md). It's the only AI allowed in the Debug Clinic. *Week 4.*
+Using an AI that gives hints and asks questions instead of handing you the answer. You switch it on by pasting the [course tutor prompt](../instructor/course-tutor.md). It's the only AI allowed in the Debug Clinic. Working on your own? See [self-paced.md](self-paced.md#using-tutor-mode). *Week 4.*
 
 ### Two-factor authentication (2FA)
 
@@ -708,7 +776,7 @@ A named box that holds a value in a program, such as `let score = 0`. The name s
 
 ### Vercel
 
-A hosting service that serves static files and runs [serverless functions](#serverless-function). The course's primary host from week 5. Its free plan works only with repositories on your personal account ([TOOLS.md](../TOOLS.md)). *Week 5.*
+A hosting service that serves static files and runs [serverless functions](#serverless-function). The course's primary host from week 5. Its free plan can't deploy **private** repositories owned by a GitHub organization, so keep your project in a repo under your own username ([TOOLS.md](../TOOLS.md)). Each deploy has a [production URL](#production-url) or a [preview deployment](#preview-deployment) address. *Week 5.*
 
 ### Vibe coding
 

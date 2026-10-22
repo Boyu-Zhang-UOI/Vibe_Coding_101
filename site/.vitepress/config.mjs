@@ -43,6 +43,8 @@ const weekGroups = weekDirs.map((dir) => {
       ...(has(`${dir}/homework.md`) ? [item(`${dir}/homework.md`, "Homework")] : []),
       ...extras.map((p) => item(p)),
       { text: "Slides ↗", link: `${SITE_URL}/slides/week-${number}.html` },
+      // The hosted RLS Attack Lab page (copied from rls-lab/attack.html by scripts/build-site.mjs).
+      ...(dir.startsWith("weeks/07-") ? [{ text: "RLS attack page ↗", link: `${SITE_URL}/tools/rls-attack.html` }] : []),
     ],
   };
 });
@@ -52,7 +54,7 @@ const ordered = (dir, names) => names.map((n) => `${dir}/${n}.md`).filter(has).m
 export default defineConfig({
   title: "Vibe Coding 101",
   titleTemplate: ":title · Vibe Coding 101",
-  description: "Directed Study: Vibe Coding 101. An eight-week, hands-on course on building real software with AI, using free tools.",
+  description: "Vibe Coding 101 (Directed Study: Vibe Coding — Building Software with AI): an eight-week, hands-on course on building real software with AI, using free tools.",
   lang: "en-US",
   base: BASE,
   srcDir: "src",
@@ -110,10 +112,15 @@ export default defineConfig({
       {
         text: "Resources",
         collapsed: false,
-        items: ordered("resources", [
-          "safe-loop", "prompt-patterns", "tutor-mode", "troubleshooting", "glossary",
-          "without-ai-skills", "case-studies", "git-cheatsheet", "web-basics", "reading-list",
-        ]),
+        items: [
+          ...ordered("resources", [
+            "safe-loop", "prompt-patterns", "tutor-mode", "troubleshooting", "glossary",
+            "without-ai-skills", "case-studies", "git-cheatsheet", "web-basics", "reading-list",
+            "self-paced", "accessibility",
+          ]),
+          ...(has("projects/rescue-starters/index.md") ? [item("projects/rescue-starters/index.md", "Rescue starters")] : []),
+          { text: "Rescue starters on GitHub ↗", link: `${REPO}/tree/main/projects/rescue-starters` },
+        ],
       },
       {
         text: "Templates",
@@ -143,7 +150,7 @@ export default defineConfig({
     },
     footer: {
       message: 'Materials <a href="' + REPO + '/blob/main/LICENSE">CC BY 4.0</a> · Code <a href="' + REPO + '/blob/main/LICENSE-CODE">MIT</a>',
-      copyright: "Directed Study: Vibe Coding 101 · Boyu Zhang and contributors",
+      copyright: "Vibe Coding 101 · Boyu Zhang and contributors",
     },
   },
 });

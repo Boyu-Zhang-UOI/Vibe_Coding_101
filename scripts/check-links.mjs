@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 // Checks every relative link in the repository's Markdown files:
 // the target file or folder must exist, and a #heading anchor must match a heading.
-// External links (http, https, mailto) are not checked, so this runs offline.
+// Inside a starter kit (listed in scripts/kits.json), links must also stay inside the kit or be
+// absolute (https://…), because each kit is published as its own repository; this applies to the
+// kit's HTML files too. External links (http, https, mailto) are not checked, so this runs offline.
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
-import { join, dirname, resolve, relative, extname } from "node:path";
+import { join, dirname, resolve, relative, extname, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = resolve(dirname(new URL(import.meta.url).pathname), "..");
-const skipDirs = new Set([".git", "node_modules", "dist", ".vercel", "site"]); // site/ is checked by the website build
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const skipDirs = new Set([".git", "node_modules", "dist", ".vercel", "site", ".claude"]); // site/ is checked by the website build
+const kitDirs = JSON.parse(readFileSync(join(root, "scripts", "kits.json"), "utf8")).kits.map((k) => resolve(root, k.path));
+const kitOf = (file) => kitDirs.find((dir) => file === dir || file.startsWith(dir + sep));
 
 function walk(dir, files = []) {
   for (const name of readdirSync(dir)) {
     if (skipDirs.has(name)) continue;
     const full = join(dir, name);
     if (statSync(full).isDirectory()) walk(full, files);
-    else if (extname(name) === ".md") files.push(full);
+    else if (extname(name) === ".md" || (extname(name) === ".html" && kitOf(full))) files.push(full);
   }
   return files;
 }
@@ -55,7 +60,34 @@ function anchorsFor(file) {
 const problems = [];
 let checked = 0;
 
+function checkTarget(file, target, where) {
+  if (/^(https?:|mailto:|tel:|data:|javascript:)/i.test(target)) return;
+  if (target.includes("<") || target.includes("{") || target.includes("[")) return; // placeholders
+  checked++;
+  const [pathPart, anchor] = target.split("#");
+  const targetFile = pathPart ? resolve(dirname(file), decodeURIComponent(pathPart)) : file;
+  const kit = kitOf(file);
+  if (kit && targetFile !== kit && !targetFile.startsWith(kit + sep)) {
+    problems.push(`${where}  leaves the starter kit (kits are published as their own repositories; use an absolute https:// link): ${target}`);
+    return;
+  }
+  if (!existsSync(targetFile)) {
+    problems.push(`${where}  missing file: ${target}`);
+    return;
+  }
+  if (anchor && extname(targetFile) === ".md" && !anchorsFor(targetFile).has(anchor)) {
+    problems.push(`${where}  missing anchor: ${target}`);
+  }
+}
+
 for (const file of walk(root)) {
+  if (extname(file) === ".html") {
+    // Kit HTML pages: check href and src attributes.
+    readFileSync(file, "utf8").split("\n").forEach((line, i) => {
+      for (const m of line.matchAll(/\b(?:href|src)="([^"]+)"/g)) checkTarget(file, m[1], `${relative(root, file)}:${i + 1}`);
+    });
+    continue;
+  }
   let inFence = false;
   let inComment = false;
   const lines = readFileSync(file, "utf8").split("\n");
@@ -78,20 +110,7 @@ for (const file of walk(root)) {
     }
     const withoutCode = line.replace(/`[^`]*`/g, "");
     for (const m of withoutCode.matchAll(/!?\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+"[^"]*")?\s*\)/g)) {
-      const target = m[1];
-      if (/^(https?:|mailto:|tel:|data:)/i.test(target)) continue;
-      if (target.includes("<") || target.includes("{")) continue; // placeholders
-      checked++;
-      const [pathPart, anchor] = target.split("#");
-      const targetFile = pathPart ? resolve(dirname(file), decodeURIComponent(pathPart)) : file;
-      const where = `${relative(root, file)}:${i + 1}`;
-      if (!existsSync(targetFile)) {
-        problems.push(`${where}  missing file: ${target}`);
-        continue;
-      }
-      if (anchor && extname(targetFile) === ".md" && !anchorsFor(targetFile).has(anchor)) {
-        problems.push(`${where}  missing anchor: ${target}`);
-      }
+      checkTarget(file, m[1], `${relative(root, file)}:${i + 1}`);
     }
   });
 }

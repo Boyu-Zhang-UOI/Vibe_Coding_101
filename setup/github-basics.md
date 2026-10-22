@@ -20,6 +20,7 @@ A few words you'll see everywhere (more in the [glossary](../resources/glossary.
 | **Push / pull** | Send your commits up to GitHub / bring commits down from GitHub. The web editor does this for you |
 | **Diff** | The differences between two versions: lines removed (red) and added (green) |
 | **Fork / template** | Ways to start your own repository from someone else's |
+| **Pull request** (PR) | A request to merge the commits on one branch into another, with a page for reading the diff and leaving comments. Taught in week 6 |
 
 ## Your account and profile
 
@@ -30,7 +31,7 @@ If you haven't created your account yet, follow [accounts.md](accounts.md) first
 3. Later in the course, use **Customize your pins** on your profile page to show your best projects first.
 
 > [!TIP]
-> Your username appears in the address of every site you publish: `https://<username>.github.io`. You can change it in Settings, but every link you've shared will break. If you're going to change it, do it before week 1.
+> Your username appears in the address of every site you publish: `https://[username].github.io`. You can change it in Settings, but every link you've shared will break. If you're going to change it, do it before week 1.
 
 ## Repositories
 
@@ -38,10 +39,12 @@ A repository is a project. In this course you'll create several:
 
 | Repository | Weeks | What goes in it |
 |---|---|---|
-| `<username>.github.io` | 1–2 | Your home page, and your game in a `game/` folder |
+| `[username].github.io` | 1–2 | Your home page, and your game in a `game/` folder |
 | Project 1 (you choose the name) | 3–4 | A tool you'd actually use |
 | AI micro-app | 5 | An app with a server part |
 | Capstone | 6–8 | Your final project |
+
+Create all of them in your **personal** account, not in an organization, even if your class has one: Vercel's free plan, which you use from week 5, can't deploy private repositories owned by an organization.
 
 Every repository should have a **README.md**: the page GitHub shows under the file list. It says what the project is and how to use it. You'll learn to write one [below](#markdown-basics-for-readmes).
 
@@ -57,10 +60,13 @@ Two consequences matter:
 1. **GitHub Pages needs public repositories** on a free account. Your home page and Project 1 must be public to be published.
 2. **Anything you commit to a public repository is public forever**, even if you delete it in a later commit, because the old version stays in the history. So never commit passwords, API keys, `.env` files, or personal information about other people. If a secret is ever committed, **revoke it** (cancel it at the service that issued it) and make a new one. Deleting the file isn't enough.
 
+> [!IMPORTANT]
+> **What goes in a repository, and what goes on Canvas.** Your public repositories hold your code, `SPEC.md`, `PROMPTS.md`, `TESTS.md` and READMEs. Graded personal writing goes on **Canvas**, the course's learning management system, and never in a repository: reflections, your AI journal, the signed safety contract, self-assessments, your personal AI-use rules, written peer reviews and pair contribution statements. Never put grades or classmates' names in a repository.
+
 ## Create a repository
 
 1. On any GitHub page, click **+** (top right) → **New repository**.
-2. **Repository name:** short, lowercase, words joined with hyphens, such as `habit-tracker`. (For your home page, the name must be exactly `<username>.github.io`; see [GitHub Pages](#publish-a-site-with-github-pages).)
+2. **Repository name:** short, lowercase, words joined with hyphens, such as `habit-tracker`. (For your home page, the name must be exactly `[username].github.io`; see [GitHub Pages](#publish-a-site-with-github-pages).)
 3. **Description:** one sentence (optional).
 4. Choose **Public** or **Private**.
 5. Tick **Add a README file**. A README gives the repository its first commit, and some tools need that.
@@ -100,6 +106,14 @@ A commit message tells future-you what changed and why. Start with a verb and be
 | `fix` | `Fix score not resetting when game restarts` |
 | `changes from AI` | `Make header sticky on small screens` |
 
+**When AI helped with a commit,** add a blank line after the message and then an `Assisted-by:` line naming the tool. On the web, put it in the **Extended description** box. You learn this in week 2, and it's required from week 6 (safety contract [rule 8](safety-contract.md#8-i-keep-a-record-of-what-i-wrote-myself)):
+
+```text
+Make header sticky on small screens
+
+Assisted-by: Gemini (Canvas tool)
+```
+
 ## Edit several files at once with github.dev
 
 From week 2 you'll often change more than one file at a time. **github.dev** is a lightweight version of the VS Code editor that opens in your browser, straight from any repository.
@@ -135,7 +149,7 @@ Reading diffs is a core skill in this course. It's step 5 of the Safe Loop: befo
 3. Copy the whole file (the **Copy raw file** button, or open **Raw** and select everything).
 4. Go back to the current version of the file, click the pencil icon, select everything, paste the old version over it, and commit with a message such as `Revert header to version before sticky change`.
 
-**In a Codespace (week 4 onward):** the terminal command `git revert <commit-id>` makes a new commit that undoes an old one. See the [git cheat sheet](../resources/git-cheatsheet.md).
+**In a Codespace (week 4 onward):** the terminal command `git revert [commit-id]` makes a new commit that undoes an old one. See the [git cheat sheet](../resources/git-cheatsheet.md).
 
 > [!TIP]
 > Reverting is easy when commits are small. If one commit changed twelve things, you can't undo just the one that broke. That's why the course asks for one commit per working step.
@@ -190,20 +204,20 @@ Use the **Preview** tab in GitHub's editor to check your formatting before you c
 
 The file a visitor sees first must be called `index.html`.
 
-### Your home page: `<username>.github.io`
+### Your home page: `[username].github.io`
 
 Your home page lives in a repository with a special name. If your username is `alexkim`, the repository must be called `alexkim.github.io`, and the site appears at `https://alexkim.github.io`.
 
-1. Create a **public** repository named exactly `<username>.github.io`, using your own username in lowercase ([how](#create-a-repository)).
+1. Create a **public** repository named exactly `[username].github.io`, using your own username in lowercase ([how](#create-a-repository)).
 2. Upload your page as `index.html`, at the top level of the repository, not inside a folder ([how](#upload-files)).
 3. Go to the repository's **Settings** tab → **Pages** (left sidebar).
 4. Under **Build and deployment**, check that **Source** is **Deploy from a branch** and **Branch** is **`main`** with the folder **`/ (root)`**. If not, choose them and click **Save**.
 5. Wait a minute or two. To watch progress, open the **Actions** tab: a run called **pages build and deployment** turns into a green tick when the site is live.
 6. Back in **Settings** → **Pages**, a banner says **Your site is live at…**. Click **Visit site**.
 
-✅ **Checkpoint:** `https://<username>.github.io` shows your page, from any device.
+✅ **Checkpoint:** `https://[username].github.io` shows your page, from any device.
 
-**Adding pages later:** a file at `game/index.html` in the same repository appears at `https://<username>.github.io/game/`. A file called `about.html` appears at `https://<username>.github.io/about.html`.
+**Adding pages later:** a file at `game/index.html` in the same repository appears at `https://[username].github.io/game/`. A file called `about.html` appears at `https://[username].github.io/about.html`.
 
 ### A project site
 
@@ -212,7 +226,7 @@ Any other public repository can have its own site too, such as Project 1.
 1. Make sure the repository is **public** and has an `index.html` at the top level.
 2. **Settings** → **Pages** → **Source:** **Deploy from a branch** → **Branch:** **`main`** and **`/ (root)`** → **Save**.
 3. Wait for the green tick in the **Actions** tab.
-4. The site appears at `https://<username>.github.io/<repository-name>/`.
+4. The site appears at `https://[username].github.io/[repository-name]/`.
 
 Every time you commit to `main`, GitHub republishes the site automatically. Give it a minute, then reload.
 
@@ -226,7 +240,7 @@ A **404** means "page not found": the address doesn't match a file GitHub is pub
 | **Settings** → **Pages** says to upgrade or make the repository public | The repository is private | Make it public (**Settings** → **General** → **Danger Zone** → **Change visibility**), after checking it contains no secrets |
 | Your README appears instead of your page | There's no `index.html` at the top level | Rename your page to `index.html` (lowercase) and move it out of any folder |
 | The home page works but a sub-page is 404 | The folder or file name doesn't match the address exactly. Names are case-sensitive | Compare letter by letter: `game/` versus `Game/`, `index.html` versus `index.html.txt` |
-| The page loads but has no styling or images | The file paths in your HTML are wrong | Use relative paths like `style.css` or `images/cat.png`. On a project site, a path starting with `/` points at `<username>.github.io`, not your project |
+| The page loads but has no styling or images | The file paths in your HTML are wrong | Use relative paths like `style.css` or `images/cat.png`. On a project site, a path starting with `/` points at `[username].github.io`, not your project |
 | You still see the old version | The browser cached (saved) the old copy, or the build hasn't finished | Wait for the green tick, then hard-reload: `Ctrl+Shift+R` (Windows, Linux) or `Cmd+Shift+R` (macOS) |
 | A red cross in **Actions** | The build failed | Open the failed run and read the error. GitHub Pages runs a tool called Jekyll on your files. Adding an empty file named `.nojekyll` at the top level turns it off and fixes most failures |
 | Files or folders whose names start with `_` are missing | Jekyll ignores them | Add an empty `.nojekyll` file at the top level, or rename them |
