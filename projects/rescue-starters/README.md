@@ -14,4 +14,5 @@ patterns for each feature type. If your capstone stalls, go back to it and to yo
 
 To copy a starter into a new repository, follow
 [Start a project from a starter](../../setup/codespaces.md#start-a-project-from-a-starter) with the
-starter's path, for example `projects/rescue-starters/study-timer`.
+starter's path, for example `projects/rescue-starters/study-timer`, or use its template repository,
+[vc101-rescue-study-timer](https://github.com/Boyu-Zhang-UOI/vc101-rescue-study-timer) (**Use this template**).

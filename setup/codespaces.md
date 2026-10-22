@@ -338,6 +338,7 @@ This works whenever the course repository is public, even if no template has bee
 | 6–8 | Capstone starter | `projects/capstone-starter` | [vc101-capstone-starter](https://github.com/Boyu-Zhang-UOI/vc101-capstone-starter) |
 | 7 | RLS Attack Lab kit (optional: the lab itself uses the [hosted attack page](https://boyu-zhang-uoi.github.io/Vibe_Coding_101/tools/rls-attack.html), so you need this kit only to run it yourself) | `weeks/07-security-and-review/rls-lab` | [vc101-rls-lab](https://github.com/Boyu-Zhang-UOI/vc101-rls-lab) |
 | 7 | Prompt-injection demo (optional: your instructor demonstrates it in class; the kit is for trying it yourself) | `weeks/07-security-and-review/injection-demo` | [vc101-injection-demo](https://github.com/Boyu-Zhang-UOI/vc101-injection-demo) |
+| 3–4 (if you fall behind) | Rescue starter: a working Study Session Timer, as a reference for Project 1 | `projects/rescue-starters/study-timer` | [vc101-rescue-study-timer](https://github.com/Boyu-Zhang-UOI/vc101-rescue-study-timer) |
 
 The degit command for each (copy one line, and run it **only** in a new, empty repository's codespace; see the warning above):
 
